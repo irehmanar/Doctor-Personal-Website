@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+
+}
+.container{
+    display: flex;
+    padding: 0;
+    max-width: 100%;
+  }
+  .homeContainer {
+    flex: 9;
+    /* background: violet; */
+  }
+

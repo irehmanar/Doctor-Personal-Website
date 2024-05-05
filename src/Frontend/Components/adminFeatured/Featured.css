@@ -1,0 +1,80 @@
+.featured{
+    flex: 10;
+    -webkit-box-shadow: 8px 8px 5px -2px rgba(0,0,0,0.29);
+    -moz-box-shadow: 8px 8px 5px -2px rgba(0,0,0,0.29);
+    box-shadow: 8px 8px 5px -2px rgba(0,0,0,0.29);
+    padding: 10px;
+}
+    .top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #0e3b43;
+    }
+
+        .title{
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .titleIcon{
+            font-size: medium;
+        }
+
+    .bottom{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+        .featuredChart{
+            width: 100px;
+            height: 100px;
+        }
+
+        .title{
+            font-weight: 600;
+            color: #0e3b43;
+            margin: 2px;
+        }
+        .amount{
+            font-size: 30px;
+            margin: 2px;
+        }
+        .desc{
+            font-weight: 300;
+            font-size: 14px;
+            color: #0e3b43;
+            margin: 2px;
+            text-align: center;
+        }
+        
+        .summary{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+            .item{
+                text-align: center;
+            }
+                .itemTitle{
+                    font-size: 14px;
+                    color: #0e3b43;
+                }
+
+                .itemResult{
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+                    font-size: 14px;
+                }
+                .itemResult.positive{
+                        color: green;
+                    }
+
+                    .itemResult.negative{
+                        color: rgb(255, 0, 0);
+                    }

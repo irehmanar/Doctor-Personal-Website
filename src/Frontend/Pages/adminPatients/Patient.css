@@ -1,0 +1,50 @@
+/* .patient {
+    display: flex;
+    background: violet;
+  }
+  .homeContainer {
+    flex: 6;
+  }
+  .listTitle {
+    font-weight: 500;
+    color: #0e3b43;
+    margin-bottom: 15px;
+    border: 2px solid gray;
+  } */
+.patient {
+    display: flex;
+}
+.homeContainer {
+    flex: 6;
+  }
+  .widgets
+  {
+    flex-wrap: wrap;
+}
+.widgets
+{
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+.pieCharts {
+    background: violet;
+    display: flex;
+    padding: 5px 20px;
+    border: 2px solid rgb(37, 29, 253);
+    flex-wrap: wrap;
+  }
+  .chartOuter {
+    flex: 1;
+    min-width: 300px;
+    
+  }
+
+  .charts {
+      display: flex;
+      flex-wrap: wrap;
+    padding: 5px 20px;
+    /* max-height: 20px; */
+    /* border: 2px solid rgb(37, 29, 253); */
+    gap: 20px;
+  }

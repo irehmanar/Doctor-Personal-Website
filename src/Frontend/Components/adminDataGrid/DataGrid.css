@@ -1,0 +1,13 @@
+.bold-header {
+  font-weight:bolder;
+  font-size: larger;
+  background: #7F9C5B;
+  text-align: center;
+}
+
+.containerbox
+  {
+    padding: 10px;
+    overflow: scroll;
+    min-height: 550px;
+  }

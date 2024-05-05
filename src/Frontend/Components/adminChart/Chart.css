@@ -1,0 +1,14 @@
+.chart{
+    flex: 4;
+    color: #0e3b43;
+
+    margin-top: 50px;
+}
+    .title{
+        text-align: center;
+        color: #0e3b43;
+    }
+
+    .grid{
+        stroke: rgb(219, 200, 200);
+    }
