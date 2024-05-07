@@ -1,5 +1,5 @@
 import React from "react";
-import Plans from '../../Components/PricePlanner/PricePlanner';git 
+import Plans from '../../Components/PricePlanner/PricePlanner';
 
 function ViewPlans() {
   const Data1 = [
