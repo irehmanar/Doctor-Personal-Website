@@ -10,6 +10,7 @@ import Patient from './Frontend/Pages/adminPatients/Patient.jsx';
 import Package from './Frontend/Pages/adminPackage/Package.jsx';
 import PatientData from './Frontend/Pages/adminPatientView/PatientData.jsx';
 import Contactus from './Frontend/Pages/Contactus/Contactus.jsx';
+import ViewPlans from './Frontend/Pages/ViewPlans/ViewPlans.jsx';
 function App() {
   return (
     <div className="app">
@@ -20,6 +21,7 @@ function App() {
     <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
     <Route path='/Blog' element={<Blog/>}></Route>
     <Route path='/Login' element={<Login/>}></Route>
+    <Route path='/Plans' element={<ViewPlans/>}></Route>
     <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>
     <Route path='/Admin/Patient' element={<Patient/>}></Route>
     <Route path='/Admin/Package' element={<Package/>}></Route>
