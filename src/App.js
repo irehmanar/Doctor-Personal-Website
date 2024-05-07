@@ -9,12 +9,14 @@ import Dashboard from './Frontend/Pages/adminHome/Home.jsx';
 import Patient from './Frontend/Pages/adminPatients/Patient.jsx';
 import Package from './Frontend/Pages/adminPackage/Package.jsx';
 import PatientData from './Frontend/Pages/adminPatientView/PatientData.jsx';
+import Contactus from './Frontend/Pages/Contactus/Contactus.jsx';
 function App() {
   return (
     <div className="app">
     <BrowserRouter>
     <Routes>
     <Route path='/' element={<Home/>}></Route>
+    <Route path='/Contactus' element={<Contactus/>}></Route>
     <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
     <Route path='/Blog' element={<Blog/>}></Route>
     <Route path='/Login' element={<Login/>}></Route>

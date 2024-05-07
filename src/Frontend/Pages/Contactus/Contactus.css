@@ -1,0 +1,90 @@
+.contactBody{
+    /* background: pink; */
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+
+}
+
+
+.bodyLeft{
+flex: 1;
+/* border: 1px solid black; */
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+/* background: pink; */
+min-width: 450px;
+margin: 3rem 0 3rem 3rem;
+}
+
+.leftTop{
+    /* border: 1px solid rgb(106, 0, 106); */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.leftTopHeading{
+    text-align: center;
+flex: 1;
+}
+
+.leftTopContainerLeft{
+    flex: 1;
+    max-width: 50%;
+    /* min-width: 50%; */
+    display: flex;
+    /* border: 1px solid black; */
+    padding: 1rem 1rem;
+    margin: 0.5rem;
+}
+.leftTopContainerRight{
+    display: flex;
+    max-width: 50%;
+    flex: 1;
+    padding: 1rem 1rem;
+    margin: 0.5rem;
+    max-width: 50%; 
+    min-width: 50%;
+    /* border: 1px solid black; */
+
+}
+
+.leftTopContainer{
+    flex: 2;
+    display: flex;
+    margin-left: 1rem;
+    
+}
+
+.leftBottom{
+    /* border: 1px solid rgb(106, 0, 106); */
+    flex: 1;
+}
+.bodyRight{
+flex: 1;
+/* border: 1px solid rgb(106, 0, 106); */
+/* background: red; */
+min-width: 450px;
+margin: 3rem 3rem 3rem 0;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.logos{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+
+
+
+
+
+
+
+
+

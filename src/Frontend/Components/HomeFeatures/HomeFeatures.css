@@ -1,0 +1,15 @@
+.card{
+    min-width: 300px;
+    min-height: 700px;
+    background: #18a9c9;
+}
+
+.list-group-item{
+    background: #18a9c9;
+}
+
+.list-group-item:hover{
+    /* color: white !important; */
+    background: #18a9c9;
+    cursor:default;
+}

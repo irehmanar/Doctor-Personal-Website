@@ -1,0 +1,15 @@
+.custom-flex{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20;
+}
+
+.tophead{
+    min-height: 100px;
+
+}
+
+.itembox{
+    min-width: 300px;
+}
