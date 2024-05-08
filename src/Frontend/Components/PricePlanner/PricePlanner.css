@@ -1,0 +1,4 @@
+.customPrice{
+    display: flex;
+    flex-direction: column;
+}
