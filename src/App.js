@@ -9,6 +9,7 @@ import Dashboard from './Frontend/Pages/adminHome/Home.jsx';
 import Patient from './Frontend/Pages/adminPatients/Patient.jsx';
 import Package from './Frontend/Pages/adminPackage/Package.jsx';
 import PatientData from './Frontend/Pages/adminPatientView/PatientData.jsx';
+import SettingsPage from './Frontend/Pages/UserSettings/Settings.jsx';
 import Contactus from './Frontend/Pages/Contactus/Contactus.jsx';
 import ViewPlans from './Frontend/Pages/ViewPlans/ViewPlans.jsx';
 import Histroy from './Frontend/Pages/Histroy/Histroy.jsx';
@@ -23,6 +24,7 @@ function App() {
     <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
     <Route path='/Blog' element={<Blog/>}></Route>
     <Route path='/Login' element={<Login/>}></Route>
+    <Route path='/Settings' element={<SettingsPage/>}></Route>
     <Route path='/Plans' element={<ViewPlans/>}></Route>
     <Route path='/Histroy' element={<Histroy/>}></Route>
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
