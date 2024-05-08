@@ -89,7 +89,7 @@ function Signup() {
                 <p className='form-error'>{errors.confirmPassword}</p>
               ) : null}
             </div>
-            <button type='submit'>Sign up</button>
+            <button className="loginButton" type='submit'>Sign up</button>
           </form>
         </div>
       <Login></Login> 

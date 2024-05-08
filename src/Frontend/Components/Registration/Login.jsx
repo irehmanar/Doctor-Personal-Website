@@ -50,7 +50,7 @@ function Login() {
             <p className="form-error login-error">{errors.password}</p>
           ) : null}
         </div>
-        <button>Login</button>
+        <button className="loginButton">Login</button>
       </form>
     </div>
   );

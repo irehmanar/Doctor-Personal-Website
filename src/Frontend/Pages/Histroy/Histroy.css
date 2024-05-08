@@ -1,0 +1,13 @@
+/* Add to your CSS file */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+  }
+  .bold-header {
+    font-weight: bold;  /* Assuming you want bold headers */
+    text-align: center; /* Center the text */
+  }
+    
