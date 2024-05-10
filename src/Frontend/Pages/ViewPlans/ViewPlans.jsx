@@ -1,5 +1,6 @@
 import React from "react";
 import Plans from '../../Components/PricePlanner/PricePlanner';
+import './ViewPlans.css'
 
 function ViewPlans() {
   const Data1 = [

@@ -1,7 +1,6 @@
 import './App.css';
 import BlogsDisplay from './Frontend/Pages/Blogs/BlogsDisplay.jsx';
 import Blog from './Frontend/Pages/Blogs/Blog.jsx';
-// import Blogs from './Frontend/Pages/Blogs/Blogs.jsx';
 import Home from './Frontend/Pages/Home/Home.jsx';
 import Login from './Frontend/Pages/Login/Login.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom"; 
@@ -14,6 +13,7 @@ import Contactus from './Frontend/Pages/Contactus/Contactus.jsx';
 import ViewPlans from './Frontend/Pages/ViewPlans/ViewPlans.jsx';
 import Histroy from './Frontend/Pages/Histroy/Histroy.jsx';
 import HistroyDetails from './Frontend/Pages/histroyDetails/HistroyDetails.jsx';
+import Appointment from './Frontend/Pages/Appointment/Appointment.jsx';
 function App() {
   return (
     <div className="app">
@@ -27,6 +27,7 @@ function App() {
     <Route path='/Settings' element={<SettingsPage/>}></Route>
     <Route path='/Plans' element={<ViewPlans/>}></Route>
     <Route path='/Histroy' element={<Histroy/>}></Route>
+    <Route path='/Appointments' element={<Appointment/>}></Route>
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
     <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>
     <Route path='/Admin/Patient' element={<Patient/>}></Route>

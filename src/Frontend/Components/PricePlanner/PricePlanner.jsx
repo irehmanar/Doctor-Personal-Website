@@ -1,9 +1,9 @@
 import React from "react";
-// import './PricePlanner.css'
+import './PricePlanner.css'
 function plans({Data,Heading,Description}) {
   console.log(Data);
   return (
-    <section className="text-gray-600 body-font min-h-screen m-5" style={{ marginTop: '60px' }}>
+    <section className="text-gray-600 body-font min-h-screen m-5 customPlanner" style={{ marginTop: '40px' }}>
       <div className="container px-5 py-24 mx-auto flex flex-col items-center">
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
