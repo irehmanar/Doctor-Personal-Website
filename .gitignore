@@ -5,7 +5,7 @@
 /Backend/node_modules
 /.pnp
 .pnp.js
-/Backend/aws/retrieveimg.js
+/Backend/aws
 # testing
 /coverage
 
