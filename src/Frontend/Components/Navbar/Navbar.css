@@ -10,6 +10,7 @@ nav {
   color: white;
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 nav .title {
@@ -60,7 +61,7 @@ nav .menu span {
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 645px) {
   nav .menu {
       display: flex;
   }
@@ -93,3 +94,14 @@ nav .menu span {
 .nav-li:hover {
   background: rgba(234, 234, 234,0);
 }
+
+/* .profile-pic {
+  position: relative;
+}
+
+.profile-pic img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+} */
