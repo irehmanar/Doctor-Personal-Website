@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../../Components/Navbar/Navbar';
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('Guest');
@@ -66,7 +67,9 @@ const Settings = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded shadow-md relative">
+    <div>
+      <Navbar/>
+       <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded shadow-md relative">
       <div className="relative">
         {/* Profile Picture */}
         <img
@@ -190,6 +193,8 @@ const Settings = () => {
         <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
       </div>
     </div>
+    </div>
+   
   );
 };
 
