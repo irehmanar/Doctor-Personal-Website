@@ -70,7 +70,7 @@ function PatientData() {
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, latestAppointment: '24-10-2024',planner: 'Premium'  },
   ];
   return (
-    <div className="container">
+    <div className="containerPatientData">
 
       <Sidebar />
 

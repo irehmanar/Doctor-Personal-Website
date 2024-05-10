@@ -47,7 +47,7 @@ export default function Home() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersect, {
-      threshold: 0.9,
+      threshold: 0.5,
     });
 
     observer.observe(document.querySelector("#counts")); // observe the element with id "counts"

@@ -6,7 +6,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 // import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-function Widget({type}) {
+function Widget({type,value}) {
 
     let data;
 
@@ -31,7 +31,7 @@ function Widget({type}) {
         case 'income':
             data = {
                 title: "DAILY INCOME",
-                isMoney : false,
+                isMoney : true,
                 link: "View all income",
                 icon: <ShoppingBagIcon className='icon' style={{
                     backgroundColor: "rgb(86, 165, 230)",
@@ -150,15 +150,11 @@ function Widget({type}) {
     <div className='widget'>
         <div className="left">
             <span className="title">{data.title}</span>
-            <span className="counter">{data.isMoney && "$"} {amount}</span>
+            <span className="counter">{data.isMoney && "Rs."} {value}</span>
             <span className="link">{data.link}</span>
         </div>
 
         <div className="right">
-            <div className="percentage positive">
-                <KeyboardArrowUpIcon/>
-                {diff} %
-            </div>
             {data.icon}
         </div>
       
