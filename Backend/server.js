@@ -18,7 +18,7 @@ app.use('/appointment',appointmentRoutes);
 app.use('/adminDashboard',adminDashboardRoute);
 
 app.listen(port, () => {
-    console.log(`My Hospital  MSS App is listening on port http://localhost:${port}`);
+    console.log(`Server is listening at http://localhost:${port}`);
 });
 
 
