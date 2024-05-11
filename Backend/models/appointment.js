@@ -26,6 +26,12 @@ const appointmentSchema = new mongoose.Schema({
     paymentReciept: {
         type: String
     },
+    appointmentStatus: {
+        type: String,
+        enum: ["Pending", "Approved"],
+        required: true,
+        default : "Pending"
+    },
 });
 const appointment = mongoose.model("Appointment", appointmentSchema);
 export default appointment;

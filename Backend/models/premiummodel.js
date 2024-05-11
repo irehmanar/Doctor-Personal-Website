@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const promotionSchema = new mongoose.Schema({
+const premiumPlansSchema = new mongoose.Schema({
     title: {
         type: String, 
-        enum:["Standard","Silver","Gold","Platinum"],
+        enum: ["Standard", "Silver", "Gold", "Platinum"],
         required: true,
         unique: true
     },
@@ -25,7 +25,5 @@ const promotionSchema = new mongoose.Schema({
     },
 });
 
-// title,description,startDate,endDate,discount
-
-const promotion = mongoose.model("promotion", promotionSchema);
-export default promotion;
+const PremiumPlans = mongoose.model("PremiumPlans", premiumPlansSchema);
+export default PremiumPlans;

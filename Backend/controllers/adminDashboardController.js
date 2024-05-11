@@ -1,4 +1,5 @@
 import appointment from "../models/appointment.js";
+import appointmentController from "./appointmentController.js";
 
 const dashboard = async ({ req, res }) => {
     try {
@@ -171,7 +172,21 @@ const dashboard = async ({ req, res }) => {
         res.json({ monthlyAverage, dailyIncome, monthlyIncomeValue, totalIncomeValue, incomeByMonth: await findIncomeByMonth() });
     } catch (error) {
         console.error("Error calculating monthly patient average:", error);
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: "Server error" }, { success: false });
     }
 };
-export default { dashboard }
+const viewappointment = async ({ req, res }) => {
+    try {
+        const today = new Date();
+        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const appointments = await appointment.find({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+          }).select("id appointmentdate appointmentStatus promotiontype endDate");
+        res.json(appointments, { success: true });
+    } catch (error) {
+        console.error("Error viewing appointments:", error);
+        res.status(500).json({ error: "Server error" }, { success: false });
+    }
+};
+export default { dashboard , viewappointment}
