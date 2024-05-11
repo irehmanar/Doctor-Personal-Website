@@ -47,7 +47,7 @@ function Home() {
         <div className="charts">
           <Featured/>
           <div className="chartOuter">
-            <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+            <Chart title="Last 12 Months (Revenue)" aspect={2 / 1} data={dashboardData.incomeByMonth}/>
           </div>
         </div>
       </div>

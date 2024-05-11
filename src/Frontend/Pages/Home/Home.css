@@ -443,14 +443,17 @@ overflow: hidden;
 
 
       /* CSS for "Get Free Consultation" button */
-      .btn {
+      .about img{
+        height: 100%;
+      }
+      .about .btn {
           display: inline-block;
           font-weight: 400;
           color: #fff;
           text-align: center;
           vertical-align: middle;
           user-select: none;
-          background-color: #000;
+          background: #000;
           border: 1px solid transparent;
           padding: 0.5rem 1rem;
           /* Increased padding */
@@ -464,7 +467,7 @@ overflow: hidden;
           /* Added margin top */
       }
 
-      .btn:hover {
+      .about .btn:hover {
           color: #fff;
           background-color: #555;
           border-color: #555;
@@ -472,12 +475,12 @@ overflow: hidden;
       }
 
       /* CSS for bullet points */
-      .tick-mark-list {
+      .about  .tick-mark-list {
           list-style-type: none;
           padding-left: 0;
       }
 
-      .tick-mark-list li::before {
+      .about .tick-mark-list li::before {
           content: "\2713";
           /* Checkmark character */
           color: #000;
@@ -515,6 +518,6 @@ overflow: hidden;
       }
 
       .about{
-        padding: 60px;
+        /* padding: 60px;/ */
       }
       
