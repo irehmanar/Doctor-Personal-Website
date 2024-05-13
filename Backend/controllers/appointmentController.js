@@ -1,16 +1,24 @@
 import appointment from "../models/appointment.js";
 import promotion from "../models/promotionModel.js";
+import PremiumPlans from "../models/premiummodel.js";
+import TherapeuticPlan from "../models/therapeuticModel.js";
 import user from "../models/userModel.js";
 import { validationResult } from "express-validator";
 
 const createAppointment = async (req, res) => {
     try {
         // Extract data from the request body
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         const { patientCNIC, appointmentType } = req.body;
         const { paymentReciept } = req.body;
         const { promotiontype } = req.body;
+        const { planChosen } = req.body;
         const today = new Date();
         const appointmentdate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        let selectedPromotion;
          /*const finduser = await user.findOne({ cnic: patientCNIC });
         if (!finduser) {
             res.status(400).json({ error: 'Please Sign-Up to book an appointment ',success:false });
@@ -39,8 +47,18 @@ const createAppointment = async (req, res) => {
             }
             // For new appointments, require a promotion type and payment receipt
             // Find the promotion in the promotion model that matches the selected promotion
-            const selectedPromotion = await promotion.findOne({ title: promotiontype });
-
+            if (planChosen === 'Basic') {
+               selectedPromotion = await promotion.findOne({ title: promotiontype });
+            }
+            else if (planChosen === 'Premium') {
+                selectedPromotion = await PremiumPlans.findOne({ title: promotiontype });
+            }
+            else if (planChosen === 'Therapeutic Plan') {
+                selectedPromotion = await TherapeuticPlan.findOne({ title: promotiontype });}
+            else{
+                res.status(400).json({ error: 'Invalid Plan Chosen',success:false });
+                return;
+            }
             // Check if the promotion is found
             if (!selectedPromotion) {
                 res.status(400).json({ error: 'Invalid promotion',success:false });
@@ -60,12 +78,15 @@ const createAppointment = async (req, res) => {
                 const newAppointment = new appointment({
                     patientCNIC,
                     appointmentType,
+                    planChosen,
                     appointmentdate,
                     promotiontype,
                     endDate,
                     promotionIncome,
                     paymentReciept
                 });
+                // add 1 appointment to the appointment counter
+                await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
                 // Save the new appointment to the database
                 await newAppointment.save();
 
@@ -103,12 +124,13 @@ const createAppointment = async (req, res) => {
                 patientCNIC,
                 appointmentdate,
                 appointmentType,
+                planChosen,
                 promotiontype,
                 endDate,
                 promotionIncome,
                 paymentReciept: null
             });
-
+            await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
             // Save the new follow-up appointment to the database
             await newAppointment.save();
 

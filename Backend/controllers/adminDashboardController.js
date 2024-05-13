@@ -149,7 +149,7 @@ const dashboard = async ({ req, res }) => {
                     else{
                         months.push({ month: monthName, year: currentYear, totalIncome: monthlyIncome.length > 0 ? monthlyIncome[0].totalIncome : 0 });
                     }
-                    if (currentMonth == 11) {
+                    if (currentMonth === 11) {
                         currentMonth = 0;
                         yearchange = true;
                         continue;
@@ -164,14 +164,236 @@ const dashboard = async ({ req, res }) => {
             }
         };
 
+         
+    const newPatients = await user.aggregate([
+        {
+          $lookup: {
+            from: 'appointment',
+            localField: 'cnic',
+            foreignField: 'patientCNIC',
+            as: 'appointments'
+          }
+        },
+        {
+          $unwind: '$appointments' // Unwind appointments for each user
+        },
+        {
+          $match: {
+            'appointments.appointmentdate': { $gte: todayDate, $lte: today },
+            'appointmentCounter': 1   // Filter for users with appointmentCounter = 1
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: 1 } // Count the number of documents
+          }
+        },
+        {
+            $project: {
+                _id: 0,
+                count: '$count'
+            }
+        }
+      ]);
+      const patientsByLocallocation = await user.aggregate([
+          {
+            $match: {
+              location: 'Local',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+      const patientsByForeignlocation = await user.aggregate([
+          {
+            $match: {
+              location: 'Foreign',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+    const malepatients = await user.aggregate([
+        {
+          $match: {
+            gender: 'Male',
+            role: 'Patient',
+            appointmentCounter: { $gt: 0 },
+          },
+        },
+        {
+          $group: {
+              _id: null,  
+              count: { $sum: 1 },
+          }
+        },
+  ]);
+    const femalepatients = await user.aggregate([
+        {
+          $match: {
+            gender: 'Female',
+            role: 'Patient',
+            appointmentCounter: { $gt: 0 },
+          },
+        },
+        {
+          $group: {
+              _id: null,  
+              count: { $sum: 1 },
+          }
+        },
+  ]);
+  
+        const malePatients = malepatients.length > 0 ? malepatients[0].count : 0;
+        const femalePatients = femalepatients.length > 0 ? femalepatients[0].count : 0;
+        const foreignPatients = patientsByForeignlocation.length > 0 ? patientsByForeignlocation[0].count : 0;
+        const localPatients = patientsByLocallocation.length > 0 ? patientsByLocallocation[0].count :0;
+        const newPatientsCount = newPatients.length > 0 ? newPatients[0].count : 0;
         const monthlyAverage = dailyPatientAvg.length > 0 ? dailyPatientAvg[0].monthlyAverage : 0;
         const dailyIncome = dailyincome.length > 0 ? dailyincome[0].totalIncome : 0;
         const monthlyIncomeValue = monthlyIncome.length > 0 ? monthlyIncome[0].totalmonthlyincome : 0;
         const totalIncomeValue = overallIncome.length > 0 ? overallIncome[0].totalincome : 0;
-        res.json({ monthlyAverage, dailyIncome, monthlyIncomeValue, totalIncomeValue, incomeByMonth: await findIncomeByMonth() });
+        res.json({ monthlyAverage, dailyIncome, monthlyIncomeValue, totalIncomeValue, incomeByMonth: await findIncomeByMonth() ,newPatientsCount,localPatients,foreignPatients,malePatients,femalePatients});
     } catch (error) {
         console.error("Error calculating monthly patient average:", error);
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: "Server error" }, { success: false });
     }
 };
-export default { dashboard }
+const patientPage = async({req,res}) => {
+    try {
+        const patientsByLocallocation = await user.aggregate([
+            {
+              $match: {
+                location: 'Local',
+                role: 'Patient',
+                appointmentCounter: { $gt: 0 },
+              },
+            },
+            {
+              $group: {
+                  _id: null,  
+                  count: { $sum: 1 },
+              }
+            },
+      ]);
+        const patientsByForeignlocation = await user.aggregate([
+            {
+              $match: {
+                location: 'Foreign',
+                role: 'Patient',
+                appointmentCounter: { $gt: 0 },
+              },
+            },
+            {
+              $group: {
+                  _id: null,  
+                  count: { $sum: 1 },
+              }
+            },
+      ]);
+      const malepatients = await user.aggregate([
+          {
+            $match: {
+              gender: 'Male',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+      const femalepatients = await user.aggregate([
+          {
+            $match: {
+              gender: 'Female',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+    
+          const malePatients = malepatients.length > 0 ? malepatients[0].count : 0;
+          const femalePatients = femalepatients.length > 0 ? femalepatients[0].count : 0;
+          const foreignPatients = patientsByForeignlocation.length > 0 ? patientsByForeignlocation[0].count : 0;
+          const localPatients = patientsByLocallocation.length > 0 ? patientsByLocallocation[0].count :0;
+          res.status(200).json({ malePatients, femalePatients, foreignPatients, localPatients ,success:true});
+    } catch (error) {
+        res.status(500).json({ error: "Server error", success: false });
+    }
+}
+const viewappointment = async ({ req, res }) => {
+    try {
+        const today = new Date();
+        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const appointments = await appointment.find({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).select("id appointmentdate appointmentStatus promotiontype planChosen duration")
+        const modifiedAppointments = appointments.map(Appointment => {
+            const { promotionIncome, ...rest } = Appointment;
+            return { ...rest, duration: promotionIncome };
+        });
+        for (const a of modifiedAppointments) {
+            let duration;
+            if (a.planChosen === "Basic") {
+            duration = await promotion.findOne({ title: a.promotiontype }).select("duration");
+            }
+            else if (a.planChosen === "Premium") {
+            duration = await PremiumPlans.findOne({ title: a.promotiontype }).select("duration");
+            }
+            else if (a.planChosen === "Therapeutic Plan") {
+            duration = await TherapeuticPlan.findOne({ title: a.promotiontype }).select("duration");
+            }
+            let timespan = duration.duration
+            a.duration = timespan;
+        }
+        res.status(200).json({ success: true, modifiedAppointments });
+    } catch (error) {
+        console.error("Error viewing appointments:", error);
+        res.status(500).json({ error: "Server error", success: false });
+    }
+};
+const acceptAppointment = async ({ req, res }) => {
+    try {
+        const today = new Date();
+        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const appointments = await appointment.findOne({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).sort({ appointmentdate: 1 });
+        if (appointments) {
+            appointments.appointmentStatus = "Approved";
+            await appointments.save();
+            res.status(200).json({ success: true, message: "Appointment accepted successfully" });
+        } else {
+            res.status(404).json({ error: "No pending appointments found", success: false });
+        }
+    } catch (error) {
+        console.error("Error accepting appointment:", error);
+        res.status(500).json({ error: "Server error", success: false });
+    }
+};
+export default { dashboard ,acceptAppointment,viewappointment};

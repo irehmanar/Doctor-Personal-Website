@@ -7,6 +7,7 @@ appointmentRoutes.post("/createAppointment",
 [
     body('patientCNIC').isLength({ min: 13, max: 13 }).withMessage('Invalid CNIC'),
     body('appointmentType').isIn(['Follow-Up', 'New']).withMessage('Invalid appointment type'),
+    body('planChosen').isIn(['Basic', 'Premium', 'Therapeutic Plan']).withMessage('Invalid plan chosen')
 ],appointmentController.createAppointment);
 
 export default appointmentRoutes;
