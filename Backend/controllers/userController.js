@@ -120,7 +120,7 @@ const signin = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username | !password) {
-      return res.status(202).json({ message: "incomplete content" });
+      return res.status(202).json({ message: "Incomplete content" });
     } else {
       const auth_user = await user.findOne({ username });
       console.log(auth_user);
@@ -129,7 +129,7 @@ const signin = async (req, res) => {
         const success = false;
         return res
           .status(401)
-          .json({ message: `user with ${username} no found`, success });
+          .json({ message: `User with ${username} not found`, success });
       } else if (auth_user.activated === false) {
         const success = false;
         return res
@@ -141,7 +141,7 @@ const signin = async (req, res) => {
           const success = false;
           return res
             .status(401)
-            .json({ message: "username or password incorrect", success });
+            .json({ message: "Username or Password incorrect", success });
         } else {
           const success = true;
           const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "5h" });
