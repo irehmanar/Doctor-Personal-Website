@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 import "./Home.css";
 import Sidebar from "../../Components/adminSidebar/Sidebar";
 import Navbar from "../../Components/adminNavbar/Navbar";
@@ -15,7 +17,6 @@ function Home() {
       try {
         let data = await fetchDashboardData();
         if (data && typeof data === 'object' && data.monthlyAverage !== undefined) {
-          // Assuming monthlyAverage should be a number, handle it safely
           data.monthlyAverage = parseFloat(data.monthlyAverage.toFixed(2));
         }
         setDashboardData(data);
@@ -29,7 +30,13 @@ function Home() {
   }, []);
 
   if (!dashboardData) {
-    return <div>Loading...</div>; // Loading state
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+          <CircularProgress color="secondary" />
+        </Stack>
+      </div>
+    );
   }
 
   // Now safe to render assuming data is properly loaded and structured
