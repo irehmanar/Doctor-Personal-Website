@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    image: {
+        type: String,
+    },
     firstName: { 
         type: String,
     },
@@ -40,7 +43,7 @@ const userSchema = new mongoose.Schema({
     },
     location:{
         type:String,
-        enum: ['Pakistan', 'Foreign']
+        enum: ['Local', 'Foreign']
     },
     role:{
         type:String,
@@ -84,6 +87,13 @@ const userSchema = new mongoose.Schema({
       activated: {
         type: Boolean,
         default: false,
+      },
+      verified:{
+        type:Boolean,
+        default:false
+      },
+      appointmentCounter:{
+        type: Number,
       },
 }
 ,{

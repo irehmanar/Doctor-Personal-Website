@@ -66,6 +66,8 @@ const createAppointment = async (req, res) => {
                     promotionIncome,
                     paymentReciept
                 });
+                // add 1 appointment to the appointment counter
+                await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
                 // Save the new appointment to the database
                 await newAppointment.save();
 
@@ -108,7 +110,7 @@ const createAppointment = async (req, res) => {
                 promotionIncome,
                 paymentReciept: null
             });
-
+            await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
             // Save the new follow-up appointment to the database
             await newAppointment.save();
 

@@ -71,7 +71,8 @@ const signup = async (req, res) => {
         email: email,
         username: username,
         password: hashed_password,
-        role: 'Patient'
+        role: 'Patient',
+        appointmentCounter: 0
       });
       const verificationToken = generateVerificationToken();
       await saveVerificationToken(userDetails._id, verificationToken);
@@ -96,7 +97,7 @@ const verifyUser = async (req, res) => {
         "verificationToken.expires": { $gt: Date.now() },
       },
       {
-        activated: true,
+        verified: true,
         "verificationToken.token": null,
       },
     );
@@ -130,7 +131,7 @@ const signin = async (req, res) => {
         return res
           .status(401)
           .json({ message: `user with ${username} no found`, success });
-      } else if (auth_user.activated === false) {
+      } else if (auth_user.verified === false) {
         const success = false;
         return res
           .status(401)
@@ -160,9 +161,9 @@ const signin = async (req, res) => {
 
 //update Patient
 const updatePatient = async (req, res) => {
-  const { firstName, lastName, cnic, dob, gender, bloodType, phone, location, weight, height, temperature, symptoms } = req.body;
+  const { firstName, lastName, cnic, dob, gender, bloodType, phone, location, weight, height, temperature, symptoms} = req.body;
   let success;
-  if (!firstName || !lastName || !dob || !gender || !cnic || !bloodType || !location) {
+  if (!firstName || !lastName || !dob || !gender || !cnic || !bloodType || !location ) {
     success = false;
     return res.status(400).json({ message: "error", errors: "incomplete content", success });
   } else {
