@@ -13,6 +13,11 @@ const appointmentSchema = new mongoose.Schema({
         enum: ["Follow-Up", "New"], // If new asks for payment reciept
         required: true // If follow-up checks the date of new and matches duration
     }, // if new make all the fields required 
+    planChosen: {
+        type: String,
+        enum: ["Basic","Premium","Therapeutic Plan"], // if follow up automatically chooses the promotion chosen
+        required: true
+    },
     promotiontype: {
         type: String,
         enum: ["Standard", "Silver", "Gold", "Platinum"], // if follow up automatically chooses the promotion chosen
@@ -32,6 +37,11 @@ const appointmentSchema = new mongoose.Schema({
         required: true,
         default : "Pending"
     },
+    duration: {
+        type: Number,
+        required: true,
+        default: 0
+    }
 });
 const appointment = mongoose.model("Appointment", appointmentSchema);
 export default appointment;

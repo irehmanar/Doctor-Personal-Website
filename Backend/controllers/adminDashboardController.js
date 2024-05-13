@@ -1,6 +1,7 @@
 import appointment from "../models/appointment.js";
-import appointmentController from "./appointmentController.js";
-
+import PremiumPlans from "../models/premiummodel.js";
+import TherapeuticPlan from "../models/therapeuticModel.js";
+import promotion from "../models/promotionModel.js";
 const dashboard = async ({ req, res }) => {
     try {
         const today = new Date();
@@ -182,11 +183,49 @@ const viewappointment = async ({ req, res }) => {
         const appointments = await appointment.find({
             appointmentdate: todayDate,
             appointmentStatus: "Pending",
-          }).select("id appointmentdate appointmentStatus promotiontype endDate");
-        res.json(appointments, { success: true });
+        }).select("id appointmentdate appointmentStatus promotiontype planChosen duration")
+        const modifiedAppointments = appointments.map(Appointment => {
+            const { promotionIncome, ...rest } = Appointment;
+            return { ...rest, duration: promotionIncome };
+        });
+        for (const a of modifiedAppointments) {
+            let duration;
+            if (a.planChosen === "Basic") {
+            duration = await promotion.findOne({ title: a.promotiontype }).select("duration");
+            }
+            else if (a.planChosen === "Premium") {
+            duration = await PremiumPlans.findOne({ title: a.promotiontype }).select("duration");
+            }
+            else if (a.planChosen === "Therapeutic Plan") {
+            duration = await TherapeuticPlan.findOne({ title: a.promotiontype }).select("duration");
+            }
+            let timespan = duration.duration
+            a.duration = timespan;
+        }
+        res.status(200).json({ success: true, modifiedAppointments });
     } catch (error) {
         console.error("Error viewing appointments:", error);
-        res.status(500).json({ error: "Server error" }, { success: false });
+        res.status(500).json({ error: "Server error", success: false });
     }
 };
-export default { dashboard , viewappointment}
+const acceptAppointment = async ({ req, res }) => {
+    try {
+        const today = new Date();
+        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const appointments = await appointment.findOne({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).sort({ appointmentdate: 1 });
+        if (appointments) {
+            appointments.appointmentStatus = "Approved";
+            await appointments.save();
+            res.status(200).json({ success: true, message: "Appointment accepted successfully" });
+        } else {
+            res.status(404).json({ error: "No pending appointments found", success: false });
+        }
+    } catch (error) {
+        console.error("Error accepting appointment:", error);
+        res.status(500).json({ error: "Server error", success: false });
+    }
+};
+export default { dashboard, viewappointment, acceptAppointment};
