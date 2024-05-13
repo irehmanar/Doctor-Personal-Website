@@ -1,21 +1,21 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
-import promotionController from "../controllers/promotionController.js";
-const promotionRoutes = express.Router();
+import therapeuticController from "../controllers/therapeuticController.js";
+const therapeuticPromotionRoute = express.Router();
 
-promotionRoutes.post("/createPromotion",[
+therapeuticPromotionRoute.post("/createPromotion",[
     body("title").isIn(["Standard", "Silver", "Gold", "Platinum"]).notEmpty(),
     body("description").isString().notEmpty(),
     body("duration").isNumeric().notEmpty(),
     body("price").isNumeric().notEmpty(),
     body("discount").isNumeric().notEmpty()
-],promotionController.createPromotion);
+],therapeuticController.createPromotion);
 
-promotionRoutes.put("/updatePromotion/:title",
+therapeuticPromotionRoute.put("/updatePromotion/:title",
 [
     body("description").isString(),
     body("duration").isNumeric(),
     body("price").isNumeric(),  
-],promotionController.updatePromotion);
-promotionRoutes.get("/getPromotions",promotionController.displayPromotion);
-export default promotionRoutes;
+],therapeuticController.updatePromotion);
+therapeuticPromotionRoute.get("/getPromotions",therapeuticController.displayPromotion);
+export default therapeuticPromotionRoute;
