@@ -21,7 +21,7 @@ app.use('/adminDashboard',adminDashboardRoute);
 app.use('/therapeuticPromotion',therapeuticPromotionRoute);
 app.use('/premiumPromotion',premiumPromotionRoute);
 app.listen(port, () => {
-    console.log(`My Hospital  MSS App is listening on port http://localhost:${port}`);
+    console.log(`Server is listening at http://localhost:${port}`);
 });
 
 

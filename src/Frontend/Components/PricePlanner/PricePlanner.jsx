@@ -1,5 +1,6 @@
 import React from "react";
 import './PricePlanner.css'
+import { Link } from "react-router-dom";
 function plans({Data,Heading,Description}) {
   console.log(Data);
   return (
@@ -50,9 +51,11 @@ function plans({Data,Heading,Description}) {
           </table>
         </div>
         <div className="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
+        <Link to="/Booking" style={{ textDecoration: "none" }}>
           <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
             Book Now
           </button>
+          </Link>
         </div>
       </div>
     </section>
