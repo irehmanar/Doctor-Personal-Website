@@ -3,6 +3,7 @@ import './PatientData.css'
 import Sidebar from "../../Components/adminSidebar/Sidebar";
 import Navbar from "../../Components/adminNavbar/Navbar";
 import GridData from '../../Components/adminDataGrid/GridData'
+import { Link } from 'react-router-dom';
 function PatientData() {
   const columns = [
     { field: 'id',
@@ -13,31 +14,29 @@ function PatientData() {
     {
       field: 'firstName',
       headerName: 'First name',
-      width: 150,
+      width: 130,
       editable: false,
       headerClassName: 'bold-header'
     },
     {
       field: 'lastName',
       headerName: 'Last name',
-      width: 150,
+      width: 130,
       editable: false,
       headerClassName: 'bold-header'
     },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 100,
-      editable: false,
-      headerClassName: 'bold-header'
+    { field: 'age',
+    headerName: 'Age', 
+    width: 100, 
+    headerClassName: 'bold-header'
     },
+
     {
       field: 'fullName',
       headerName: 'Full name',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 200,
+      width: 150,
       valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
       headerClassName: 'bold-header'
     },
@@ -46,14 +45,24 @@ function PatientData() {
       headerName: 'Last Appointment',
       // type: 'date',
       editable: false,
-      width: 200,
+      width: 130,
       headerClassName: 'bold-header',
     },
     {
       field: 'planner',
       headerName: 'Planner',
       editable: false,
-      width: 200,
+      width: 130,
+      headerClassName: 'bold-header'
+    },    
+    {
+      field: 'Deatils',
+      headerName: 'View More',
+      width: 130,
+      renderCell: (params) => (
+        <Link to={`/Info`}>View Detail</Link>
+      // <Link to={`/Histroy/details/${params.row.id}`}>View More</Link>
+      ),
       headerClassName: 'bold-header'
     },
   ];

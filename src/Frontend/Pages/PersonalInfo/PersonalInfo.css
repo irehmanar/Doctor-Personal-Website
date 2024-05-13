@@ -1,0 +1,127 @@
+.info {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.info button{
+  width: 6rem;
+}
+
+.section-title {
+  text-align: center;
+  padding-top: 2rem;
+}
+.info label {
+  color: black;
+  font-size: large;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.info input {
+  display: inline;
+}
+.info form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1vh;
+  width: 100vw;
+}
+.info div {
+  width: 50vw;
+  height: auto;
+  background-color: rgb(227, 211, 211);
+  margin-top: 1vh;
+  padding: 2vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  border-radius: 10px;
+  font-family: 'docs-Cormorant Garamond', serif;
+  font-size: small;
+  justify-content: left;
+}
+.info input[type='text'],
+input[type='email'],
+input[type='number'] {
+  border: none; /* Remove default border */
+  outline: none; /* Remove default focus outline */
+  border-bottom: 1px solid black; /* Add a bottom border to create the horizontal line */
+  padding: 0; /* Remove default padding */
+  width: 100%; /* Ensure the input spans the entire width of the parent div */
+}
+
+.info input[type='radio'] {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: 30%;
+}
+.info input[type='file'] {
+  /* padding: 0;
+    margin: 0; */
+  height: auto;
+  /* width: 30%; */
+}
+
+/* Style the dropdown button */
+.info .dropbtn {
+  background-color: #4caf50;
+  color: rgb(231, 0, 0);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown container */
+.info .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.info .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.info .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.info .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.info .dropdown:hover .dropdown-content {
+  display: block;
+}
+.info #submit {
+  margin-top: 20px;
+  scale: 1.3;
+  padding: 5px;
+  background-color: #0daf74;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 1rem;
+}
