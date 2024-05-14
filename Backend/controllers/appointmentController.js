@@ -147,4 +147,14 @@ const createAppointment = async (req, res) => {
     }
 };
 
-export default { createAppointment };
+// get all appointments of user by Patientcnic
+const getApppointmentsbyPatientCnic = async (req, res) => {
+    try {
+        const User = req.User
+        const appointments = await appointment.find({ patientCNIC: User.cnic});
+        res.json(appointments);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+export default { createAppointment,getApppointmentsbyPatientCnic};

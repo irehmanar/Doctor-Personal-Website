@@ -95,6 +95,16 @@ const userSchema = new mongoose.Schema({
       appointmentCounter:{
         type: Number,
       },
+      prescription:[
+        {
+            image:{
+                type:[String],
+            },
+            numberOfFiles:{
+                type:Number,
+            },
+        }
+      ]
 }
 ,{
     timestamps: true,
