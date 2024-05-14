@@ -3,19 +3,16 @@ import { body, validationResult } from "express-validator";
 import promotionController from "../controllers/promotionController.js";
 const promotionRoutes = express.Router();
 
-promotionRoutes.post("/createPromotion",[
-    body("title").isIn(["Standard", "Silver", "Gold", "Platinum"]).notEmpty(),
-    body("description").isString().notEmpty(),
-    body("duration").isNumeric().notEmpty(),
-    body("price").isNumeric().notEmpty(),
-    body("discount").isNumeric().notEmpty()
-],promotionController.createPromotion);
+promotionRoutes.post("/createPromotion", [
+    body("NumberofPlans").isNumeric().notEmpty(),
+    body("Plans.*.NameofPlan").isString().notEmpty(),
+    body("Plans.*.Description").isString().notEmpty(),
+    body("Plans.*.NumberofSubPlans").isNumeric().notEmpty(),
+    body("Plans.*.SubPlans.*.month").isNumeric().notEmpty(),
+    body("Plans.*.SubPlans.*.numberOfDietPlans").isNumeric().notEmpty(),
+    body("Plans.*.SubPlans.*.price").isNumeric().notEmpty(),
+    body("Plans.*.SubPlans.*.discount").isNumeric().notEmpty()
+], promotionController.createPromotion);
 
-promotionRoutes.put("/updatePromotion/:title",
-[
-    body("description").isString(),
-    body("duration").isNumeric(),
-    body("price").isNumeric(),  
-],promotionController.updatePromotion);
 promotionRoutes.get("/getPromotions",promotionController.displayPromotion);
 export default promotionRoutes;

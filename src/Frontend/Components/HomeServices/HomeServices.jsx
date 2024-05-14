@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import './HomeServices.css'
 import 'boxicons/css/boxicons.min.css';
 import 'glightbox/dist/css/glightbox.min.css';
@@ -29,7 +30,7 @@ function HomeServices() {
             <MonitorWeightIcon></MonitorWeightIcon>
             </div>
             <h4>
-              <a href="">Weight Management</a>
+              <Link to={`/Services`}>Weight Management</Link>
             </h4>
             <p>
               Generate high-quality leads tailored to your business needs.
@@ -47,7 +48,7 @@ function HomeServices() {
               <CoronavirusIcon></CoronavirusIcon>
             </div>
             <h4>
-              <a href="">Disease Management</a>
+              <Link to={`/Services`}>Disease Management</Link>
             </h4>
             <p>
               Comprehensive telemarketing solutions for the insurance
@@ -66,7 +67,7 @@ function HomeServices() {
               <FitnessCenterIcon></FitnessCenterIcon>
             </div>
             <h4>
-              <a href="">Workout Plans</a>
+              <Link to={`/Services`}>Workout Plans</Link>
             </h4>
             <p>
               Ensure quality and compliance with our rigorous assurance
@@ -85,7 +86,7 @@ function HomeServices() {
             <RestaurantIcon></RestaurantIcon>
             </div>
             <h4>
-              <a href="">Nutritional Deficiencies</a>
+              <Link to={`/Services`}>Nutritional Deficiencies</Link>
             </h4>
             <p>
               Deliver exceptional customer experiences with our inbound
@@ -104,7 +105,7 @@ function HomeServices() {
               <FamilyRestroomIcon></FamilyRestroomIcon>
             </div>
             <h4>
-              <a href="">Child Nutrition</a>
+              <Link to={`/Services`}>Child Nutrition</Link>
             </h4>
             <p>
               Accurate and reliable transcription services for your business
