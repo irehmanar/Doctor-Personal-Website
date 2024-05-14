@@ -1,11 +1,11 @@
 import appointment from "../models/appointment.js";
-
+import user from "../models/userModel.js";
 const dashboard = async ({ req, res }) => {
     try {
         const today = new Date();
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-        const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const todayDate = new Date(today.toISOString().split('T')[0]);
         const dailyPatientAvg = await appointment.aggregate([ // Use 'appointment' directly
             {
                 $match: {

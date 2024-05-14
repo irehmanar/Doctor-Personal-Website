@@ -1,65 +1,50 @@
-import promotion from "../models/promotionModel.js";
-import { body, validationResult } from "express-validator";
+import express from 'express';
+import { validationResult } from 'express-validator';
+import promotion from '../models/promotionModel.js'; // Import your promotion model
 
+const router = express.Router();
+
+// Create a promotion
 const createPromotion = async (req, res) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-    
-        const { title, description, duration, price , discount } = req.body;
-        
-        const existingPromotion = await promotion.findOne({ title });
-        if (existingPromotion) {
-          return res.status(400).json({ error: 'Promotion already exists' },{success : false});
-        }
-        const newPromotion = await promotion.create({
-          title,
-          description,
-          duration,
-          price,
-          discount
-        });
-        if (!newPromotion) {
-          return res.json("Promotion Failed");
-        }
+  try {
+    /*const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array(), success: false });
+    }*/
 
-        return res.json(newPromotion);
+    const { NumberofPlans, Plans } = req.body;
 
-    } catch (error) {
-        return res.status(400).json(errorMessage);
+    // Check if the size of Plans array matches NumberofPlans
+    if (Plans.length !== NumberofPlans) {
+      return res.status(400).json({ error: 'Number of Plans does not match the size of Plans array', success: false });
     }
-}
 
-const updatePromotion = async (req, res) => { 
-    const { title } = req.params;
-    const updateFields = req.body;
-  
-    try {
-      // Find the promotion by title
-      const promotionToUpdate = await promotion.findOne({ title });
-  
-      if (!promotionToUpdate) {
-        return res.status(404).json({ error: 'Promotion not found' });
+    // Check if each SubPlans array size matches NumberofSubPlans
+    for (const plan of Plans) {
+      if (plan.SubPlans.length !== plan.NumberofSubPlans) {
+        return res.status(400).json({ error: 'Number of SubPlans does not match the size of SubPlans array', success: false });
       }
-      // Update the promotion with the fields provided in the request body
-      for (const key in updateFields) {
-        if (updateFields.hasOwnProperty(key)) {
-          promotionToUpdate[key] = updateFields[key];
-        }
-      }
-  
-      // Save the updated promotion
-      await promotionToUpdate.save();
-  
-      // Return the updated promotion as JSON response
-      res.json(promotionToUpdate);
-    } catch (error) {
-      console.error(error); // Log the error for debugging
-      res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+
+    // Delete all existing promotions
+    await promotion.deleteMany({});
+
+    // Create new promotion
+    const newPromotion = await promotion.create({
+      NumberofPlans,
+      Plans
+    });
+
+    if (!newPromotion) {
+      return res.status(400).json({ error: 'Promotion creation failed outside catch', success: false });
+    }
+
+    return res.status(200).json({ success: true, promotion: newPromotion });
+
+  } catch (error) {
+    return res.status(400).json({ error: 'Promotion creation failed inside catch', success: false });
+  }
+};
 const displayPromotion = async (req, res) => {
     try {
       const promotions = await promotion.find({});
@@ -69,4 +54,4 @@ const displayPromotion = async (req, res) => {
       return res.status(400).json(errorMessage);
     }
 }
-export default {createPromotion , updatePromotion , displayPromotion}
+export default {createPromotion , displayPromotion}
