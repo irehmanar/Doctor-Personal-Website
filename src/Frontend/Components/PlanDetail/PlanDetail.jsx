@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function PlanDetail() {
   return (
@@ -25,31 +26,23 @@ function PlanDetail() {
           data-aos="fade-right"
           data-aos-delay="100"
         >
-          <h3>Telemarketing Solutions Tailored for Each Business.</h3>
+          <h3>Personalized Nutrition Plans Tailored for Your Health.</h3>
           <p class="fst-italic">
-            A leadership team with a collective experience of 120 years in
-            the industry, managing big businesses, building large teams,
-            and establishing relationships. WORK has taken the lead in
-            Contact Centers, supporting customer interactions across a
-            range of channels, including Web collaboration, Web chat, and
-            the emerging adoption of social media interactions, making it
-            matchless.
-          </p>
+          Our team of experienced nutritionists is dedicated to helping you achieve your health goals. We offer personalized plans that are designed to suit your individual needs, ensuring optimal health and wellness.
+            </p>
           {/* <!-- Rounded tick marks for bullet points --> */}
           <ul class="tick-mark-list">
-            <li>Lead generation</li>
-            <li>Life Insurance Sales</li>
-            <li>Inbound and Customer Services</li>
-            <li>Inbound and Customer Services</li>
-            <li>Inbound and Customer Services</li>
-            <li>Inbound and Customer Services</li>
-            <li>Inbound and Customer Services</li>
-            <li>Transcriptions</li>
+          <li>Personalized Meal Plans</li>
+              <li>Weight Management</li>
+              <li>Diabetes Nutrition Management</li>
+              <li>Heart Health Nutrition</li>
+              <li>Sports Nutrition</li>
+              <li>Child Nutrition</li>
+              <li>Pregnancy Nutrition</li>
+              <li>Online Consultations</li>
           </ul>
           {/* <!-- "Get Free Consultation" button --> */}
-          <a href="#" class="btn btn-black">
-            Get Free Consultation
-          </a>
+          <Link class="btn btn-black" to={`/Services`}>Workout Plans</Link>
         </div>
       </div>
     </div>
