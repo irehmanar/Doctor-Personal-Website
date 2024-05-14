@@ -16,7 +16,7 @@ const sendContactUsMail = async (email, name, message) => {
 
   const mailOptions = {
     from: "abrehman.bscs22seecs@seecs.edu.pk",
-    to: email,
+    to: "abrehman4163@gmail.com",
     subject: "USER MESSAGE",
     text: `Someone has contacted you through the contact us form. Here are the details:`,
     html: ` <p><strong>Name:</strong>${name}</p>

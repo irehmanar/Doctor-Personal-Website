@@ -4,7 +4,7 @@ import promotion from '../models/promotionModel.js'; // Import your promotion mo
 
 const router = express.Router();
 
-// Create a promotion
+// Create a plan
 const createPromotion = async (req, res) => {
   try {
     /*const errors = validationResult(req);
@@ -45,6 +45,9 @@ const createPromotion = async (req, res) => {
     return res.status(400).json({ error: 'Promotion creation failed inside catch', success: false });
   }
 };
+
+
+//display
 const displayPromotion = async (req, res) => {
     try {
       const promotions = await promotion.find({});

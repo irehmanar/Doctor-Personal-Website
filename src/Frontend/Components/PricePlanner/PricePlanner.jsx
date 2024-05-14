@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function plans({Data,Heading,Description}) {
   console.log(Data);
   return (
-    <section className="text-gray-600 body-font min-h-screen m-5 customPlanner" style={{ marginTop: '40px' }}>
-      <div className="container px-5 py-24 mx-auto flex flex-col items-center">
+    <section className="text-gray-600 body-font  m-3 customPlanner bg-body-secondary" style={{ padding: '0px', width: '80%'}}>
+      <div className="container flex flex-col items-center" style={{  minheight: '70%', padding: '2rem'}}>
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
             {Heading}
@@ -39,9 +39,9 @@ function plans({Data,Heading,Description}) {
                 <tr>
                   {/* <td className="border-t-2 border-gray-200 px-4 py-3">Pro</td> */}
                   <td className="border-t-2 border-gray-200 px-4 py-3">{item.month}</td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">{item.plan}</td>
+                  <td className="border-t-2 border-gray-200 px-4 py-3">{item.numberOfDietPlans}</td>
                   <td className="border-t-2 border-gray-200 px-4 py-3">{item.price}</td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">{item.discountprice}</td>
+                  <td className="border-t-2 border-gray-200 px-4 py-3">{item.discount}</td>
                   <td className="border-t-2 border-gray-200 w-10 text-center">
                     <input name="plan" type="radio" />
                   </td>

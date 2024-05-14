@@ -95,6 +95,8 @@ const createAppointment = async (req, res) => {
                 res.status(500).json({ error: 'Internal server error', success: false });
             }
        };
+
+
     const getPlans = async (req, res) => {
         try {
             // Find all promotions
@@ -108,6 +110,7 @@ const createAppointment = async (req, res) => {
             res.status(500).json({ error: 'Internal server error', success: false });
         }
     }
+
     const getSubplans = async (req,res) => {
         const planName  = req.params.planName;
         let selectedPromotion = await promotion.findOne();
@@ -120,8 +123,10 @@ const createAppointment = async (req, res) => {
         res.status(200).json({ subPlans, success: true });
 
     }
+
+
     // get all appointments of user by Patientcnic
-const getApppointmentsbyPatientCnic = async (req, res) => {
+    const getApppointmentsbyPatientCnic = async (req, res) => {
     try {
         const User = req.User
         const appointments = await appointment.find({ patientCNIC: User.cnic});
