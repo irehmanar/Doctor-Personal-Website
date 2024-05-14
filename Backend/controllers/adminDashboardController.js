@@ -272,6 +272,78 @@ const dashboard = async ({ req, res }) => {
         res.status(500).json({ error: "Server error" }, { success: false });
     }
 };
+const patientPage = async({req,res}) => {
+    try {
+        const patientsByLocallocation = await user.aggregate([
+            {
+              $match: {
+                location: 'Local',
+                role: 'Patient',
+                appointmentCounter: { $gt: 0 },
+              },
+            },
+            {
+              $group: {
+                  _id: null,  
+                  count: { $sum: 1 },
+              }
+            },
+      ]);
+        const patientsByForeignlocation = await user.aggregate([
+            {
+              $match: {
+                location: 'Foreign',
+                role: 'Patient',
+                appointmentCounter: { $gt: 0 },
+              },
+            },
+            {
+              $group: {
+                  _id: null,  
+                  count: { $sum: 1 },
+              }
+            },
+      ]);
+      const malepatients = await user.aggregate([
+          {
+            $match: {
+              gender: 'Male',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+      const femalepatients = await user.aggregate([
+          {
+            $match: {
+              gender: 'Female',
+              role: 'Patient',
+              appointmentCounter: { $gt: 0 },
+            },
+          },
+          {
+            $group: {
+                _id: null,  
+                count: { $sum: 1 },
+            }
+          },
+    ]);
+    
+          const malePatients = malepatients.length > 0 ? malepatients[0].count : 0;
+          const femalePatients = femalepatients.length > 0 ? femalepatients[0].count : 0;
+          const foreignPatients = patientsByForeignlocation.length > 0 ? patientsByForeignlocation[0].count : 0;
+          const localPatients = patientsByLocallocation.length > 0 ? patientsByLocallocation[0].count :0;
+          res.status(200).json({ malePatients, femalePatients, foreignPatients, localPatients ,success:true});
+    } catch (error) {
+        res.status(500).json({ error: "Server error", success: false });
+    }
+}
 const viewappointment = async ({ req, res }) => {
     try {
         const today = new Date();

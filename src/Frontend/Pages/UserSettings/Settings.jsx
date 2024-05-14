@@ -11,6 +11,8 @@ const Settings = () => {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [showAddAdmin, setShowAddAdmin] = useState(false);
   const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [confirmAdminPassword, setConfirmAdminPassword] = useState('');
 
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
@@ -56,14 +58,23 @@ const Settings = () => {
   const handleAddAdminButtonClick = () => {
     setShowAddAdmin(!showAddAdmin); // Toggle the state
     setAdminEmail(''); // Reset adminEmail field
+    setAdminPassword(''); // Reset adminPassword field
+    setConfirmAdminPassword(''); // Reset confirmAdminPassword field
   };
 
   const handleAddAdmin = () => {
-    // Logic to add admin
-    // For demonstration purposes, let's just alert the admin email
-    alert(`Admin added with email: ${adminEmail}`);
-    // Reset admin email field
-    setAdminEmail('');
+    if (adminPassword === confirmAdminPassword) {
+      // Logic to add admin
+      // For demonstration purposes, let's just alert the admin email
+      alert(`Admin added with email: ${adminEmail} and password: ${adminPassword}`);
+      // Reset admin fields
+      setAdminEmail('');
+      setAdminPassword('');
+      setConfirmAdminPassword('');
+    } else {
+      // Display error message or handle password mismatch
+      alert("Admin passwords don't match. Please try again.");
+    }
   };
 
   return (
@@ -173,6 +184,24 @@ const Settings = () => {
                 value={adminEmail}
                 onChange={(e) => setAdminEmail(e.target.value)}
                 placeholder="Enter admin email"
+                className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+              />
+            </div>
+            <div className="mb-2">
+              <input
+                type="password"
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                placeholder="Enter admin password"
+                className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+              />
+            </div>
+            <div className="mb-2">
+              <input
+                type="password"
+                value={confirmAdminPassword}
+                onChange={(e) => setConfirmAdminPassword(e.target.value)}
+                placeholder="Confirm admin password"
                 className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
               />
             </div>
