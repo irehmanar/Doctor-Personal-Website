@@ -275,6 +275,8 @@ const dashboard = async ({ req, res }) => {
 
 
 
+
+
 const patientPage = async({req,res}) => {
     try {
         const patientsByLocallocation = await user.aggregate([
@@ -349,6 +351,9 @@ const patientPage = async({req,res}) => {
 }
 
 
+
+
+
 const viewappointment = async ({ res }) => {
     try {
         const today = new Date();
@@ -363,6 +368,7 @@ const viewappointment = async ({ res }) => {
         res.status(500).json({ error: "Server error", success: false });
     }
 };
+
 
 
 
@@ -387,5 +393,7 @@ const acceptAppointment = async ({ req, res }) => {
         res.status(500).json({ error: "Server error", success: false });
     }
 };
+
+
 
 export default { dashboard ,acceptAppointment,viewappointment};

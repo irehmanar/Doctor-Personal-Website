@@ -1,51 +1,78 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import './Appointment.css';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 import GridData from '../../Components/adminDataGrid/GridData';
+import { fetchAppointmentData } from '../../../Services/ViewAllAppointments';
 
 function Appointment() {
-    // Using useState to manage the rows dynamically to allow for state changes in the grid
-    const [rows, setRows] = useState([
-        { id: 1, appointment: '24-10-2024', planner: 'Premium', month: 2, status: 'Pending' },
-        { id: 2, appointment: '24-10-2024', planner: 'Premium', month: 4, status: 'Pending' },
-        { id: 3, appointment: '24-10-2024', planner: 'Premium', month: 6, status: 'Pending' },
-        { id: 4, appointment: '24-10-2024', planner: 'Premium', month: 5, status: 'Pending' },
-    ]);
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleAccept = (id) => {
-        const newRows = rows.map(row => {
-            if (row.id === id) {
-                return { ...row, status: 'Accepted' };
-            }
-            return row;
-        });
-        setRows(newRows);
+        // const newRows = rows.map(row => {
+        //     if (row._id === id) {
+        //         return { ...row, appointmentStatus: 'Accepted' };
+        //     }
+        //     return row;
+        // });
+        // setRows(newRows);
     };
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 100, headerClassName: 'bold-header' },
-        { field: 'appointment', headerName: 'Appointment', width: 150, headerClassName: 'bold-header' },
-        { field: 'planner', headerName: 'Planner', width: 150, headerClassName: 'bold-header' },
+        { field: '_id', headerName: 'ID', width: 100, headerClassName: 'bold-header' },
+        { field: 'appointmentdate', headerName: 'Appointment', width: 150, headerClassName: 'bold-header' },
+        { field: 'planChosen', headerName: 'Planner', width: 150, headerClassName: 'bold-header' },
         { field: 'month', headerName: 'Months', width: 150, headerClassName: 'bold-header' },
-        { field: 'status', headerName: 'Status', width: 150, headerClassName: 'bold-header' },
+        { field: 'appointmentStatus', headerName: 'Status', width: 150, headerClassName: 'bold-header' },
         {
             field: 'accept',
             headerName: 'Accept',
             width: 150,
             renderCell: (params) => {
-                return params.row.status === 'Pending' ? (
-                    <button className='AppointmentButton' onClick={() => handleAccept(params.row.id)}>Accept</button>
+                return params.row.appointmentStatus === 'Pending' ? (
+                    <button className='appointment-button' onClick={() => handleAccept(params.row._id)}>Accept</button>
                 ) : (
-                    <button className='AppointmentButton' disabled>Accepted</button>
+                    <button className='appointment-button' disabled>Accepted</button>
                 );
             },
             headerClassName: 'bold-header'
         },
     ];
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchAppointmentData();
+                if (Array.isArray(data)) {
+                    setRows(data);
+                } else {
+                    console.error("Expected data to be an array, but received:", data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch data", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                    <CircularProgress color="secondary" />
+                </Stack>
+            </div>
+        );
+    }
+
     return (
         <div className="container m-auto">
             <h1 className="display-4 text-4xl font-bold mb-4">View Appointments</h1>
-            <GridData columns={columns} rows={rows} />
+            <GridData columns={columns} rows={rows} getRowId={(row) => row._id} />
         </div>
     );
 }
