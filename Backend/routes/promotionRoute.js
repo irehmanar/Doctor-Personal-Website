@@ -14,5 +14,5 @@ promotionRoutes.post("/createPromotion", [
     body("Plans.*.SubPlans.*.discount").isNumeric().notEmpty()
 ], promotionController.createPromotion);
 
-promotionRoutes.get("/getPromotions",promotionController.displayPromotion);
+promotionRoutes.get("/getPromotions",promotionController.displayPromotion); 
 export default promotionRoutes;

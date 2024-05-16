@@ -1,7 +1,8 @@
 .info #formdiv{
     width: 57vw;
     /* overflow: hidden; */
-    background: palevioletred;
+    background: rgb(119, 0, 40);
+
 }
 .info #formsubdiv{
     width: 53vw;

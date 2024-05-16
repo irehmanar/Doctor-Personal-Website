@@ -95,7 +95,6 @@ function ViewPlans() {
         // Ensure data is an array
         if (Array.isArray(data)) {
           setPlanData(data);
-          console.log("data is bug: ", data);
 
           // Fetch sub-plan data for each plan
           const subPlanDataPromises = data.map(plan => fetchSubPlanData(plan));
@@ -129,6 +128,13 @@ function ViewPlans() {
         <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
           <CircularProgress color="secondary" />
         </Stack>
+      </div>
+    );
+  }
+  if (planData.length === 0) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        No Plan Exist
       </div>
     );
   }

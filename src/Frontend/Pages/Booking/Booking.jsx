@@ -18,37 +18,37 @@ function Booking() {
   const [infoData, setInfoData] = useState(data);
   const [bookingData, setBookingData] = useState([
     {
-      patientDeitarySupplements: "No",
+      "patientDeitarySupplements": "No",
     },
     {
-      pateintNameOfSupplements: "",
+      "pateintNameOfSupplements": "",
     },
     {
-      patientMedicalComplications: "",
+      "patientMedicalComplications": "",
     },
     {
-      patientFoodAllergy: "",
+      "patientFoodAllergy": "",
     },
     {
-      patientPhysicalActivity: "",
+      "patientPhysicalActivity": "",
     },
     {
-      patientBloodTestImage: "",
+      "patientBloodTestImage": "",
     },
     {
-      patientRequirements: "Other",
+      "patientRequirements": "Other",
     },
     {
-      planChosen: "",
+      "planChosen": "",
     },
     {
-      subPlanchosen: 1,
+      "subPlanchosen": 1,
     },
     {
-      paymentType: "HBL Account",
+      "paymentType": "HBL",
     },
     {
-      paymentReciept: "",
+      "paymentReciept": "",
     },
   ]);
 
@@ -241,7 +241,7 @@ function Booking() {
     event.preventDefault();
     setInfoData(data);
     const mergedArray = [...infoData, ...bookingData];
-    console.log(mergedArray);
+    console.log(mergedArray[0]);
 
     try {
         const result = await createAppointment(mergedArray);
@@ -446,7 +446,7 @@ function Booking() {
                 type="radio"
                 id="hbl"
                 name="paymentType"
-                value="HBL Account"
+                value="HBL"
                 required
                 onChange={handlepaymentTypeChange}
                 defaultChecked

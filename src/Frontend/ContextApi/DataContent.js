@@ -16,7 +16,7 @@ export const DataProvider = ({ children }) => {
           patientAge: 20,
         },
         {
-          patientGender: "female",
+          patientGender: "Female",
         },
         {
           patientContactNumber: 3024917963,

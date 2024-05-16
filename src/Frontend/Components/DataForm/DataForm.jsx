@@ -158,8 +158,8 @@ function DataForm({ editable }) {
             type="radio"
             id="basic"
             name="patientGender"
-            value="male"
-            checked={data[3].patientGender === "male"}
+            value="Male"
+            checked={data[3].patientGender === "Male"}
             onChange={handleGenderChange}
             readOnly={!editable}
             required
@@ -171,8 +171,8 @@ function DataForm({ editable }) {
             type="radio"
             id="premium"
             name="gender"
-            value="female"
-            checked={data[3].patientGender === "female"}
+            value="Female"
+            checked={data[3].patientGender === "Female"}
             // onChange={(e) => setGender(e.target.value)}
 
             onChange={handleGenderChange}
