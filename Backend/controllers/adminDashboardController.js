@@ -328,41 +328,43 @@ const patientPage = async({req,res}) => {
                 }
             }
         ])
-        const getTodaysAppointmentsCount =async ()=> {
-            const today = new Date().toISOString().slice(0, 10);
+        const today = new Date().toISOString().slice(0, 10);
+        const appointmentsCount = await appointment.aggregate([
+            {
+              $match: {
+                appointmentdate: { $eq: today },
+                appointmentStatus: "Approved",
+              },
+            },
+            {
+              $lookup: {
+                from: "user",
+                localField: "patientCNIC",
+                foreignField: "cnic",
+                as: "user",
+              },
+            },
+            {
+              $unwind: "$user",
+            },
+            {
+              $match: {
+                "user.appointmentCounter": 1,
+              },
+            },
+            {
+              $count: "totalAppointments", // Project the count with an alias "totalAppointments"
+            },
+          ])
+          .catch(error => {
+            console.error("Error getting new patient appointment count:", error);
+            return 0; // Or return a more appropriate value in case of error
+          });
           
-            const appointmentsCount = await appointment.aggregate([
-              {
-                $match: {
-                  appointmentdate: { $eq: today },
-                  appointmentStatus: "Approved",
-                },
-              },
-              {
-                $lookup: {
-                  from: "user",
-                  localField: "patientCNIC",
-                  foreignField: "cnic",
-                  as: "user",
-                },
-              },
-              {
-                $unwind: "$user",
-              },
-              {
-                $match: {
-                  "user.appointmentCounter": 1,
-                },
-              },
-              {
-                $count: "totalAppointments", // Project the count with an alias "totalAppointments"
-              },
-            ]);
+
+
           
-            return appointmentsCount[0].totalAppointments; // Access the count from the first element
-          }
-          
-        const newPatientsToday = await getTodaysAppointmentsCount();
+        const newPatientsToday = appointmentsCount.length > 0 ? appointmentsCount[0].totalAppointments : 0;
         const patientsTodayCount = patientsToday.length > 0 ? patientsToday[0].count : 0;
         const femalePatientTodayCount = femalePatientsToday.length> 0 ? femalePatientsToday[0].count : 0;
         const malePatientTodayCount = malePatientsToday.length> 0 ? malePatientsToday[0].count : 0;
@@ -373,7 +375,7 @@ const patientPage = async({req,res}) => {
         const femalePatients = femalepatients.length > 0 ? femalepatients[0].count : 0;
         const foreignPatients = patientsByForeignlocation.length > 0 ? patientsByForeignlocation[0].count : 0;
         const localPatients = patientsByLocallocation.length > 0 ? patientsByLocallocation[0].count : 0;
-        res.status(200).json({ malePatients, femalePatients, foreignPatients, localPatients, patientsAgelt20, patientsAgegt20,patientsAgegt40,femalePatientTodayCount,malePatientTodayCount,patientsTodayCount,newPatientsToday,success: true });
+        res.status(200).json({ malePatients, femalePatients, foreignPatients, localPatients, patientsAgelt20, patientsAgegt20,patientsAgegt40,femalePatientTodayCount,malePatientTodayCount,patientsTodayCount,newPatientsToday ,success: true });
     } catch (error) {
         res.status(500).json({ error: "Server error", success: false });
     }
@@ -597,7 +599,7 @@ const  packagePage  = async ({ req, res }) => {
             } catch (error) {
               console.error("Error finding premium plan appointments by month:", error);
               return [];
-            }
+            }   
           };
           const findAllAppointmentsByMonth = async () => {
             try {
