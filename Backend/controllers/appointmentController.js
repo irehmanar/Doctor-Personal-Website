@@ -6,10 +6,18 @@ import { validationResult } from "express-validator";
 const createAppointment = async (req, res) => {
     try {
         // Extract data from the request body
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(400).json({ errors: errors.array() });
+        // }
+        const data = req.body;
+        let appointmentData = {};
+        data.forEach(item => {
+            const key = Object.keys(item)[0];
+            appointmentData[key] = item[key];
+        });
+        console.log(appointmentData)
+        // Now you can use appointmentData instead of req.body
         const {
             patientFullName,
             patientCNIC,
@@ -35,12 +43,13 @@ const createAppointment = async (req, res) => {
             subPlanchosen,
             paymentType,
             paymentReciept,
-        } = req.body;
+        } = appointmentData;
         
             // Find the promotion based on the selected promotion type
             let selectedPromotion = await promotion.findOne();
             let selectedPlan = selectedPromotion.Plans.find((plan) => plan.NameofPlan === planChosen);
             let selectedSubPlan = selectedPlan.SubPlans[subPlanchosen - 1];
+            console.log(selectedSubPlan);
             // Check if the promotion is found
             if (!selectedPromotion) {
                 res.status(400).json({ error: 'Invalid promotion', success: false });
@@ -83,7 +92,6 @@ const createAppointment = async (req, res) => {
                 paymentReciept,
                 appointmentStatus: 'Pending' // Default status for new appointments
             });
-
             // Update user's appointment counter
             // Save the new appointment to the database
             await newAppointment.save();

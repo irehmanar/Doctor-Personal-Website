@@ -1,5 +1,6 @@
 import express from "express";
 import appointmentController from "../controllers/appointmentController.js";
+import userAuth from "../middleware/userAuth.js";
 import { body } from "express-validator";
 const appointmentRoutes = express.Router();
 appointmentRoutes.post("/createAppointment",
@@ -26,4 +27,5 @@ appointmentRoutes.post("/createAppointment",
 appointmentController.createAppointment);
 appointmentRoutes.get("/getPlans", appointmentController.getPlans);
 appointmentRoutes.get("/getSubPlans/:planName", appointmentController.getSubplans);
+appointmentRoutes.get("/getAppointment",userAuth, appointmentController.getApppointmentsbyPatientCnic);
 export default appointmentRoutes;

@@ -1,6 +1,8 @@
 import ContactUs from "../models/ContactUsModel.js";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
+dotenv.config();
 const sendContactUsMail = async (email, name, message) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
