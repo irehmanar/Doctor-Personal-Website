@@ -93,7 +93,6 @@ const createAppointment = async (req, res) => {
                 paymentReciept,
                 appointmentStatus: 'Pending' // Default status for new appointments
             });
-
             // Update user's appointment counter
             // Save the new appointment to the database
             await newAppointment.save();

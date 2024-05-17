@@ -19,6 +19,9 @@ async function userAuth(req, res, next) {
       const payload = jwt.verify(token, process.env.SECRET_KEY);
       console.log(payload);
       req.User = payload.auth_user;
+      if(req.User.role === 'Patient' || req.User.role === 'Admin'){
+        return res.status(401).json({ message: "Unauthorized" });
+      }
       next();
     } catch (error) {
       return res.status(401).json({ message: "Unauthorized" });

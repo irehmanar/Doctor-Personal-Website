@@ -86,8 +86,8 @@ const appointmentSchema = new mongoose.Schema({
     },
     planChosen: {
         type: String,
-        required: true
-    },
+        required: true,
+    }, 
     subPlanchosen: {
         type: Number,
         required: true

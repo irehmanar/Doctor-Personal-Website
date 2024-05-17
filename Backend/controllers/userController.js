@@ -3,6 +3,9 @@ import bcryptjs from "bcryptjs";
 import nodemailer from "nodemailer";
 import jsonwebtoken from "jsonwebtoken";
 import crypto from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 // import {validationResult ,body} from "express-validator";
 
 // saveVerificationToken
@@ -28,14 +31,14 @@ const generateVerificationToken = () => {
 // sendVerificationMail
 const sendVerificationEmail = async (email, token) => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
+    host: process.env.HOST,
+    port: process.env.PORT,
     secure: false,
 
-    service: "gmail",
+    service: process.env.SERVICE,
     auth: {
-      user: "abrehman.bscs22seecs@seecs.edu.pk",
-      pass: "STUDEnt@1235",
+      user: process.env.GMAIL_USER ,
+      pass: process.env.GMAIL_PASS
     },
   });
 
@@ -119,6 +122,7 @@ const verifyUser = async (req, res) => {
 // signin path => "/Hospital/signin"
 const signin = async (req, res) => {
   try {
+    console.log(req.body)
     const { username, password } = req.body;
     if (!username | !password) {
       return res.status(202).json({ message: "Incomplete content" });
@@ -146,7 +150,7 @@ const signin = async (req, res) => {
         } else {
           auth_user.password = undefined;
           const success = true;
-          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "5h" });
+          const token = jsonwebtoken.sign({ auth_user }, process.env.SECRET_KEY, { expiresIn: "5h" });
           res.cookie("authorization", `Bearer ${token}`);
           return res.status(200).json({ token:`Bearer ${token}`, message: "login successfully", success,role:auth_user.role });
         }
@@ -251,7 +255,7 @@ const updateUsername = async(req,res) =>{
     return res.status(400).json({message:"error",errors:"incomplete content",success});
   }else{
     try{
-      const existUser = await user.findOne({username:username});
+      const existUser = await user.findOne({_id:User._id});
       if(existUser)
         {
           success = false;
@@ -274,6 +278,12 @@ const updateUsername = async(req,res) =>{
 
 //get User by ID
 const getUserById = async (req, res) => { 
-
+  const User = req.User;
+  try {
+    const existUser = await user.findOne({_id:User._id});
+      return res.json(existUser);
+  } catch (error) {
+      return res.status(404).json({ message: error.message });
+  }
 }
 export default { signup, signin, updatePatient, getPatientByUserId, verifyUser,updatePassword ,updateUsername};
