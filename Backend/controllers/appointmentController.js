@@ -16,7 +16,7 @@ const createAppointment = async (req, res) => {
             const key = Object.keys(item)[0];
             appointmentData[key] = item[key];
         });
-        console.log(appointmentData)
+        console.log(appointmentData);
         // Now you can use appointmentData instead of req.body
         const {
             patientFullName,
@@ -46,6 +46,7 @@ const createAppointment = async (req, res) => {
         } = appointmentData;
         
             // Find the promotion based on the selected promotion type
+            console.log(subPlanchosen, typeof subPlanchosen);
             let selectedPromotion = await promotion.findOne();
             let selectedPlan = selectedPromotion.Plans.find((plan) => plan.NameofPlan === planChosen);
             let selectedSubPlan = selectedPlan.SubPlans[subPlanchosen - 1];
@@ -98,11 +99,13 @@ const createAppointment = async (req, res) => {
 
             // Send a success response
             res.status(201).json({ message: 'Appointment created successfully', success: true });
-         } catch (error) {
+            } catch (error) {
                 console.error('Error creating appointment:', error);
                 res.status(500).json({ error: 'Internal server error', success: false });
             }
-       };
+        };
+
+
     const getPlans = async (req, res) => {
         try {
             // Find all promotions
@@ -116,6 +119,7 @@ const createAppointment = async (req, res) => {
             res.status(500).json({ error: 'Internal server error', success: false });
         }
     }
+
     const getSubplans = async (req,res) => {
         const planName  = req.params.planName;
         let selectedPromotion = await promotion.findOne();
@@ -128,8 +132,10 @@ const createAppointment = async (req, res) => {
         res.status(200).json({ subPlans, success: true });
 
     }
+
+
     // get all appointments of user by Patientcnic
-const getApppointmentsbyPatientCnic = async (req, res) => {
+    const getApppointmentsbyPatientCnic = async (req, res) => {
     try {
         const User = req.User
         const appointments = await appointment.find({ patientCNIC: User.cnic});

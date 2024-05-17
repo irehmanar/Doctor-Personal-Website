@@ -171,16 +171,14 @@ const dashboard = async ({ req, res }) => {
 };
 
 
-const patientPage = async ({ req, res }) => {
-    const today = new Date();
-    const todayDate = new Date(today.toISOString().split('T')[0]);
-    const currentDayStart = new Date()
-    currentDayStart.setHours(0,0,0,0)
-    const currentDayEnd = new Date(todayDate.getDate() + 1)
-    currentDayEnd.setHours(0,0,0,0)
-    currentDayStart.setHours(0, 0, 0, 0); // set currentDayStart to start of day i.e. 12:00 am
-    try {
 
+
+
+
+const patientPage = async({req,res}) => {
+    try {
+        const currentDayEnd = new Date().setHours(23, 59, 59, 999);
+        const currentDayStart = new Date().setHours(0, 0, 0, 0);
         const patientsByLocallocation = await user.aggregate([
             {
                 $match: {
@@ -398,15 +396,20 @@ const viewappointment = async ({ res }) => {
         res.status(500).json({ error: "Server error", success: false });
     }
 };
+
+
+
+
+
 const acceptAppointment = async ({ req, res }) => {
     try {
-        const id = req.params.Id;
-        const appointments = await appointment.findById(id);
-        if (!appointments) {
-            res.status(404).json({ error: "No appointments found with this ID", success: false });
-        } else if (appointments.appointmentStatus === "Approved") {
-            res.status(400).json({ error: "Appointment already accepted", success: false });
-        } else {
+        const today = new Date();
+        const todayDate = today.toISOString().split('T')[0];
+        const appointments = await appointment.findOne({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).sort({ appointmentdate: 1 });
+        if (appointments) {
             appointments.appointmentStatus = "Approved";
             await appointments.save();
             res.status(200).json({ success: true, message: "Appointment accepted successfully" });

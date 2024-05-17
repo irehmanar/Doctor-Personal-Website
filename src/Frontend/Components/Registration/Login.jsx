@@ -17,6 +17,7 @@ function Login() {
       onSubmit: (values) => {
         const apiUrl = 'http://localhost:3333/Hospital/signin';
         const data = values;
+        console.log(data);
 
         const requestOptions = {
           method: 'POST',

@@ -17,7 +17,7 @@ app.use('/hospital',userRoutes);
 app.use('/promotion',promotionRoutes);
 app.use('/appointment',appointmentRoutes);
 app.use('/adminDashboard',adminDashboardRoute);
-app.use('/hospital',contactUsRoutes)
+
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 });

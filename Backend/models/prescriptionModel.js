@@ -10,7 +10,7 @@ const prescriptionSchema = new mongoose.Schema({
             required: true
         },
     image:{
-            type:[String],
+            type:[String], //ARRAY NEEDED
             required: true
         },
 });
