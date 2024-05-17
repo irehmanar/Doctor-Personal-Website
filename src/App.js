@@ -27,26 +27,34 @@ function App() {
     <div className="app">
     <BrowserRouter>
     <Routes>
-    <Route path='/' element={<Home/>}></Route>
-    <Route path='/Contactus' element={<Contactus/>}></Route>
-    <Route path='/Aboutus' element={<AboutUs/>}></Route>
-    <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
-    <Route path='/Blog' element={<Blog/>}></Route>
-    <Route path='/Login' element={<Login/>}></Route>
-    <Route path='/Settings' element={<SettingsPage/>}></Route>
-    <Route path='/Plans' element={<ViewPlans/>}></Route>
-    <Route path='/Services' element={<Services/>}></Route>
-    <Route path='/Histroy' element={<Histroy/>}></Route>
-    <Route path='/Appointments' element={<Appointment/>}></Route>
-    <Route path='/Info' element={<PersonalInfo/>}></Route>
-    <Route path='/Booking' element={<Booking/>}></Route>
-    <Route path='/AddPrescription' element={<AddPrescription/>}></Route>
+    <Route path='/' element={<Home/>}></Route> //Done
+    <Route path='/Contactus' element={<Contactus/>}></Route> //Done
+    <Route path='/Aboutus' element={<AboutUs/>}></Route> //Done
+    <Route path='/Blogs' element={<BlogsDisplay/>}></Route> //Ismail
+    <Route path='/Blog' element={<Blog/>}></Route> //Ismail
+    <Route path='/Login' element={<Login/>}></Route> //Done
+    <Route path='/Settings' element={<SettingsPage/>}></Route> //Ismail
+    <Route path='/Plans' element={<ViewPlans/>}></Route> //Done 
+    <Route path='/Services' element={<Services/>}></Route> //Done
+    <Route path='/Appointments' element={<Appointment/>}></Route> // Done
+
+
+    
+    <Route path='/Histroy' element={<Histroy/>}></Route>  
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
-    <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route> 
+    <Route path='/Info' element={<PersonalInfo/>}></Route>
+    <Route path='/AddPrescription' element={<AddPrescription/>}></Route>
+
     <Route path='/Admin/Patient' element={<Patient/>}></Route>
     <Route path='/Admin/Package' element={<Package/>}></Route>
     <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route>
-    <Route path='/AddPlan' element={<AddPlans/>}></Route>
+
+
+    <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>  //Little change
+    <Route path='/Booking' element={<Booking/>}></Route>  //Error in backend
+    
+    
+    <Route path='/AddPlan' element={<AddPlans/>}></Route> //delay
     </Routes>
     </BrowserRouter>
     </div>

@@ -28,10 +28,8 @@ function Contactus() {
     try {
       const result = await contactUs(formData);
       console.log('Email Sent Successfully:', result);
-      // Handle success
   } catch (error) {
       console.error('Error creating appointments:', error);
-      // Handle error
   }
   }
 
