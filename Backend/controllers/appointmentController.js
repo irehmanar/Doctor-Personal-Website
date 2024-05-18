@@ -1,5 +1,6 @@
 import appointment from "../models/appointment.js";
 import promotion from "../models/promotionModel.js";
+import prescription from "../models/prescriptionModel.js";
 import user from "../models/userModel.js";
 import { validationResult } from "express-validator";
 
@@ -134,14 +135,34 @@ const createAppointment = async (req, res) => {
     }
 
 
-    // get all appointments of user by Patientcnic
-    const getApppointmentsbyPatientCnic = async (req, res) => {
-    try {
-        const User = req.User
-        const appointments = await appointment.find({ patientCNIC: User.cnic});
-        res.json(appointments);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-};
-export default { createAppointment, getPlans , getSubplans,getApppointmentsbyPatientCnic};
+    const getAllAppointments = async (req, res) => {
+        try {
+            const { patientCNIC } = req.User.CNIC; // Extract patientCNIC from PAYLOAD
+    
+            const appointments = await appointment.find({ patientCNIC: patientCNIC });
+    
+            if (appointments.length === 0) {
+                throw new Error('No appointments found for the given CNIC');
+            }
+    
+            // Projecting data to the required format
+            const projectedData = appointments.map(appointment => ({
+                id: appointment._id,
+                Appointment: appointment.appointmentdate.toISOString().split('T')[0], // Format date as 'dd-mm-yyyy'
+                planner: appointment.planChosen,
+                month: appointment.month,
+                image: appointment.prescription[0]?.image || [], // Assuming you want the images from the first prescription
+                pdf: appointment.prescription[0]?.pdf || [] // Assuming you want the PDFs from the first prescription
+            }));
+    
+            console.log("Projected Data:", projectedData);
+            res.json(projectedData); // Send the projected data as the response
+        } catch (err) {
+            console.error("Error fetching appointments:", err);
+            res.status(500).json({ error: err.message }); // Send an error response
+        }
+    };
+    
+
+    
+export default { createAppointment, getPlans , getSubplans,getAllAppointments};

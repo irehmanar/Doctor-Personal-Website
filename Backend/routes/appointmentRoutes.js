@@ -27,5 +27,5 @@ appointmentRoutes.post("/createAppointment",
 appointmentController.createAppointment); // Done
 appointmentRoutes.get("/getPlans", appointmentController.getPlans); //Done DESCRIPTION NEED TO BE ADDED
 appointmentRoutes.get("/getSubPlans/:planName", appointmentController.getSubplans); //Done
-appointmentRoutes.get("/getAppointment",userAuth, appointmentController.getApppointmentsbyPatientCnic);
+appointmentRoutes.get("/getAppointment",userAuth,appointmentController.getAllAppointments); //done
 export default appointmentRoutes;

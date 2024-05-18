@@ -7,4 +7,5 @@ adminDashboardRoute.get('/viewAppointment',adminDashboardController.viewappointm
 adminDashboardRoute.put('/acceptAppointment/:Id',adminDashboardController.acceptAppointment);
 adminDashboardRoute.get('/patientPage',adminDashboardController.patientPage);
 adminDashboardRoute.get('/packagePage',adminDashboardController.packagePage);
+adminDashboardRoute.get('/patientData',adminDashboardController.getLatestAppointments);
 export default adminDashboardRoute

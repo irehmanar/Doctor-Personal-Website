@@ -38,6 +38,7 @@ const sendVerificationEmail = async (email, token) => {
     auth: {
       user: "abrehman.bscs22seecs@seecs.edu.pk",
       pass: "STUDEnt@1235"
+      
     },
   });
 
