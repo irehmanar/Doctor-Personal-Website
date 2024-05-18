@@ -15,6 +15,7 @@ async function userAuth(req, res, next) {
     try {
       const payload = jwt.verify(token, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr");
       req.User = payload.auth_user;
+      console.log(req.User);
       next();
     } catch (error) {
       return res.status(401).json({ message: "Unauthorized" });

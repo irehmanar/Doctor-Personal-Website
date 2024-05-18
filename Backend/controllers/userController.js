@@ -166,7 +166,14 @@ const signin = async (req, res) => {
 
 //update Patient
 const updatePatient = async (req, res) => {
-
+  const User = req.User;
+  const data = req.body;
+        let userData = {};
+        data.forEach(item => {
+            const key = Object.keys(item)[0];
+            userData[key] = item[key];
+        });
+        console.log(userData);
   const { 
     patientFullName,
     patientCNIC,
@@ -179,8 +186,7 @@ const updatePatient = async (req, res) => {
     patientFoodAvoid,
     patientHomeCook,
     patientWristCircumference,
-    patientHeight } = req.body;
-  const User = req.User;
+    patientHeight } = userData;
   let success;
   if (!patientCNIC ) {
     success = false;
@@ -306,6 +312,7 @@ const getUserinfoByToken = async (req, res) => {
   const User = req.User;
   try{
     const existUser = await user.findOne({ _id: User._id });
+    console.log(existUser)
     const {
             patientFullName,
             cnic,
@@ -327,5 +334,15 @@ const getUserinfoByToken = async (req, res) => {
     return res.status(404).json({ message: error.message });
   }
 }
+//getUsername
+const getUsername = async (req, res) => {
+  const User = req.User;
+  try {
+    const existUser = await user.findOne({ _id: User._id });
+    return res.json(existUser.username);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
 
-export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername ,getUserinfoByToken};
+}
+export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername ,getUserinfoByToken,getUsername};
