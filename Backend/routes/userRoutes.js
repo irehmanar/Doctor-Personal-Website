@@ -10,4 +10,5 @@ userRoutes.put("/updatePatient",userAuth,userController.updatePatient);
 userRoutes.put("/changePassword",userAuth,userController.updatePassword);
 userRoutes.put("/changeUsername",userAuth,userController.updateUsername);
 userRoutes.get("/getUserinfo",userAuth,userController.getUserinfoByToken);
+userRoutes.get("/getUsername",userAuth,userController.getUsername);
 export default userRoutes;
