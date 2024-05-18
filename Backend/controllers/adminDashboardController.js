@@ -1,199 +1,179 @@
-import appointment from '../models/appointment.js'
-import promotion from '../models/promotionModel.js'
-import user from '../models/userModel.js'
+import appointment from "../models/appointment.js";
+import promotion from "../models/promotionModel.js";
+import user from "../models/userModel.js";
 const dashboard = async ({ req, res }) => {
-  try {
-    const today = new Date()
-    const oneMonthAgo = new Date()
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-    const todayDate = new Date(today.toISOString().split('T')[0])
-    const dailyPatientAvg = await appointment.aggregate([
-      // Use 'appointment' directly
-      {
-        $match: {
-          appointmentdate: {
-            $gte: oneMonthAgo,
-            $lte: today
-          }
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          totalAppointments: { $sum: 1 }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          monthlyAverage: { $divide: ['$totalAppointments', 30] }
-        }
-      }
-    ])
-    const dailyincome = await appointment.aggregate([
-      {
-        $match: {
-          appointmentdate: {
-            $eq: todayDate
-          }
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          totalIncome: { $sum: '$promotionIncome' }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          totalIncome: '$totalIncome'
-        }
-      }
-    ])
-    const monthlyIncome = await appointment.aggregate([
-      {
-        $match: {
-          appointmentdate: {
-            $gte: oneMonthAgo,
-            $lte: today
-          }
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          totalmonthlyincome: { $sum: '$promotionIncome' }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          totalmonthlyincome: '$totalmonthlyincome'
-        }
-      }
-    ])
-    const overallIncome = await appointment.aggregate([
-      {
-        $match: {}
-      },
-      {
-        $group: {
-          _id: null,
-          totalincome: { $sum: '$promotionIncome' }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          totalincome: '$totalincome'
-        }
-      }
-    ])
-    const findIncomeByMonth = async () => {
-      try {
-        const currentDay = new Date()
-        let currentMonth = currentDay.getMonth()
-        const currentYear = currentDay.getFullYear()
-        const lastYear = currentYear - 1
-        const months = [] // Array to store results for each month
-        let yearchange = false
-        const monthNames = [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
-        ]
-        let startDate
-        let endDate
-        for (let count = 0; count <= 12; count++) {
-          if (!yearchange) {
-            startDate = new Date(lastYear, currentMonth, 1)
-            endDate = new Date(lastYear, currentMonth + 1, 0) // Last day of the month
-          } else {
-            startDate = new Date(currentYear, currentMonth, 1)
-            endDate = new Date(currentYear, currentMonth + 1, 0) // Last day of the month
-          }
-          const monthlyIncome = await appointment.aggregate([
+    try {
+        const today = new Date();
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        const todayDate = new Date(today.toISOString().split('T')[0]);
+        const dailyPatientAvg = await appointment.aggregate([ // Use 'appointment' directly
             {
-              $match: {
-                appointmentdate: { $gte: startDate, $lte: endDate }
-              }
+                $match: {
+                    appointmentdate: {
+                        $gte: oneMonthAgo,
+                        $lte: today
+                    }
+                }
             },
             {
-              $group: {
-                _id: null,
-                totalIncome: { $sum: '$promotionIncome' }
-              }
+                $group: {
+                    _id: null,
+                    totalAppointments: { $sum: 1 }
+                }
             },
             {
-              $project: {
-                _id: 0,
-                month: { $month: '$appointmentdate' },
-                year: { $year: '$appointmentdate' },
-                totalIncome: '$totalIncome'
-              }
+                $project: {
+                    _id: 0,
+                    monthlyAverage: { $divide: ["$totalAppointments", 30] }
+                }
             }
-          ])
+        ]);
+        const dailyincome = await appointment.aggregate([
+            {
+                $match: {
+                    appointmentdate: {
+                        $eq: todayDate
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalIncome: { $sum: "$promotionIncome" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalIncome: "$totalIncome"
+                }
+            }
+        ]);
+        const monthlyIncome = await appointment.aggregate([
+            {
+                $match: {
+                    appointmentdate: {
+                        $gte: oneMonthAgo,
+                        $lte: today
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalmonthlyincome: { $sum: "$promotionIncome" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalmonthlyincome: "$totalmonthlyincome"
+                }
+            }
+        ]);
+        const overallIncome = await appointment.aggregate([
+            {
+                $match: {
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalincome: { $sum: "$promotionIncome" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalincome: "$totalincome"
+                }
+            }
+        ]);
+        const findIncomeByMonth = async () => {
+            try {
+                const currentDay = new Date();
+                let currentMonth = currentDay.getMonth();
+                const currentYear = currentDay.getFullYear();
+                const lastYear = currentYear - 1
+                const months = []; // Array to store results for each month
+                let yearchange = false;
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                let startDate;
+                let endDate;
+                for (let count = 0; count <= 12; count++) {
+                    if (!yearchange) {
+                        startDate = new Date(lastYear, currentMonth, 1);
+                        endDate = new Date(lastYear, currentMonth + 1, 0); // Last day of the month
+                    }
+                    else {
+                        startDate = new Date(currentYear, currentMonth, 1);
+                        endDate = new Date(currentYear, currentMonth + 1, 0); // Last day of the month
+                    }
+                    const monthlyIncome = await appointment.aggregate([
+                        {
+                            $match: {
+                                appointmentdate:
+                                    { $gte: startDate, $lte: endDate },
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: null,
+                                totalIncome: { $sum: "$promotionIncome" }
+                            }
+                        },
+                        {
+                            $project: {
+                                _id: 0,
+                                month: { $month: "$appointmentdate" },
+                                year: { $year: "$appointmentdate" },
+                                totalIncome: "$totalIncome"
+                            }
+                        }
+                    ]);
 
-          const monthName = monthNames[currentMonth] // Get month name from array
-          if (!yearchange) {
-            months.push({
-              month: monthName,
-              year: currentYear - 1,
-              totalIncome:
-                monthlyIncome.length > 0 ? monthlyIncome[0].totalIncome : 0
-            })
-          } else {
-            months.push({
-              month: monthName,
-              year: currentYear,
-              totalIncome:
-                monthlyIncome.length > 0 ? monthlyIncome[0].totalIncome : 0
-            })
-          }
-          if (currentMonth === 11) {
-            currentMonth = 0
-            yearchange = true
-            continue
-          }
-          currentMonth++
-        }
+                    const monthName = monthNames[currentMonth]; // Get month name from array
+                    if (!yearchange) {
+                        months.push({ month: monthName, year: currentYear - 1, totalIncome: monthlyIncome.length > 0 ? monthlyIncome[0].totalIncome : 0 });
+                    }
+                    else {
+                        months.push({ month: monthName, year: currentYear, totalIncome: monthlyIncome.length > 0 ? monthlyIncome[0].totalIncome : 0 });
+                    }
+                    if (currentMonth === 11) {
+                        currentMonth = 0;
+                        yearchange = true;
+                        continue;
+                    }
+                    currentMonth++;
+                }
 
-        return months
-      } catch (error) {
-        console.error('Error finding income by month:', error)
-        return []
-      }
+                return months;
+            } catch (error) {
+                console.error("Error finding income by month:", error);
+                return [];
+            }
+        };
+
+
+        const monthlyAverage = dailyPatientAvg.length > 0 ? dailyPatientAvg[0].monthlyAverage : 0;
+        const dailyIncome = dailyincome.length > 0 ? dailyincome[0].totalIncome : 0;
+        const monthlyIncomeValue = monthlyIncome.length > 0 ? monthlyIncome[0].totalmonthlyincome : 0;
+        const totalIncomeValue = overallIncome.length > 0 ? overallIncome[0].totalincome : 0;
+        res.json({ monthlyAverage, dailyIncome, monthlyIncomeValue, totalIncomeValue, incomeByMonth: await findIncomeByMonth() });
+    } catch (error) {
+        console.error("Error calculating monthly patient average:", error);
+        res.status(500).json({ error: "Server error" }, { success: false });
     }
+};
 
-    const monthlyAverage =
-      dailyPatientAvg.length > 0 ? dailyPatientAvg[0].monthlyAverage : 0
-    const dailyIncome = dailyincome.length > 0 ? dailyincome[0].totalIncome : 0
-    const monthlyIncomeValue =
-      monthlyIncome.length > 0 ? monthlyIncome[0].totalmonthlyincome : 0
-    const totalIncomeValue =
-      overallIncome.length > 0 ? overallIncome[0].totalincome : 0
-    res.json({
-      monthlyAverage,
-      dailyIncome,
-      monthlyIncomeValue,
-      totalIncomeValue,
-      incomeByMonth: await findIncomeByMonth()
-    })
-  } catch (error) {
-    console.error('Error calculating monthly patient average:', error)
-    res.status(500).json({ error: 'Server error' }, { success: false })
-  }
-}
+
+
+
+
 
 const patientPage = async({req,res}) => {
     try {
@@ -383,7 +363,7 @@ const patientPage = async({req,res}) => {
           
 
 
-          
+
         const newPatientsToday = appointmentsCount.length > 0 ? appointmentsCount[0].totalAppointments : 0;
         const patientsTodayCount = patientsToday.length > 0 ? patientsToday[0].count : 0;
         const femalePatientTodayCount = femalePatientsToday.length> 0 ? femalePatientsToday[0].count : 0;
@@ -401,45 +381,50 @@ const patientPage = async({req,res}) => {
     }
 }
 
+
+
+
 const viewappointment = async ({ res }) => {
-  try {
-    const today = new Date()
-    const todayDate = today.toISOString().split('T')[0]
-    const allAppointments = await appointment
-      .find({
-        appointmentdate: todayDate,
-        appointmentStatus: 'Pending'
-      })
-      .select('id appointmentdate appointmentStatus planChosen month')
-    res.status(200).json({ success: true, allAppointments })
-  } catch (error) {
-    console.error('Error viewing appointments:', error)
-    res.status(500).json({ error: 'Server error', success: false })
-  }
-}
+    try {
+        const today = new Date();
+        const todayDate = today.toISOString().split('T')[0];
+        const allAppointments = await appointment.find({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).select("id appointmentdate appointmentStatus planChosen month")
+        res.status(200).json({ success: true, allAppointments });
+    } catch (error) {
+        console.error("Error viewing appointments:", error);
+        res.status(500).json({ error: "Server error", success: false });
+    }
+};
+
+
+
+
 
 const acceptAppointment = async ({ req, res }) => {
-  try {
-    const today = new Date()
-    const todayDate = today.toISOString().split('T')[0]
-    const appointments = await appointment
-      .findOne({
-        appointmentdate: todayDate,
-        appointmentStatus: 'Pending'
-      })
-      .sort({ appointmentdate: 1 })
-    if (appointments) {
-      appointments.appointmentStatus = 'Approved'
-      await appointments.save()
-      res
-        .status(200)
-        .json({ success: true, message: 'Appointment accepted successfully' })
+    try {
+        const today = new Date();
+        const todayDate = today.toISOString().split('T')[0];
+        const appointments = await appointment.findOne({
+            appointmentdate: todayDate,
+            appointmentStatus: "Pending",
+        }).sort({ appointmentdate: 1 });
+        if (appointments) {
+            appointments.appointmentStatus = "Approved";
+            await appointments.save();
+            res.status(200).json({ success: true, message: "Appointment accepted successfully" });
+        }
+    } catch (error) {
+        console.error("Error accepting appointment:", error);
+        res.status(500).json({ error: "Server error", success: false });
     }
-  } catch (error) {
-    console.error('Error accepting appointment:', error)
-    res.status(500).json({ error: 'Server error', success: false })
-  }
-}
+};
+
+
+
+
 
 const  packagePage  = async ({ req, res }) => {
     try {
@@ -744,46 +729,77 @@ const getMostFrequentPlan = async () => {
       console.error("Error getting most frequent plan:", error);
       return null;
     }
-    const getAppointmentsLatestToOldest = async () => {
-      try {
-        const appointments = await appointment.aggregate([
-          {
-            $sort: {
-              appointmentdate: -1 // Sort by appointment date in descending order
-            }
+  };
+  const getAppointmentsLatestToOldest = async () => {
+    try {
+      const appointments = await appointment.aggregate([
+        {
+          $sort: {
+            appointmentdate: -1 // Sort by appointment date in descending order
           }
-        ])
-        return appointments
-      } catch (error) {
-        console.error('Error retrieving appointments:', error)
-        throw error
-      }
+        }
+      ]);
+      return appointments;
+    } catch (error) {
+      console.error('Error retrieving appointments:', error);
+      throw error;
     }
+  };
 
-    const mostFrequentPlan = await getMostFrequentPlan()
-    const totalAppointments = await getTotalAppointmentsCount()
-    const basicPlanByMonth = await findBasicPlanByMonth()
-    const premiumPlanByMonth = await findPremiumPlanByMonth()
-    const allAppointmentsByMonth = await findAllAppointmentsByMonth()
+        const mostFrequentPlan = await getMostFrequentPlan();
+        const totalAppointments = await getTotalAppointmentsCount();
+        const basicPlanByMonth = await findBasicPlanByMonth();
+        const premiumPlanByMonth = await findPremiumPlanByMonth();
+        const allAppointmentsByMonth = await findAllAppointmentsByMonth();
 
-    res
-      .status(200)
-      .json({
-        basicPlanByMonth,
-        premiumPlanByMonth,
-        allAppointmentsByMonth,
-        totalAppointments,
-        mostFrequentPlan,
-        success: true
-      })
-  } catch (error) {
-    res.status(500).json({ error: 'Server error', success: false })
-  }
+
+
+
+          res.status(200).json({ basicPlanByMonth, premiumPlanByMonth, allAppointmentsByMonth,totalAppointments,mostFrequentPlan,success: true });
+    } catch (error) {
+        res.status(500).json({ error: "Server error", success: false });
+    }
 }
-export default {
-  dashboard,
-  acceptAppointment,
-  viewappointment,
-  patientPage,
-  packagePage
-}
+
+const getLatestAppointments = async (req, res) => {
+    try {
+      const latestAppointments = await appointment.aggregate([
+        // Sort by appointmentdate in descending order
+        {
+          $sort: { appointmentdate: -1 }
+        },
+        // Group by patientCNIC and take the first document in each group
+        {
+          $group: {
+            _id: "$patientCNIC",
+            latestAppointment: { $first: "$$ROOT" }
+          }
+        },
+        // Replace the root with the latestAppointment field
+        {
+          $replaceRoot: { newRoot: "$latestAppointment" }
+        },
+        // Project only the fields you want to include in the output
+        {
+          $project: {
+            patientFirstName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 0] },
+            patientLastName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 1] },
+            patientAge: 1,
+            patientFullName: 1,
+            appointmentdate:1,    
+            planChosen: 1,
+            patientCNIC: 1,
+            patientEmail: 1,
+            appointmentStatus: 1
+          }
+        }
+      ]);
+  
+      res.json(latestAppointments);
+    } catch (error) {
+      console.error('Error retrieving latest appointments:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage,getLatestAppointments };

@@ -38,6 +38,8 @@ function App() {
     <Route path='/Services' element={<Services/>}></Route> //Done
     <Route path='/Appointments' element={<Appointment/>}></Route> // Done
     <Route path='/AddPrescription' element={<AddPrescription/>}></Route> //Done almost
+    <Route path='/Admin/Patient' element={<Patient/>}></Route> //Done
+    <Route path='/Admin/Package' element={<Package/>}></Route> //Done   
 
 
     
@@ -45,8 +47,6 @@ function App() {
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
     <Route path='/Info' element={<PersonalInfo/>}></Route>
 
-    <Route path='/Admin/Patient' element={<Patient/>}></Route>
-    <Route path='/Admin/Package' element={<Package/>}></Route>
     <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route>
 
 
