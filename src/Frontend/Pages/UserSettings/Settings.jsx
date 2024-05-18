@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
 import { addImage } from "../../../aws/addimage.js";
 import { updateUsername } from '../../../Services/ChangeUserName.js';
+import changePassword from '../../../Services/ChangePassword.js';
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('Guest');
   const [newUsername, setNewUsername] = useState('');
   const [profilePic, setProfilePic] = useState('https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); // Default profile picture path
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -52,18 +54,22 @@ const Settings = () => {
     addImage();
   }
 
-  const handlePasswordChange = () => {
+  const handlePasswordChange = async () => {
     if (newPassword === confirmPassword) {
-      // Logic to change password
-      setPasswordChanged(true);
-      // Reset password fields
-      setNewPassword('');
-      setConfirmPassword('');
+      const result = await changePassword(oldPassword, newPassword);
+      if (result.success) {
+        setPasswordChanged(true);
+        setOldPassword(''); // Reset oldPassword field
+        setNewPassword(''); // Reset newPassword field
+        setConfirmPassword(''); // Reset confirmPassword field
+      } else {
+        alert(result.message);
+      }
     } else {
-      // Display error message or handle password mismatch
       alert("Passwords don't match. Please try again.");
     }
   };
+  
 
   const handleAddAdminButtonClick = () => {
     setShowAddAdmin(!showAddAdmin); // Toggle the state
@@ -149,38 +155,48 @@ const Settings = () => {
 
       {/* Change Password option */}
       {showChangePassword && (
-        <div className="mb-6">
-          <h3 className="text-lg mb-2">Change Password</h3>
-          <form>
-            <div className="mb-2">
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter new password"
-                className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm new password"
-                className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={handlePasswordChange}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Change Password
-            </button>
-            {passwordChanged && <p className="text-green-500 mt-2">Password changed successfully!</p>}
-          </form>
-        </div>
-      )}
+  <div className="mb-6">
+    <h3 className="text-lg mb-2">Change Password</h3>
+    <form>
+      <div className="mb-2">
+        <input
+          type="password"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+          placeholder="Enter old password"
+          className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+        />
+      </div>
+      <div className="mb-2">
+        <input
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter new password"
+          className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+        />
+      </div>
+      <div className="mb-2">
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm new password"
+          className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+        />
+      </div>
+      <button
+        type="button"
+        onClick={handlePasswordChange}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Change Password
+      </button>
+      {passwordChanged && <p className="text-green-500 mt-2">Password changed successfully!</p>}
+    </form>
+  </div>
+)}
+
 
       {/* Add Admin option */}
       {showAddAdmin && (
@@ -226,12 +242,13 @@ const Settings = () => {
       )}
       
         <div>
-            {/* <form id = "aws-form" encType="multipart/form-data">
+            
+        <h3 className="text-lg mb-2">Forms Page</h3>
+        <p className="mb-4">This section will link to forms page (to be integrated later).</p>
+        {/* <form id = "aws-form" encType="multipart/form-data">
               <input id = "file-input" type= "file" name="test" onChange={handleAWS}></input>
               <button type = "submit">Upload</button>
           </form> */}
-        <h3 className="text-lg mb-2">Forms Page</h3>
-        <p className="mb-4">This section will link to forms page (to be integrated later).</p>
           <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
       </div>
       </div>
