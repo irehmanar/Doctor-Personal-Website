@@ -64,11 +64,11 @@ function Widget({type,value}) {
         case 'newpatient':
             data = {
                 title: "NEW PATIENTS",
-                isMoney : true,
+                // isMoney : true,
                 link: "View details",
-                icon: <AccountBalanceIcon className='icon' style={{
-                    backgroundColor: "rgb(219, 87, 182)",
-                    color: "rgb(102, 10, 76)"
+                icon: <PersonIcon className='icon' style={{
+                    backgroundColor: "rgb(245, 112, 92)",
+                    color: "rgb(121, 35, 22)"
                 }}/>,
             };
             break;
@@ -76,9 +76,9 @@ function Widget({type,value}) {
         case 'totalpatient':
             data = {
                 title: "Today's PATIENTS",
-                isMoney : true,
+                // isMoney : true,
                 link: "View details",
-                icon: <AccountBalanceIcon className='icon' style={{
+                icon: <PersonIcon className='icon' style={{
                     backgroundColor: "rgb(219, 87, 182)",
                     color: "rgb(102, 10, 76)"
                 }}/>,
@@ -87,31 +87,32 @@ function Widget({type,value}) {
         case 'femalepatient':
             data = {
                 title: "Today's Female Patients",
-                isMoney : true,
+                // isMoney : true,
                 link: "View details",
-                icon: <AccountBalanceIcon className='icon' style={{
-                    backgroundColor: "rgb(219, 87, 182)",
-                    color: "rgb(102, 10, 76)"
+                icon: <PersonIcon className='icon' style={{
+                    backgroundColor: "rgb(111, 219, 87)",
+                    color: "rgb(24, 67, 14)"
                 }}/>,
             };
             break;
         case 'malepatient':
             data = {
                 title: "Today's Male Patients",
-                isMoney : true,
+                // isMoney : true,
                 link: "View details",
-                icon: <AccountBalanceIcon className='icon' style={{
-                    backgroundColor: "rgb(219, 87, 182)",
-                    color: "rgb(102, 10, 76)"
+                icon: <PersonIcon className='icon' style={{
+                   
+                      backgroundColor: "rgb(86, 165, 230)",
+                    color: "rgb(10, 24, 102)"
                 }}/>,
             };
             break;
         case 'toppackage':
             data = {
                 title: "Best Package",
-                isMoney : true,
+                isMoney : false,
                 link: "View details",
-                icon: <AccountBalanceIcon className='icon' style={{
+                icon: <PersonIcon className='icon' style={{
                     backgroundColor: "rgb(219, 87, 182)",
                     color: "rgb(102, 10, 76)"
                 }}/>,
@@ -120,7 +121,7 @@ function Widget({type,value}) {
         case 'totalappointment':
             data = {
                 title: "Total Appointment",
-                isMoney : true,
+                isMoney : false,
                 link: "View details",
                 icon: <AccountBalanceIcon className='icon' style={{
                     backgroundColor: "rgb(219, 87, 182)",

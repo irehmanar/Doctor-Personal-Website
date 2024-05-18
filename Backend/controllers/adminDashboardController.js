@@ -760,46 +760,4 @@ const getMostFrequentPlan = async () => {
         res.status(500).json({ error: "Server error", success: false });
     }
 }
-
-const getLatestAppointments = async (req, res) => {
-    try {
-      const latestAppointments = await appointment.aggregate([
-        // Sort by appointmentdate in descending order
-        {
-          $sort: { appointmentdate: -1 }
-        },
-        // Group by patientCNIC and take the first document in each group
-        {
-          $group: {
-            _id: "$patientCNIC",
-            latestAppointment: { $first: "$$ROOT" }
-          }
-        },
-        // Replace the root with the latestAppointment field
-        {
-          $replaceRoot: { newRoot: "$latestAppointment" }
-        },
-        // Project only the fields you want to include in the output
-        {
-          $project: {
-            patientFirstName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 0] },
-            patientLastName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 1] },
-            patientAge: 1,
-            patientFullName: 1,
-            appointmentdate:1,    
-            planChosen: 1,
-            patientCNIC: 1,
-            patientEmail: 1,
-            appointmentStatus: 1
-          }
-        }
-      ]);
-  
-      res.json(latestAppointments);
-    } catch (error) {
-      console.error('Error retrieving latest appointments:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  };
-  
-export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage,getLatestAppointments };
+export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage };

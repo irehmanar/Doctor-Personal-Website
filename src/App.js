@@ -37,22 +37,21 @@ function App() {
     <Route path='/Plans' element={<ViewPlans/>}></Route> //Done 
     <Route path='/Services' element={<Services/>}></Route> //Done
     <Route path='/Appointments' element={<Appointment/>}></Route> // Done
+    <Route path='/AddPrescription' element={<AddPrescription/>}></Route> //Done almost
+    <Route path='/Admin/Patient' element={<Patient/>}></Route> //Done
+    <Route path='/Admin/Package' element={<Package/>}></Route> //Done   
 
 
     
     <Route path='/Histroy' element={<Histroy/>}></Route>  
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
     <Route path='/Info' element={<PersonalInfo/>}></Route>
-    <Route path='/AddPrescription' element={<AddPrescription/>}></Route>
 
-    <Route path='/Admin/Patient' element={<Patient/>}></Route>
-    <Route path='/Admin/Package' element={<Package/>}></Route>
     <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route>
 
 
-    <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>  //Little change
+    <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>  //Little change needed
     <Route path='/Booking' element={<Booking/>}></Route>  //Error in backend
-    
     
     <Route path='/AddPlan' element={<AddPlans/>}></Route> //delay
     </Routes>

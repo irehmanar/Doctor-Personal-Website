@@ -25,8 +25,8 @@ function Histroy() {
       headerClassName: 'bold-header'
     },
     {
-      field: 'prescription',
-      headerName: 'Prescription',
+      field: 'month',
+      headerName: 'No of Month',
       editable: false,
       width: 150,
       headerClassName: 'bold-header'
@@ -44,12 +44,11 @@ function Histroy() {
   ];
   
   const rows = [
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium' },
+    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
+    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
+    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
+    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
+    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
   ];
   return (
     
