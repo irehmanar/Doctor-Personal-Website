@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
 import { addImage } from "../../../aws/addimage.js";
 
@@ -18,7 +18,9 @@ const Settings = () => {
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
   };
-
+  useEffect(() => {
+    addImage()
+  });
 
 
   const handleSubmit = (e) => {
@@ -45,9 +47,6 @@ const Settings = () => {
     setPasswordChanged(false); // Reset passwordChanged state
   };
 
-  const handleAWS = (e) => {
-    addImage();
-  }
 
   const handlePasswordChange = () => {
     if (newPassword === confirmPassword) {
@@ -224,8 +223,9 @@ const Settings = () => {
       
         <div>
             <form id = "aws-form" encType="multipart/form-data">
-              <input id = "file-input" type= "file" name="test" onChange={handleAWS}></input>
-              <button type = "submit">Upload</button>
+            <input className="file-input" type="file" name="test"></input>
+            <input className="file-input" type="file" name="test2"></input>
+              <button type ="submit">Upload</button>
           </form>
         <h3 className="text-lg mb-2">Forms Page</h3>
         <p className="mb-4">This section will link to forms page (to be integrated later).</p>
