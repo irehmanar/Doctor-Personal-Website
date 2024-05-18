@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
-import { addImage } from "../../../aws/addimage.js";
+// import { addImage } from "../../../aws/addimage.js";
 import { updateUsername } from '../../../Services/ChangeUserName.js';
 import changePassword from '../../../Services/ChangePassword.js';
 
@@ -21,9 +21,9 @@ const Settings = () => {
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
   };
-  useEffect(() => {
-    addImage()
-  });
+  //  useEffect(() => {
+  //     addImage()
+  //  },[]);
 
 
   const handleSubmit = (e) => {
