@@ -6,8 +6,8 @@ dotenv.config()
 
 const region = "eu-north-1"
 const bucketName = "doctor-project-website"
-const accessKeyId = "AKIAQ3EGVKIJ462B7BTX"
-const secretAccessKey = "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"
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY_ID
 //1st key saz7b71b7+KX+okPzM8VKcjCVbDE/rohnJ8cC2tF
 //2nd key SrTh0gSY6lzgoQOaERmyq3zjticinFKOF0lbp8ab
 
