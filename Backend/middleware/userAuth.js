@@ -6,18 +6,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function userAuth(req, res, next) {
-    console.log(req.headers);
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
-    console.log(token);
     // const token = req.cookie.authorization;
-    if (!token) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-  
+    // if (!token) {
+    //   return res.status(401).json({ message: "Unauthorized" });
+    // }
     try {
-      const payload = jwt.verify(token, process.env.SECRET_KEY);
-      console.log(payload);
+      const payload = jwt.verify(token, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr");
       req.User = payload.auth_user;
       next();
     } catch (error) {

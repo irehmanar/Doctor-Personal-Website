@@ -137,7 +137,7 @@ const createAppointment = async (req, res) => {
 
     const getAllAppointments = async (req, res) => {
         try {
-            const { patientCNIC } = req.User.CNIC; // Extract patientCNIC from PAYLOAD
+            const { patientCNIC } = req.User.cnic; // Extract patientCNIC from PAYLOAD
     
             const appointments = await appointment.find({ patientCNIC: patientCNIC });
     
@@ -159,7 +159,7 @@ const createAppointment = async (req, res) => {
             res.json(projectedData); // Send the projected data as the response
         } catch (err) {
             console.error("Error fetching appointments:", err);
-            res.status(500).json({ error: err.message }); // Send an error response
+            res.status(500).json({ error: err.message,success:false }); // Send an error response
         }
     };
     

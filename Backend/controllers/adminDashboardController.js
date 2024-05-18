@@ -760,4 +760,4 @@ const getMostFrequentPlan = async () => {
         res.status(500).json({ error: "Server error", success: false });
     }
 }
-export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage };
+export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage};
