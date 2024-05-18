@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
+
+    patientFullName : {
+        type: String,
+        required: true,
+    },
     patientCNIC: {
         type: Number,
         required: true
@@ -8,22 +13,92 @@ const appointmentSchema = new mongoose.Schema({
     appointmentdate: { // when booking an appointment automatically a date will be set
         type: Date,
     },
-    appointmentType: {
-        type: String,
-        enum: ["Follow-Up", "New"], // If new asks for payment reciept
-        required: true // If follow-up checks the date of new and matches duration
-    }, // if new make all the fields required 
-    planChosen: {
-        type: String,
-        enum: ["Basic","Premium","Therapeutic Plan"], // if follow up automatically chooses the promotion chosen
+    patientAge: {
+        type: Number,
         required: true
     },
-    promotiontype: {
+    patientGender: {
         type: String,
-        enum: ["Standard", "Silver", "Gold", "Platinum"], // if follow up automatically chooses the promotion chosen
+        enum: ["Male", "Female"],
+        required: true
     },
-    endDate: {  
-        type: Date
+    patientContactNumber: {
+        type: Number,
+        required: true
+    },
+    patientEmail: {
+        type: String,
+        required: true
+    },
+    patientCurrentWeight: {
+        type: Number,
+        required: true
+    },
+    patientOccupation: {
+        type: String,
+        required: true
+    },
+    patientFoodChoices: {
+        type: String,
+        required: true
+    },
+    patientFoodAvoid: {
+        type: String,
+        required: true
+    },
+    patientHomeCook: {
+        type: String,
+        required: true
+    },
+    patientWristCircumference: {
+        type: Number,
+        required: true
+    },
+    patientHeight: {
+        type: Number,
+        required: true
+    },
+    patientDeitarySupplements:{
+        type: String,
+        enum: ["Yes", "No"],
+        required: true	
+    },
+    pateintNameOfSupplements: {
+        type: String,
+        default: "None"
+    },
+    patientMedicalComplications: {
+        type: String
+    },
+    patientFoodAllergy: {
+        type: String
+    },
+    patientPhysicalActivity: {
+        type: String
+    },
+    patientBloodTestImage:{
+        type: String
+    },
+    patientRequirements: {
+        type: String,
+        enum: ["Weight Management", "Disease Management", "Other"],
+        required: true
+    },
+    planChosen: {
+        type: String,
+        required: true,
+    }, 
+    subPlanchosen: {
+        type: Number,
+        required: true
+    },
+    paymentType: {
+        type: String,
+        enum: ["HBL", "Easy Paisa", "IBAN"],
+        required: true
+    },// if new make all the fields required 
+    packageDuration:{
+        type: Number
     },
     promotionIncome: {
         type: Number
@@ -31,17 +106,16 @@ const appointmentSchema = new mongoose.Schema({
     paymentReciept: {
         type: String
     },
+    month:{
+        type: Number,
+        required: true
+    }, 
     appointmentStatus: {
         type: String,
         enum: ["Pending", "Approved"],
         required: true,
         default : "Pending"
     },
-    duration: {
-        type: Number,
-        required: true,
-        default: 0
-    }
 });
 const appointment = mongoose.model("Appointment", appointmentSchema);
 export default appointment;

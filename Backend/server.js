@@ -4,8 +4,7 @@ import userRoutes from "./routes/userRoutes.js";
 import promotionRoutes from "./routes/promotionRoute.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import adminDashboardRoute from "./routes/adminDashboardRoutes.js";
-import therapeuticPromotionRoute from "./routes/therapeuticRoutes.js";
-import premiumPromotionRoute from "./routes/premiumRoutes.js";
+import contactUsRoutes from "./routes/contactUsRoutes.js";
 import cors from "cors";
 import { generateUploadURL } from "../src/aws/s3.js";
 const app = express();   
@@ -30,10 +29,7 @@ app.use('/hospital',userRoutes);
 app.use('/promotion',promotionRoutes);
 app.use('/appointment',appointmentRoutes);
 app.use('/adminDashboard',adminDashboardRoute);
-app.use('/therapeuticPromotion',therapeuticPromotionRoute);
-app.use('/premiumPromotion', premiumPromotionRoute);
-
-
+app.use('/contactUs',contactUsRoutes);
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 });

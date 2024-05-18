@@ -4,5 +4,7 @@ const adminDashboardRoute = express.Router();
 
 adminDashboardRoute.get('/dashboard',adminDashboardController.dashboard)
 adminDashboardRoute.get('/viewAppointment',adminDashboardController.viewappointment);
-adminDashboardRoute.get('/acceptAppointment',adminDashboardController.acceptAppointment);
+adminDashboardRoute.put('/acceptAppointment/:Id',adminDashboardController.acceptAppointment);
+adminDashboardRoute.get('/patientPage',adminDashboardController.patientPage);
+adminDashboardRoute.get('/packagePage',adminDashboardController.packagePage);
 export default adminDashboardRoute

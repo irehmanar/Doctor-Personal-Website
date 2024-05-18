@@ -3,6 +3,9 @@ import bcryptjs from "bcryptjs";
 import nodemailer from "nodemailer";
 import jsonwebtoken from "jsonwebtoken";
 import crypto from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 // import {validationResult ,body} from "express-validator";
 
 // saveVerificationToken
@@ -28,14 +31,13 @@ const generateVerificationToken = () => {
 // sendVerificationMail
 const sendVerificationEmail = async (email, token) => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
-
     service: "gmail",
     auth: {
       user: "abrehman.bscs22seecs@seecs.edu.pk",
-      pass: "STUDEnt@1235",
+      pass: "STUDEnt@1235"
     },
   });
 
@@ -119,6 +121,7 @@ const verifyUser = async (req, res) => {
 // signin path => "/Hospital/signin"
 const signin = async (req, res) => {
   try {
+    console.log(req.body)
     const { username, password } = req.body;
     if (!username | !password) {
       return res.status(202).json({ message: "Incomplete content" });
@@ -146,9 +149,9 @@ const signin = async (req, res) => {
         } else {
           auth_user.password = undefined;
           const success = true;
-          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "5h" });
+          const token = jsonwebtoken.sign({ auth_user }, process.env.SECRET_KEY, { expiresIn: "5h" });
           res.cookie("authorization", `Bearer ${token}`);
-          return res.status(200).json({ token: `Bearer ${token}`, user: auth_user, message: "login successfully", success });
+          return res.status(200).json({ token: `Bearer ${token}`, message: "login successfully", success, role: auth_user.role });
         }
 
       }
@@ -162,16 +165,17 @@ const signin = async (req, res) => {
 
 //update Patient
 const updatePatient = async (req, res) => {
-  const { firstName, lastName, cnic, dob, gender, bloodType, phone, location, weight, height, temperature, symptoms} = req.body;
+  const { firstName, lastName, cnic, dob, gender, bloodType, phone, location, weight, height, temperature, symptoms } = req.body;
+  const User = req.body.user;
   let success;
-  if (!firstName || !lastName || !dob || !gender || !cnic || !bloodType || !location ) {
+  if (!firstName || !lastName || !dob || !gender || !cnic || !bloodType || !location) {
     success = false;
     return res.status(400).json({ message: "error", errors: "incomplete content", success });
   } else {
     try {
       const bmi = weight / (height * height);
       await user.updateOne(
-        { _id: req.params.id },
+        { _id: User._id },
         {
           $set: {
             firstName: firstName,
@@ -185,7 +189,6 @@ const updatePatient = async (req, res) => {
             weight: weight,
             height: height,
             bmi: bmi,
-            activated: true
           },
         }
       );
@@ -210,5 +213,75 @@ const getPatientByUserId = async (req, res) => {
     return res.status(404).json({ message: error.message });
   }
 };
+//update password
+const updatePassword = async (req, res) => {
+  const User = req.User;
+  console.log(User);
+  const { oldPassword, newPassword } = req.body;
+  let success;
+  if (!oldPassword || !newPassword) {
+    success = false;
+    return res.status(400).json({ message: "error", errors: "incomplete content", success });
+  } else {
+    try {
+      const findUser = await user.findOne({ _id: User._id });
+      const verify = await bcryptjs.compare(oldPassword, findUser.password);
+      if (!verify) {
+        success = false;
+        return res.status(401).json({ message: "old password is incorrect", success });
+      } else {
+        const hashed_password = await bcryptjs.hash(newPassword, 10);
+        await user.updateOne({ _id: User._id }, {
+          $set: {
+            password: hashed_password
+          }
+        });
+        success = true;
+        return res.status(200).json({ message: "success", success });
+      }
+    } catch (error) {
+      success = false;
+      return res.status(400).json({ message: "error", errors: [error.message], success });
+    }
+  }
+};
+const updateUsername = async (req, res) => {
+  const User = req.User;
+  const { username } = req.body;
+  let success;
+  if (!username) {
+    success = false;
+    return res.status(400).json({ message: "error", errors: "incomplete content", success });
+  } else {
+    try {
+      const existUser = await user.findOne({ _id: User._id });
+      if (existUser) {
+        success = false;
+        return res.status(400).json({ message: "username already exist", success });
+      }
+      const updatedUser = await user.updateOne({ _id: User._id }, {
+        $set: {
+          username: username
+        }
+      });
+      success = true;
+      return res.status(200).json({ message: "username updated successfully", updatedUser, success });
+    } catch (error) {
+      success = false;
+      return res.status(400).json({ message: "Couldn't update username", errors: [error.message], success });
+    }
+  }
 
-export default { signup, signin, updatePatient, getPatientByUserId, verifyUser };
+}
+
+//get User by ID
+const getUserById = async (req, res) => {
+  const User = req.User;
+  try {
+    const existUser = await user.findOne({ _id: User._id });
+    return res.json(existUser);
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+}
+export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername };

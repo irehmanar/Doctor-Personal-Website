@@ -29,16 +29,24 @@ function Login() {
         fetch(apiUrl, requestOptions)
           .then(response => {
             if (!response.ok) {
-              console.log("Username or Password does not match")
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })
           .then(data => {
-            setMessage(data.message);
-            console.log(data);
+            if (data.token) {
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('role', data.role);
+              console.log(data);
+              setMessage("Login successful");
+              alert("Login successful");
+            } else {
+              setMessage(data.message);
+              alert(data.message);
+            }
           })
           .catch(error => {
-            console.log(error);
+            alert("Sign up failed: " + (error.message || "Please check the form for errors."));
           });
       },
     });
@@ -59,8 +67,8 @@ function Login() {
             onBlur={handleBlur}
             required=""
           />
-          {errors.email && touched.email ? (
-            <p className="form-error">{errors.email}</p>
+          {errors.username && touched.username ? (
+            <p className="form-error">{errors.username}</p>
           ) : null}
         </div>
         <div className="inputContainer">
@@ -77,7 +85,7 @@ function Login() {
             <p className="form-error login-error">{errors.password}</p>
           ) : null}
         </div>
-        <div className="errormessage" style={{textAlign:'center',color:'red'}}>
+        <div className="errormessage" style={{ textAlign: 'center', color: 'red' }}>
           <p>{message}</p>
         </div>
 

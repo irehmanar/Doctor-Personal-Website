@@ -4,13 +4,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import './DataGrid.css'
 
 
-export default function GridData({columns,rows}) {
+export default function GridData({columns,rows, getRowId}) {
   return (
     <div className='containerbox'>
     <Box sx={{ height: '100%', width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
+        getRowId={getRowId}
         initialState={{
           pagination: {
             paginationModel: {

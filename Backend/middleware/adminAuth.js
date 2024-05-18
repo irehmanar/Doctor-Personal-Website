@@ -14,11 +14,14 @@ async function userAuth(req, res, next) {
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-  
+    
     try {
       const payload = jwt.verify(token, process.env.SECRET_KEY);
       console.log(payload);
       req.User = payload.auth_user;
+      if(req.User.role === 'Patient' || req.User.role === 'Doctor'){
+        return res.status(401).json({ message: "Unauthorized" });
+      }
       next();
     } catch (error) {
       return res.status(401).json({ message: "Unauthorized" });

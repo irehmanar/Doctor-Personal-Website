@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InstagramIcon from '@mui/icons-material/Instagram';
+
+import { contactUs } from '../../../Services/ContactUs';
 import './Contactus.css'
+
 function Contactus() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
+  async function handleSubmit(e){
+    e.preventDefault();
+
+    console.log(formData);
+
+    try {
+      const result = await contactUs(formData);
+      console.log('Email Sent Successfully:', result);
+  } catch (error) {
+      console.error('Error creating appointments:', error);
+  }
+  }
+
+
   return (
     <div>
       <div className="contactBody">
@@ -123,22 +154,30 @@ function Contactus() {
 
 
 
-        <div className="bodyRight">
-          <div>
-        <h3 class="card-title text-center mb-4">Contact Us</h3>
-            <form>
-              <div class="form-group m-3">
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your Name"/>
-              </div>
-              <div class="form-group m-3">
-                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="Your Email"/>
-              </div>
+        <div className="bodyRight" style={{background: 'red',padding: '0px'}}>
+          <div style={{textAlign: 'center',flex: '1',marginTop: '2rem'}}>
+        <h3 class="card-title text-center m-auto" style={{fontSize: '2.5rem'}}>Contact Us</h3>
+        </div>
+        <form onSubmit={handleSubmit} id="contactusForm">
+          <div className="form-group m-3">
+            <label htmlFor="name" style={{display: 'block', margin:'0', color: 'Black', fontSize: '1.5rem'}}>name</label>
+            <input type="text" className="form-control" id="exampleFormControlInput1" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required/>
+          </div>
+          <div className="form-group m-3">
+            <label htmlFor="email" style={{display: 'block', margin:'0', color: 'Black', fontSize: '1.5rem'}}>Email</label>
+            <input type="email" className="form-control" id="exampleFormControlInput2" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required/>
+          </div>
 
-              <div class="form-group  m-3">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-            </form>
-            </div>
+          <div className="form-group  m-3">
+            <label htmlFor="message" style={{display: 'block', margin:'0', color: 'Black', fontSize: '1.5rem'}}>Message</label>
+            <textarea className="form-control" id="exampleFormControlTextarea1" rows="10" name="message" placeholder="Your Message here" value={formData.message} onChange={handleChange} required></textarea>
+          </div>
+
+          <button type="submit" className="loginButton">
+            Submit
+          </button>
+        </form>
+           
 
         </div>
 
