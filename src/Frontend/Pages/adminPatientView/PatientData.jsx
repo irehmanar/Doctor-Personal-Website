@@ -1,97 +1,81 @@
-import React from 'react'
-import './PatientData.css'
+// <Link to={`/Histroy/details/${params.row.id}`}>View More</Link>import React from 'react'
+
+import React, { useEffect, useState } from "react";
+import './PatientData.css';
 import Sidebar from "../../Components/adminSidebar/Sidebar";
 import Navbar from "../../Components/adminNavbar/Navbar";
-import GridData from '../../Components/adminDataGrid/GridData'
+import { DataGrid } from '@mui/x-data-grid';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+import { fetchpatientData } from '../../../Services/PatientData'; 
 import { Link } from 'react-router-dom';
-function PatientData() {
-  const columns = [
-    { field: 'id',
-     headerName: 'ID', 
-     width: 100, 
-     headerClassName: 'bold-header'
-     },
-    {
-      field: 'firstName',
-      headerName: 'First name',
-      width: 130,
-      editable: false,
-      headerClassName: 'bold-header'
-    },
-    {
-      field: 'lastName',
-      headerName: 'Last name',
-      width: 130,
-      editable: false,
-      headerClassName: 'bold-header'
-    },
-    { field: 'age',
-    headerName: 'Age', 
-    width: 100, 
-    headerClassName: 'bold-header'
-    },
 
+function PatientData() {
+  const [patientDataArray, setPatientDataArray] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await fetchpatientData();
+        setPatientDataArray(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch data", error);
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+          <CircularProgress color="secondary" />
+        </Stack>
+      </div>
+    );
+  }
+
+  if (!patientDataArray.length) {
+    return <div>No data available</div>;
+  }
+
+  const columns = [
+    { field: '_id', headerName: 'ID', width: 100, headerClassName: 'bold-header' },
+    { field: 'patientFullName', headerName: 'Full Name', width: 150, headerClassName: 'bold-header' },
+    { field: 'patientCNIC', headerName: 'CNIC', width: 150, headerClassName: 'bold-header' },
+    { field: 'patientEmail', headerName: 'patientEmail', width: 200, headerClassName: 'bold-header' },
+    { field: 'patientAge', headerName: 'Age', width: 100, headerClassName: 'bold-header' },
+    { field: 'appointmentdate', headerName: 'Last Appointment', width: 150, headerClassName: 'bold-header' },
+    { field: 'planChosen', headerName: 'Planner', width: 130, headerClassName: 'bold-header' },
     {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 150,
-      valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-      headerClassName: 'bold-header'
-    },
-    {
-      field: 'latestAppointment',
-      headerName: 'Last Appointment',
-      // type: 'date',
-      editable: false,
-      width: 130,
-      headerClassName: 'bold-header',
-    },
-    {
-      field: 'planner',
-      headerName: 'Planner',
-      editable: false,
-      width: 130,
-      headerClassName: 'bold-header'
-    },    
-    {
-      field: 'Deatils',
-      headerName: 'View More',
-      width: 130,
-      renderCell: (params) => (
+      field: 'Details', headerName: 'View More', width: 130, renderCell: (params) => (
         <Link to={`/Info`}>View Detail</Link>
-      // <Link to={`/Histroy/details/${params.row.id}`}>View More</Link>
-      ),
-      headerClassName: 'bold-header'
+      ), headerClassName: 'bold-header'
     },
   ];
-  
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14, latestAppointment: '24-10-2024',planner: 'Premium' },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31, latestAppointment: '24-10-2024',planner: 'Economic'  },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31, latestAppointment: '24-10-2024',planner: 'Premium'  },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11, latestAppointment: '24-10-2024',planner: 'Premium'  },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 14, latestAppointment: '24-10-2024',planner: 'Economic'  },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150, latestAppointment: '24-10-2024',planner: 'Premium'  },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44, latestAppointment: '24-10-2024',planner: 'Economic'  },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, latestAppointment: '24-10-2024',planner: 'Premium'  },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, latestAppointment: '24-10-2024',planner: 'Premium'  },
-  ];
+
   return (
     <div className="containerPatientData">
-
       <Sidebar />
-
-<div className="homeContainer">
-  <Navbar />
-  <div className="grid">
-  <GridData columns={columns} rows={rows}/>
-  </div>
-
-</div>
+      <div className="homeContainer">
+        <Navbar />
+        <div className="grid">
+          <DataGrid 
+            columns={columns} 
+            rows={patientDataArray} 
+            getRowId={(patientDataArray) => patientDataArray._id} 
+            autoHeight
+            pageSize={10}
+            rowsPerPageOptions={[5, 10, 20]}
+          />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default PatientData
+export default PatientData;

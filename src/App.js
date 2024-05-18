@@ -40,6 +40,7 @@ function App() {
     <Route path='/AddPrescription' element={<AddPrescription/>}></Route> //Done almost
     <Route path='/Admin/Patient' element={<Patient/>}></Route> //Done
     <Route path='/Admin/Package' element={<Package/>}></Route> //Done   
+    <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route> //Done
 
 
     
@@ -47,7 +48,6 @@ function App() {
     <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
     <Route path='/Info' element={<PersonalInfo/>}></Route>
 
-    <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route>
 
 
     <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>  //Little change needed

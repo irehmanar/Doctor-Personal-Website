@@ -4,19 +4,26 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import GridData from '../../Components/adminDataGrid/GridData';
 import { fetchAppointmentData } from '../../../Services/ViewAllAppointments';
+import { AcceptAppointment } from '../../../Services/AcceptAppointment';
 
 function Appointment() {
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const handleAccept = (id) => {
-        // const newRows = rows.map(row => {
-        //     if (row._id === id) {
-        //         return { ...row, appointmentStatus: 'Accepted' };
-        //     }
-        //     return row;
-        // });
-        // setRows(newRows);
+    const handleAccept = async (id_value) => {
+        try {
+            const id = {"id": id_value};
+
+            const response = await AcceptAppointment(id);
+            console.log('Appointment accepted:', response.data);
+            alert('Appointment accepted successfully!');
+            
+            // Remove the accepted appointment from the rows state
+            setRows((prevRows) => prevRows.filter(row => row._id !== id_value));
+        } catch (error) {
+            console.error('Error accepting appointment:', error.message || error);
+            // Optionally display an error message to the user
+        }
     };
 
     const columns = [
