@@ -270,7 +270,7 @@ const updateUsername = async (req, res) => {
     return res.status(400).json({ message: "error", errors: "incomplete content", success });
   } else {
     try {
-      const existUser = await user.findOne({ _id: User._id });
+      const existUser = await user.findOne({username:username });
       if (existUser) {
         success = false;
         return res.status(400).json({ message: "username already exist", success });
