@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
 import { addImage } from "../../../aws/addimage.js";
+import { updateUsername } from '../../../Services/ChangeUserName.js';
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('Guest');
@@ -17,6 +18,7 @@ const Settings = () => {
 
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
+    console.log(newUsername);
   };
 
 
@@ -25,6 +27,7 @@ const Settings = () => {
     e.preventDefault();
     setCurrentUsername(newUsername);
     setNewUsername('');
+    updateUsername(newUsername);
   };
 
   const handleProfilePicChange = (e) => {
@@ -223,10 +226,10 @@ const Settings = () => {
       )}
       
         <div>
-            <form id = "aws-form" encType="multipart/form-data">
+            {/* <form id = "aws-form" encType="multipart/form-data">
               <input id = "file-input" type= "file" name="test" onChange={handleAWS}></input>
               <button type = "submit">Upload</button>
-          </form>
+          </form> */}
         <h3 className="text-lg mb-2">Forms Page</h3>
         <p className="mb-4">This section will link to forms page (to be integrated later).</p>
           <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
