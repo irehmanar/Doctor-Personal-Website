@@ -10,6 +10,7 @@ function DataForm({ editable }) {
       newData[0] = { ...newData[0], patientFullName: e.target.value };
       return newData;
     });
+    console.log(data)
   }
 
   function handleCnicChange(e) {

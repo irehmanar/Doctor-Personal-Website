@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PersonalInfo.css";
 import DataForm from "../../Components/DataForm/DataForm";
 import { useData } from "../../ContextApi/DataContent";
+import Navbar from '../../Components/Navbar/Navbar'
 function PersonalInfo() {
   const [edit, setEdit] = useState(false); // Initialize edit state and its setter function
   const { data } = useData();
@@ -11,6 +12,8 @@ function PersonalInfo() {
   };
   return (
     <>
+    <Navbar/>
+    
       <div class="section-title">
         <h2>Info</h2>
         <p>Fill Your Information</p>
