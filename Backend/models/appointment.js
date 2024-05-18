@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
 
-    patientFullName : {
+    patientFullName: {
         type: String,
         required: true,
     },
@@ -58,10 +58,10 @@ const appointmentSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    patientDeitarySupplements:{
+    patientDeitarySupplements: {
         type: String,
         enum: ["Yes", "No"],
-        required: true	
+        required: true
     },
     pateintNameOfSupplements: {
         type: String,
@@ -76,7 +76,7 @@ const appointmentSchema = new mongoose.Schema({
     patientPhysicalActivity: {
         type: String
     },
-    patientBloodTestImage:{
+    patientBloodTestImage: {
         type: String
     },
     patientRequirements: {
@@ -87,7 +87,7 @@ const appointmentSchema = new mongoose.Schema({
     planChosen: {
         type: String,
         required: true,
-    }, 
+    },
     subPlanchosen: {
         type: Number,
         required: true
@@ -97,7 +97,7 @@ const appointmentSchema = new mongoose.Schema({
         enum: ["HBL", "Easy Paisa", "IBAN"],
         required: true
     },// if new make all the fields required 
-    packageDuration:{
+    packageDuration: {
         type: Number
     },
     promotionIncome: {
@@ -106,16 +106,27 @@ const appointmentSchema = new mongoose.Schema({
     paymentReciept: {
         type: String
     },
-    month:{
+    month: {
         type: Number,
         required: true
-    }, 
+    },
     appointmentStatus: {
         type: String,
         enum: ["Pending", "Approved"],
         required: true,
-        default : "Pending"
+        default: "Pending"
     },
+    prescription: [{
+        numberOfFiles: {
+            type: Number,
+        },
+        image: {
+            type: [String], //ARRAY NEEDED
+        },
+        pdf: {
+            type: [String],
+        }
+    }]
 });
 const appointment = mongoose.model("Appointment", appointmentSchema);
 export default appointment;

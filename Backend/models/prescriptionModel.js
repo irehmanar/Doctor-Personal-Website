@@ -1,18 +1,27 @@
 import mongoose from 'mongoose';
 
 const prescriptionSchema = new mongoose.Schema({
-   patientCnic:{
-         type: Number,
-         required: true
-    },
-   numberOfFiles:{
+    patientCNIC: {
             type: Number,
             required: true
         },
-    image:{
-            type:[String], //ARRAY NEEDED
-            required: true
-        },
+    numberOfFiles:{
+                type: Number,
+                required: true
+            },
+        image:{
+                type:[String], //ARRAY NEEDED
+                required: true
+            },
+        appointmentId:{
+                type: mongoose.Schema.Types.ObjectId,
+                required: true
+            },
+            pdf:{
+                type:[String],
+                required:true
+            
+            }
 });
 
 // title,description,startDate,endDate,discount

@@ -38,6 +38,7 @@ const sendVerificationEmail = async (email, token) => {
     auth: {
       user: "abrehman.bscs22seecs@seecs.edu.pk",
       pass: "STUDEnt@1235"
+
     },
   });
 
@@ -149,7 +150,7 @@ const signin = async (req, res) => {
         } else {
           auth_user.password = undefined;
           const success = true;
-          const token = jsonwebtoken.sign({ auth_user }, process.env.SECRET_KEY, { expiresIn: "5h" });
+          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "5h" });
           res.cookie("authorization", `Bearer ${token}`);
           return res.status(200).json({ token: `Bearer ${token}`, message: "login successfully", success, role: auth_user.role });
         }
@@ -165,30 +166,43 @@ const signin = async (req, res) => {
 
 //update Patient
 const updatePatient = async (req, res) => {
-  const { firstName, lastName, cnic, dob, gender, bloodType, phone, location, weight, height, temperature, symptoms } = req.body;
-  const User = req.body.user;
+
+  const { 
+    patientFullName,
+    patientCNIC,
+    patientAge,
+    patientGender,
+    patientContactNumber,
+    patientCurrentWeight,
+    patientOccupation,
+    patientFoodChoices,
+    patientFoodAvoid,
+    patientHomeCook,
+    patientWristCircumference,
+    patientHeight } = req.body;
+  const User = req.User;
   let success;
-  if (!firstName || !lastName || !dob || !gender || !cnic || !bloodType || !location) {
+  if (!patientCNIC ) {
     success = false;
     return res.status(400).json({ message: "error", errors: "incomplete content", success });
   } else {
     try {
-      const bmi = weight / (height * height);
       await user.updateOne(
         { _id: User._id },
         {
           $set: {
-            firstName: firstName,
-            lastName: lastName,
-            gender: gender,
-            dob: dob,
-            cnic: cnic,
-            bloodType: bloodType,
-            phone: phone,
-            location: location,
-            weight: weight,
-            height: height,
-            bmi: bmi,
+            patientFullName,
+            cnic:patientCNIC,
+            age:patientAge,
+            gender:patientGender,
+            phone:patientContactNumber,
+            weight:patientCurrentWeight,
+            patientOccupation:patientOccupation,
+            patientFoodChoices:patientFoodChoices,
+            patientFoodAvoid:patientFoodAvoid,
+            patientHomeCook:patientHomeCook,
+            patientWristCircumference:patientWristCircumference,
+            height:patientHeight
           },
         }
       );
@@ -213,6 +227,8 @@ const getPatientByUserId = async (req, res) => {
     return res.status(404).json({ message: error.message });
   }
 };
+
+
 //update password
 const updatePassword = async (req, res) => {
   const User = req.User;
@@ -254,7 +270,7 @@ const updateUsername = async (req, res) => {
     return res.status(400).json({ message: "error", errors: "incomplete content", success });
   } else {
     try {
-      const existUser = await user.findOne({ _id: User._id });
+      const existUser = await user.findOne({username:username });
       if (existUser) {
         success = false;
         return res.status(400).json({ message: "username already exist", success });
@@ -284,4 +300,32 @@ const getUserById = async (req, res) => {
     return res.status(404).json({ message: error.message });
   }
 }
-export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername };
+
+//get User info by token
+const getUserinfoByToken = async (req, res) => {
+  const User = req.User;
+  try{
+    const existUser = await user.findOne({ _id: User._id });
+    const {
+            patientFullName,
+            cnic,
+            age,
+            gender,
+            contact ,
+            email,
+            weight,
+            patientOccupation,
+            patientFoodChoices,
+            patientFoodAvoid,
+            patientHomeCook,
+            patientWristCircumference,
+            height,
+    } = existUser;
+
+    return res.status(200).json({patientFullName:patientFullName,patientCNIC:cnic,patientAge:age,patientGender:gender,patientContactNumber:contact,patientEmail:email,patientCurrentWeight:weight,patientOccupation:patientOccupation,patientFoodChoices:patientFoodChoices,patientFoodAvoid:patientFoodAvoid,patientHomeCook:patientHomeCook,patientWristCircumference:patientWristCircumference,patientHeight:height});
+  }catch(error){
+    return res.status(404).json({ message: error.message });
+  }
+}
+
+export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername ,getUserinfoByToken};

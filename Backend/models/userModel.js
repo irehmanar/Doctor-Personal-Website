@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    patientFullName:{
+        type:String
+    },
     image: {
         type: String,
     },
@@ -28,12 +31,15 @@ const userSchema = new mongoose.Schema({
     cnic:{
         type:Number
     },
-    dob: { 
-        type: Date, 
+    age: { 
+        type: Number, 
     },
     gender: { 
         type: String, 
         enum: ['Male', 'Female'], 
+    },
+    patientOccupation:{
+        type:String
     },
     bloodType:{
         type: String,
@@ -55,28 +61,6 @@ const userSchema = new mongoose.Schema({
     height: {
         type: Number,
     },
-    bmi:{
-        type:Number,
-    },
-    // temperature: {
-    //     type: Number,
-    //     required: true
-    // },
-    // symptoms: {
-    //     type: [String],
-    //     required: true
-    // },
-    // bloodPressure:
-    //     [{
-    //         upper: {
-    //             type: Number,
-    //             required: true
-    //         },
-    //         lower: {
-    //             type: Number,
-    //             required: true
-    //         }
-    //     }],
     image: {
         type: String,
     },
@@ -95,7 +79,19 @@ const userSchema = new mongoose.Schema({
       appointmentCounter:{
         type:Number,
         default:0
-      }
+      },
+      patientFoodChoices:{
+        type: String,
+      },
+            patientFoodAvoid:{
+                type: String,
+            },
+            patientHomeCook:{
+                type: String,
+            },
+            patientWristCircumference:{
+                type: Number
+            }
 }
 ,{
     timestamps: true,

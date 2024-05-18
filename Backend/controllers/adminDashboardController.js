@@ -363,7 +363,7 @@ const patientPage = async({req,res}) => {
           
 
 
-          
+
         const newPatientsToday = appointmentsCount.length > 0 ? appointmentsCount[0].totalAppointments : 0;
         const patientsTodayCount = patientsToday.length > 0 ? patientsToday[0].count : 0;
         const femalePatientTodayCount = femalePatientsToday.length> 0 ? femalePatientsToday[0].count : 0;
@@ -403,23 +403,23 @@ const viewappointment = async ({ res }) => {
 
 
 
-const acceptAppointment = async ({ req, res }) => {
-    try {
-        const today = new Date();
-        const todayDate = today.toISOString().split('T')[0];
-        const appointments = await appointment.findOne({
-            appointmentdate: todayDate,
-            appointmentStatus: "Pending",
-        }).sort({ appointmentdate: 1 });
-        if (appointments) {
-            appointments.appointmentStatus = "Approved";
-            await appointments.save();
-            res.status(200).json({ success: true, message: "Appointment accepted successfully" });
-        }
-    } catch (error) {
-        console.error("Error accepting appointment:", error);
-        res.status(500).json({ error: "Server error", success: false });
-    }
+const acceptAppointment = async (req, res) => {
+  try {
+      const { id } = req.body;
+      const appointments = await appointment.findById(id);
+      if (!appointments) {
+          res.status(404).json({ error: "No appointments found with this ID", success: false });
+      } else if (appointments.appointmentStatus === "Approved") {
+          res.status(400).json({ error: "Appointment already accepted", success: false });
+      } else {
+          appointments.appointmentStatus = "Approved";
+          await appointments.save();
+          res.status(200).json({ success: true, message: "Appointment accepted successfully" });
+      }
+  } catch (error) {
+      console.error("Error accepting appointment:", error);
+      res.status(500).json({ error: "Server error", success: false });
+  }
 };
 
 
@@ -760,4 +760,50 @@ const getMostFrequentPlan = async () => {
         res.status(500).json({ error: "Server error", success: false });
     }
 }
-export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage };
+
+
+const getLatestAppointments = async (req, res) => {
+    try {
+      const latestAppointments = await appointment.aggregate([
+        // Sort by appointmentdate in descending order
+        {
+          $sort: { appointmentdate: -1 }
+        },
+        // Group by patientCNIC and take the first document in each group
+        {
+          $group: {
+            _id: "$patientCNIC",
+            latestAppointment: { $first: "$$ROOT" }
+          }
+        },
+        // Replace the root with the latestAppointment field
+        {
+          $replaceRoot: { newRoot: "$latestAppointment" }
+        },
+        // Project only the fields you want to include in the output
+        {
+          $project: {
+            patientFirstName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 0] },
+            patientLastName: { $arrayElemAt: [{ $split: ["$patientFullName", " "] }, 1] },
+            patientAge: 1,
+            patientFullName: 1,
+            appointmentdate:1,    
+            planChosen: 1,
+            patientCNIC: 1,
+            patientEmail: 1,
+            appointmentStatus: 1
+          }
+        }
+      ]);
+  
+      res.json(latestAppointments);
+    } catch (error) {
+      console.error('Error retrieving latest appointments:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+
+
+
+export default { dashboard, acceptAppointment, viewappointment, patientPage,packagePage,getLatestAppointments };

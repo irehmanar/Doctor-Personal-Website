@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
 import { addImage } from "../../../aws/addimage.js";
+import { updateUsername } from '../../../Services/ChangeUserName.js';
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('Guest');
@@ -17,6 +18,7 @@ const Settings = () => {
 
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
+    console.log(newUsername);
   };
   useEffect(() => {
     addImage()
@@ -27,6 +29,7 @@ const Settings = () => {
     e.preventDefault();
     setCurrentUsername(newUsername);
     setNewUsername('');
+    updateUsername(newUsername);
   };
 
   const handleProfilePicChange = (e) => {

@@ -135,7 +135,7 @@ function Booking() {
       const newDataBooking = [...prevData];
       newDataBooking[8] = {
         ...newDataBooking[8],
-        subPlanchosen: e.target.value,
+        subPlanchosen: 3,
       };
       return newDataBooking;
     });
@@ -246,6 +246,7 @@ function Booking() {
     try {
         const result = await createAppointment(mergedArray);
         console.log('Appointments created:', result);
+        alert('Appointment Booked successfully!');
         // Handle success
     } catch (error) {
         console.error('Error creating appointments:', error);
@@ -432,7 +433,7 @@ function Booking() {
                   name="subPlanchosen"
                   value={item.month}
                   required
-                  onChange={handlesubPlanchosenChange}
+                  // onChange={handlesubPlanchosenChange}
                 />
                 {item.month} Month plan (Price Rs. {item.price})
               </label>
