@@ -3,30 +3,48 @@ import { useFormik } from 'formik'
 import './Login.css'
 import { signUpSchema } from './schemas/Signup.jsx'
 import Login from './Login.jsx'
-const initialValues = {
-  name: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
+import { signUp } from '../../../Services/SignUp'; // Adjust the import path as necessary
 
-function Signup() {
-	const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+const Signup = () => {
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues,
+      initialValues: {
+        // Define your initial form values here
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
       validationSchema: signUpSchema,
-      onSubmit: values => {
-        console.log(values)
-      }
-    })
-  console.log(errors)
+      onSubmit: async (values, { setSubmitting, setErrors }) => {
+        try {
+          const data = { username: values.name, email: values.email, password: values.password };
+          const response = await signUp(data);
+          alert("Sign up successful!", response);
+        } catch (error) {
+          if (error && error.data && error.data.errors) {
+            setErrors(error.data.errors);
+            alert("Sign up failed: " + (error.data.errors.general || "Please check the form for errors."));
+          } else {
+            // Handle generic error
+            setErrors({ general: 'An error occurred during sign up. Please try again.' });
+            alert("An error occurred during sign up. Please try again.");
+          }
+        } finally {
+          setSubmitting(false);
+        }
+      },
+
+      
+    });
+
   return (
-<div className="body">
-<div className='main'>
+    <div className="body">
+      <div className='main'>
         <input type='checkbox' id='chk' aria-hidden='true' />
-        <div class='signup'>
+        <div className='signup'>
           <form onSubmit={handleSubmit}>
-            <label for='chk' aria-hidden='true'>
+            <label htmlFor='chk' aria-hidden='true'>
               Sign up
             </label>
             <div className='inputContainer'>
@@ -38,7 +56,7 @@ function Signup() {
                 placeholder='User name'
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required=''
+                required
               />
               {errors.name && touched.name ? (
                 <p className='form-error'>{errors.name}</p>
@@ -53,7 +71,7 @@ function Signup() {
                 placeholder='Email'
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required=''
+                required
               />
               {errors.email && touched.email ? (
                 <p className='form-error'>{errors.email}</p>
@@ -68,7 +86,7 @@ function Signup() {
                 placeholder='Password'
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required=''
+                required
               />
               {errors.password && touched.password ? (
                 <p className='form-error'>{errors.password}</p>
@@ -80,24 +98,22 @@ function Signup() {
                 name='confirmPassword'
                 id='confirmPassword'
                 value={values.confirmPassword}
-                placeholder='confirmPassword'
+                placeholder='Confirm Password'
                 onChange={handleChange}
                 onBlur={handleBlur}
-                required=''
+                required
               />
               {errors.confirmPassword && touched.confirmPassword ? (
                 <p className='form-error'>{errors.confirmPassword}</p>
               ) : null}
             </div>
-            <button type='submit'>Sign up</button>
+            <button className="loginButton" type='submit'>Sign up</button>
           </form>
         </div>
-      <Login></Login> 
+        <Login />
       </div>
-
-
-	</div>
-  )
+    </div>
+  );
 }
 
-export default Signup
+export default Signup;

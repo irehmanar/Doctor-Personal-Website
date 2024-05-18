@@ -1,0 +1,11 @@
+.info #formdiv{
+    width: 57vw;
+    /* overflow: hidden; */
+    background: rgb(119, 0, 40);
+
+}
+.info #formsubdiv{
+    width: 53vw;
+    /* overflow: hidden; */
+    background: rgb(21, 104, 90);
+}
