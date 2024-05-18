@@ -46,7 +46,7 @@ function App() {
     <Route path='/Admin/Patient' element={<Patient/>}></Route>
     <Route path='/Admin/Package' element={<Package/>}></Route>
     <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route>
-    <Route path='/AddPlan' element={<AddPlans/>}></Route>
+            <Route path='/AddPlan' element={<AddPlans />}></Route>       
     </Routes>
     </BrowserRouter>
     </div>

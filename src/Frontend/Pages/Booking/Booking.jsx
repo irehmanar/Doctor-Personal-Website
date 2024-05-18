@@ -8,13 +8,14 @@ function Booking() {
     console.log(edit);
   };
 
+
+  
   return (
     <>
       <div class="section-title">
         <h2>Book now</h2>
         <p>Book your Appointment</p>
       </div>
-
       <div class="info">
         <button id="submit" onClick={handleEditClick}>
           Edit Data

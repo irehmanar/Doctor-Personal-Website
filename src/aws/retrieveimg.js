@@ -38,7 +38,7 @@ app.get('/image', (req, res) => {
 });
 
 // Route to serve HTML page with image
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html lang="en">
@@ -55,7 +55,3 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
