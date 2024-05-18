@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
 import { addImage } from "../../../aws/addimage.js";
 import { updateUsername } from '../../../Services/ChangeUserName.js';
@@ -21,7 +21,9 @@ const Settings = () => {
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
   };
-
+  useEffect(() => {
+    addImage()
+  });
 
 
   const handleSubmit = (e) => {
@@ -50,9 +52,6 @@ const Settings = () => {
     setPasswordChanged(false); // Reset passwordChanged state
   };
 
-  const handleAWS = (e) => {
-    addImage();
-  }
 
   const handlePasswordChange = async () => {
     if (newPassword === confirmPassword) {
