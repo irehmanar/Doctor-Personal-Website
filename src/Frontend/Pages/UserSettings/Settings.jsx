@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
+import Navbar from '../../Components/Navbar/Navbar'
+import { addImage } from "../../../aws/addimage.js";
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('Guest');
@@ -17,6 +18,8 @@ const Settings = () => {
   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +44,10 @@ const Settings = () => {
     setShowChangePassword(!showChangePassword); // Toggle the state
     setPasswordChanged(false); // Reset passwordChanged state
   };
+
+  const handleAWS = (e) => {
+    addImage();
+  }
 
   const handlePasswordChange = () => {
     if (newPassword === confirmPassword) {
@@ -102,7 +109,6 @@ const Settings = () => {
         <p className="text-xs text-gray-500 mt-2 text-right absolute top-24 right-2 left-2">Click To Update</p>
         {/* End of Text */}
       </div>
-
       <h2 className="text-2xl mb-4">Settings</h2>
       <div className="mb-6">
         <h3 className="text-lg mb-2">Username</h3>
@@ -216,14 +222,18 @@ const Settings = () => {
         </div>
       )}
       
-      <div>
+        <div>
+            <form id = "aws-form" encType="multipart/form-data">
+              <input id = "file-input" type= "file" name="test" onChange={handleAWS}></input>
+              <button type = "submit">Upload</button>
+          </form>
         <h3 className="text-lg mb-2">Forms Page</h3>
         <p className="mb-4">This section will link to forms page (to be integrated later).</p>
-        <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
+          <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
       </div>
+      </div>
+
     </div>
-    </div>
-   
   );
 };
 
