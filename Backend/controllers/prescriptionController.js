@@ -1,21 +1,40 @@
 
 import prescription from "../models/prescriptionModel.js";
-
+import appointment from "../models/appointment.js";
 const addPrescription = async(req,res)=>{
-    const {patientCNIC,numberOfFiles,images}   = req.body;
-    if(!patientCNIC || !numberOfFiles || !images){
+    const {patientCNIC,numberOfFiles,images,pdf}   = req.body;
+    if(!patientCNIC || !numberOfFiles || !images || !pdf){
         return res.status(400).json({message:"incomplete content"});
     }else{
         try{
-            const new_prescription = await prescription.create({
-                patientCNIC:patientCNIC,
-                numberOfFiles:numberOfFiles,
-                images:images
-            });
-            return res.status(200).json({message:"prescription created",new_prescription});
+            const latestAppointment = await getLatestAppointment(patientCNIC);
+            const appointmentId = latestAppointment._id;
+
+            const  newPrescription = await appointment.findByIdAndUpdate(appointmentId, {
+                $push: {
+                    prescription: {
+                        numberOfFiles,
+                        images,
+                        pdf,
+                    },
+                },
+            }, { new: true });
+            return res.status(200).json({message:"prescription created",newPrescription:newPrescription.prescription});
         }catch(error){
             return res.status(400).json({message:error.message});
         }
+    }
+}
+async function getLatestAppointment(patientCNIC) {
+    try {
+        const latestAppointment = await appointment.findOne({ patientCNIC })
+            .sort({ appointmentdate: -1 }) // Sort by appointmentdate in descending order
+            .exec(); // Execute the query
+
+        return latestAppointment;
+    } catch (err) {
+        console.error("Error fetching the latest appointment:", err);
+        throw err;
     }
 }
 export default {addPrescription};

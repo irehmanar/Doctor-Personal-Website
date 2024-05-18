@@ -2,6 +2,7 @@ import express from "express";
 import adminDashboardController from "../controllers/adminDashboardController.js";
 const adminDashboardRoute = express.Router();
 
+
 adminDashboardRoute.get('/dashboard',adminDashboardController.dashboard) //done
 adminDashboardRoute.get('/viewAppointment',adminDashboardController.viewappointment); //done
 
