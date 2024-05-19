@@ -4,6 +4,7 @@ import Navbar from '../../Components/Navbar/Navbar'
 import { updateUsername } from '../../../Services/ChangeUserName.js';
 import changePassword from '../../../Services/ChangePassword.js';
 import {fetchUsername} from '../../../Services/GetUserName.js';
+import addAdmin from '../../../Services/AddAdmin.js';
 
 const Settings = () => {
   const [currentUsername, setCurrentUsername] = useState('loading...');
@@ -15,6 +16,7 @@ const Settings = () => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [showAddAdmin, setShowAddAdmin] = useState(false);
+  const [adminUsername, setAdminUsername] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [confirmAdminPassword, setConfirmAdminPassword] = useState('');
@@ -25,7 +27,7 @@ const Settings = () => {
     const getUsername = async () => {
       try {
         const data = await fetchUsername();
-        setCurrentUsername(data);
+        setCurrentUsername(data.username);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching username:', error);
@@ -90,25 +92,34 @@ const Settings = () => {
 
   const handleAddAdminButtonClick = () => {
     setShowAddAdmin(!showAddAdmin); // Toggle the state
+    setAdminUsername(''); // Reset adminUsername field
     setAdminEmail(''); // Reset adminEmail field
     setAdminPassword(''); // Reset adminPassword field
     setConfirmAdminPassword(''); // Reset confirmAdminPassword field
   };
+  
 
-  const handleAddAdmin = () => {
+  const handleAddAdmin = async () => {
     if (adminPassword === confirmAdminPassword) {
-      // Logic to add admin
-      // For demonstration purposes, let's just alert the admin email
-      alert(`Admin added with email: ${adminEmail} and password: ${adminPassword}`);
-      // Reset admin fields
-      setAdminEmail('');
-      setAdminPassword('');
-      setConfirmAdminPassword('');
+      try {
+        const response = await addAdmin(adminUsername,adminEmail, adminPassword); // Call addAdmin function
+        alert(response.message); // Display the response message
+        // Reset admin fields if admin was successfully added
+        setAdminUsername('');
+        setAdminEmail('');
+        setAdminPassword('');
+        setConfirmAdminPassword('');
+      } catch (error) {
+        console.error('Error adding admin:', error);
+        // Display error message if there was an error adding admin
+        alert('Error adding admin. Please try again.');
+      }
     } else {
-      // Display error message or handle password mismatch
+      // Display error message if admin passwords don't match
       alert("Admin passwords don't match. Please try again.");
     }
   };
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -220,6 +231,13 @@ const Settings = () => {
           <h3 className="text-lg mb-2">Add Admin</h3>
           <form>
             <div className="mb-2">
+              <input
+                type="text"
+                value={adminUsername}
+                onChange={(e) => setAdminUsername(e.target.value)}
+                placeholder="Enter admin username"
+                className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+              />
               <input
                 type="email"
                 value={adminEmail}

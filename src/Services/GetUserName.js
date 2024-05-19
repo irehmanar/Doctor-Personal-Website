@@ -8,7 +8,7 @@ export const fetchUsername = async (token) => {
         'Authorization': `${localStorage.getItem('token')}`,
       },
     });
-    // console.log("UserName", response.data);
+    // console.log("UserName:", response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching username:', error);
