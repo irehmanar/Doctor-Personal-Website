@@ -23,9 +23,6 @@ const Navbar = () => {
       <li className="nav-li">
         <NavLink to="/ChatBot">ChatBot</NavLink>
       </li>
-      <li className="nav-li">
-        <NavLink to="/Contactus">Contact Us</NavLink>
-      </li>
     </>
   );
 
@@ -41,7 +38,7 @@ const Navbar = () => {
         <NavLink to="/Histroy">History</NavLink>
       </li>
       <li className="nav-li">
-        <NavLink to="/Blogs">Blogs</NavLink>
+        <NavLink to="/Contactus">Contact Us</NavLink>
       </li>
       <li className="nav-li">
         <a onClick={handleLogout}>Logout</a>

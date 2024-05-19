@@ -13,6 +13,7 @@ import Satisfaction from "../../Components/SatisfactionDetail/Satisfaction";
 import PlanDetail from "../../Components/PlanDetail/PlanDetail";
 import HomePoints from "../../Components/HomePoints/HomePoints";
 import HomeHero from "../../Components/HomeHero/HomeHero";
+import Footer from "../../Components/Footer/Footer";
 export default function Home() {
   const ref = useRef(null);
 
@@ -58,6 +59,7 @@ export default function Home() {
         </div>
         <Satisfaction />
         <AboutUs />
+        <Footer/>
       </div>
 
     </>

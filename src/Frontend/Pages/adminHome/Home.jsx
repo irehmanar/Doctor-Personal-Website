@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import "./Home.css";
 import Sidebar from "../../Components/adminSidebar/Sidebar";
-import Navbar from "../../Components/adminNavbar/Navbar";
 import Widget from '../../Components/adminWidget/Widget';
 import Featured from '../../Components/adminFeatured/Featured';
 import Chart from '../../Components/adminChart/Chart';

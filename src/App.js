@@ -1,6 +1,4 @@
 import './App.css';
-import BlogsDisplay from './Frontend/Pages/Blogs/BlogsDisplay.jsx';
-import Blog from './Frontend/Pages/Blogs/Blog.jsx';
 import Home from './Frontend/Pages/Home/Home.jsx';
 import Login from './Frontend/Pages/Login/Login.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom"; 
@@ -69,8 +67,6 @@ function App() {
       <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
       <Route path='/Info' element={<PersonalInfo/>}></Route>
       <Route path='/Contactus' element={<Contactus/>}></Route>
-      <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
-      <Route path='/Blog' element={<Blog/>}></Route>
       <Route path='/Settings' element={<SettingsPage/>}></Route>
       </>
     )}

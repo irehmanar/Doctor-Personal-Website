@@ -1,11 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faYoutube,
-    faGithub,
-    faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
+import { faYoutube, faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = () => {
@@ -35,8 +31,8 @@ const Footer = () => {
                     href="https://www.linkedin.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-item social facebook"
-                    aria-label="Facebook"
+                    className="footer-item social linkedin"
+                    aria-label="LinkedIn"
                 >
                     <FontAwesomeIcon icon={faLinkedin} />
                 </a>
