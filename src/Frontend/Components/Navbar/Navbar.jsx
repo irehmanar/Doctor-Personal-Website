@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const userRole = localStorage.getItem('role');
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   const commonLinks = (
     <>
@@ -37,6 +43,9 @@ const Navbar = () => {
       <li className="nav-li">
         <NavLink to="/Blogs">Blogs</NavLink>
       </li>
+      <li className="nav-li">
+        <a onClick={handleLogout}>Logout</a>
+      </li>
     </>
   );
 
@@ -50,6 +59,9 @@ const Navbar = () => {
       </li>
       <li className="nav-li">
         <NavLink to="/AddPlan">Add Plan</NavLink>
+      </li>
+      <li className="nav-li">
+        <a onClick={handleLogout}>Logout</a>
       </li>
     </>
   );
@@ -67,6 +79,9 @@ const Navbar = () => {
       </li>
       <li className="nav-li">
         <NavLink to="/Admin/Patient/Data">Patient Data</NavLink>
+      </li>
+      <li className="nav-li">
+        <a onClick={handleLogout}>Logout</a>
       </li>
     </>
   );
@@ -86,17 +101,21 @@ const Navbar = () => {
         {userRole === 'Patient' && patientLinks}
         {userRole === 'Doctor' && doctorLinks}
         {userRole === 'Admin' && adminLinks}
-        <li className="nav-li">
-          <NavLink to="/Login">Login</NavLink>
-        </li>
+        {!userRole && (
+          <li className="nav-li">
+            <NavLink to="/Login">Login</NavLink>
+          </li>
+        )}
       </ul>
-      <Link to="/Settings" className="title">
-        <img
-          src="https://th.bing.com/th/id/R.ae68a6da3633369482b25a3ad0836885?rik=Briz%2fuyfS5axCQ&pid=ImgRaw&r=0"
-          alt="Profile"
-          style={{ height: '30px', width: '30px', borderRadius: '50%' }}
-        />
-      </Link>
+      {userRole && (
+        <Link to="/Settings" className="title">
+          <img
+            src="https://th.bing.com/th/id/R.ae68a6da3633369482b25a3ad0836885?rik=Briz%2fuyfS5axCQ&pid=ImgRaw&r=0"
+            alt="Profile"
+            style={{ height: '30px', width: '30px', borderRadius: '50%' }}
+          />
+        </Link>
+      )}
     </nav>
   );
 };

@@ -22,7 +22,7 @@ function HomeHero() {
         <div class="col-xl-2 col-md-4">
             <div class="icon-box" id="increase-sales">
                 <i class="ri-line-chart-line" style={{fontsize: '36px'}}></i>
-                <h3> <Link to={`/Booking`}>Book Now</Link></h3>
+                <h3> <Link to={`/Chatbot`}>ChatBot</Link></h3>
                 <p class="info" style={{display: 'none'}}>Our experts apply tested market strategies tailored to your business to bring more revenue.</p>
             </div>
         </div>

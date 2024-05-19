@@ -44,7 +44,7 @@ function Home() {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="widgets">
           <Widget type="patient" value={dashboardData.monthlyAverage}/>
           <Widget type="income" value={dashboardData.dailyIncome}/>

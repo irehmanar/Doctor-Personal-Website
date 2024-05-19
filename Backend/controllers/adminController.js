@@ -21,7 +21,8 @@ const addAdmin = async(req,res)=>{
                 username: username,
                 email: email,
                 password: hashed_password,
-                role:'Admin'
+                role:'Admin',
+                activated:true
               });
               return res.status(200).json({ message: "Admin created" });
             } else {

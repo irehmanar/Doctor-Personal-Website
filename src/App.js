@@ -33,11 +33,11 @@ function App() {
 
 
 
+    <Route path='/' element={<Home/>}></Route>
     <Route path='/Services' element={<Services/>}></Route>
     <Route path='/ChatBot' element={<Chatbot/>}></Route>
     <Route path='/Plans' element={<ViewPlans/>}></Route> 
     <Route path='/Login' element={<Login/>}></Route>
-    <Route path='/Settings' element={<SettingsPage/>}></Route>
     <Route path='/Aboutus' element={<AboutUs/>}></Route> 
 
 
@@ -48,6 +48,7 @@ function App() {
       <Route path='/Admin/Package' element={<Package/>}></Route>  
       <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route> 
       <Route path='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
       </>
     )}
 
@@ -56,13 +57,13 @@ function App() {
       <Route path='/AddPrescription' element={<AddPrescription/>}></Route>
       <Route path='/Appointments' element={<Appointment/>}></Route> 
       <Route path='/AddPlan' element={<AddPlans/>}></Route>
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
       </>
     )}
 
 
     {userRole === 'Patient' && (
       <>
-      <Route path='/' element={<Home/>}></Route>
       <Route path='/Booking' element={<Booking/>}></Route>
       <Route path='/Histroy' element={<Histroy/>}></Route>  
       <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
@@ -70,6 +71,7 @@ function App() {
       <Route path='/Contactus' element={<Contactus/>}></Route>
       <Route path='/Blogs' element={<BlogsDisplay/>}></Route>
       <Route path='/Blog' element={<Blog/>}></Route>
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
       </>
     )}
     </Routes>

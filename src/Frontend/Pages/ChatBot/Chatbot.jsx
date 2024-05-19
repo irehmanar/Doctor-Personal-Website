@@ -36,9 +36,10 @@ function Chatbot() {
     <Navbar/>
     <div className="chatbot">
       
-      <div className="heading-container">
-        <h1>Medical Chatbot</h1>
-      </div>
+    <div class="section-title">
+          <h2>ChatBot</h2>
+          <p>Your Medical Chatbot</p>
+        </div>
       <div className="chat">
         <div className="message patient-message">
           <p className="text">Hello Doctor, I have a question...</p>
