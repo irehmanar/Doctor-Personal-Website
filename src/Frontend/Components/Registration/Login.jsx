@@ -40,6 +40,9 @@ function Login() {
               console.log(data);
               setMessage("Login successful");
               alert("Login successful");
+              localStorage.getItem('role') === "Admin"?
+              window.location.href = '/Admin/Dashboard':
+              window.location.href = '/';
             } else {
               setMessage(data.message);
               alert(data.message);
@@ -61,7 +64,7 @@ function Login() {
           <input
             type="text"
             name="username"
-            placeholder="Email"
+            placeholder="Enter User Name"
             value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}

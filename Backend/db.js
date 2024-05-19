@@ -9,5 +9,4 @@ const connectToMongo = () => {
             console.log("Error connecting mongo db :", error);
         })
 }
-
 export default connectToMongo;  

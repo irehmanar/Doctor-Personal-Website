@@ -3,7 +3,7 @@
 #hero {
     width: 100%;
     min-height: 100vh;
-    background: url("https://images.pexels.com/photos/20040806/pexels-photo-20040806/free-photo-of-sun-over-silhouette-of-man-rock-climbing.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") top center;
+    background: url("https://images.pexels.com/photos/179912/pexels-photo-179912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") top center;
     background-size: cover;
     position: relative;
   }

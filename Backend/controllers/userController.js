@@ -47,7 +47,7 @@ const sendVerificationEmail = async (email, token) => {
     to: email,
     subject: "Verify your email address",
     text: `Please click the following link to verify your email address: http://localhost:3000/hospital/verifyUser/${token}`,
-    html: `<p>Please click this link to verify your account:</p> <a href="http://localhost:3333/hospital/verifyUser/${token}">Verify</a><br>Regards<br>Team Hospital Management System`,
+    html: `<p>Please click this link to verify your account:</p> <a href="http://localhost:3000/hospital/verifyUser/${token}">Verify</a><br>Regards<br>Team Hospital Management System`,
   };
 
   return await transporter.sendMail(mailOptions, (error, info) => {
@@ -90,7 +90,7 @@ const signup = async (req, res) => {
 
 
 const verifyUser = async (req, res) => {
-  const token = req.params.token;
+  const token = req.body.token;
 
   try {
     // Find and update the user if the verification token is valid and not expired
@@ -104,7 +104,7 @@ const verifyUser = async (req, res) => {
         "verificationToken.token": null,
       },
     );
-
+    console.log(verifiedUser)
     // Check if user was found and updated
     if (verifiedUser) {
       return res.status(200).json({ message: "Account verified", success: true });
@@ -150,7 +150,7 @@ const signin = async (req, res) => {
         } else {
           auth_user.password = undefined;
           const success = true;
-          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "5h" });
+          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "10h" });
           res.cookie("authorization", `Bearer ${token}`);
           return res.status(200).json({ token: `Bearer ${token}`, message: "login successfully", success, role: auth_user.role });
         }
@@ -166,7 +166,14 @@ const signin = async (req, res) => {
 
 //update Patient
 const updatePatient = async (req, res) => {
-
+  const User = req.User;
+  const data = req.body;
+        let userData = {};
+        data.forEach(item => {
+            const key = Object.keys(item)[0];
+            userData[key] = item[key];
+        });
+        console.log(userData);
   const { 
     patientFullName,
     patientCNIC,
@@ -179,8 +186,7 @@ const updatePatient = async (req, res) => {
     patientFoodAvoid,
     patientHomeCook,
     patientWristCircumference,
-    patientHeight } = req.body;
-  const User = req.User;
+    patientHeight } = userData;
   let success;
   if (!patientCNIC ) {
     success = false;
@@ -215,6 +221,8 @@ const updatePatient = async (req, res) => {
     }
   }
 };
+
+
 
 // get patient by userId
 const getPatientByUserId = async (req, res) => {
@@ -306,6 +314,7 @@ const getUserinfoByToken = async (req, res) => {
   const User = req.User;
   try{
     const existUser = await user.findOne({ _id: User._id });
+    console.log(existUser)
     const {
             patientFullName,
             cnic,
@@ -322,10 +331,38 @@ const getUserinfoByToken = async (req, res) => {
             height,
     } = existUser;
 
-    return res.status(200).json({patientFullName:patientFullName,patientCNIC:cnic,patientAge:age,patientGender:gender,patientContactNumber:contact,patientEmail:email,patientCurrentWeight:weight,patientOccupation:patientOccupation,patientFoodChoices:patientFoodChoices,patientFoodAvoid:patientFoodAvoid,patientHomeCook:patientHomeCook,patientWristCircumference:patientWristCircumference,patientHeight:height});
+    return res.status(200).json([{patientFullName:patientFullName},{patientCNIC:cnic},{patientAge:age},{patientGender:gender},{patientContactNumber:contact},{patientEmail:email},{patientCurrentWeight:weight},{patientOccupation:patientOccupation},{patientFoodChoices:patientFoodChoices},{patientFoodAvoid:patientFoodAvoid},{patientHomeCook:patientHomeCook},{patientWristCircumference:patientWristCircumference},{patientHeight:height}]);
   }catch(error){
     return res.status(404).json({ message: error.message });
   }
 }
 
-export default { signup, signin, updatePatient, getPatientByUserId, verifyUser, updatePassword, updateUsername ,getUserinfoByToken};
+
+//getUsername
+const getUsername = async (req, res) => {
+  const User = req.User;
+  try {
+    const existUser = await user.findOne({ _id: User._id });
+    return res.json({username:existUser.username});
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+
+}
+
+//uploadImage
+const uploadImage = async (req,res) => {
+  const User = req.User;
+  const image = req.body;
+  try {
+    const uploadImage = await user.updateOne({ _id: User._id }, {
+      $set: {
+        image: image
+      }
+    });
+    res.status(200).json({ message: "image uploaded successfully", uploadImage }); 
+  } catch (error) {
+    res.status(400).json({ message: "Couldn't upload image", errors: [error.message],success:false });
+  }
+}
+export default { signup, signin, updatePatient, verifyUser, updatePassword, updateUsername ,getUserinfoByToken,getUsername,uploadImage,getUserById};

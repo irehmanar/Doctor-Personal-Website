@@ -4,6 +4,7 @@ import userRoutes from "./routes/userRoutes.js";
 import promotionRoutes from "./routes/promotionRoute.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import adminDashboardRoute from "./routes/adminDashboardRoutes.js";
+import adminRoute from "./routes/adminRoutes.js";
 import contactUsRoutes from "./routes/contactUsRoutes.js";
 import prescriptionRoutes from "./routes/prescriptionRoutes.js";
 import cors from "cors";
@@ -26,11 +27,13 @@ app.use('/s3Url', async (req, res) => {
   }
 });
 app.use(cors({ origin: 'http://localhost:3000' }));
+app.use('/hospital',adminRoute);
 app.use('/hospital',userRoutes);
+
 app.use('/promotion',promotionRoutes);
 app.use('/appointment',appointmentRoutes);
 app.use('/adminDashboard',adminDashboardRoute);
-app.use('/contactUs',contactUsRoutes);
+app.use('/hospital',contactUsRoutes);
 app.use('/prescription',prescriptionRoutes);
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);

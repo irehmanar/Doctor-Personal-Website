@@ -24,8 +24,9 @@ appointmentRoutes.post("/createAppointment",
     body('subPlanchosen').isInt({ min: 1 }).withMessage('Sub plan chosen is required'),
     body('paymentType').isIn(['HBL', 'Easy Paisa', 'IBAN']).withMessage('Payment type is required'),
 ], 
+
 appointmentController.createAppointment); // Done
 appointmentRoutes.get("/getPlans", appointmentController.getPlans); //Done DESCRIPTION NEED TO BE ADDED
 appointmentRoutes.get("/getSubPlans/:planName", appointmentController.getSubplans); //Done
-appointmentRoutes.get("/getAppointment",userAuth,appointmentController.getAllAppointments); //done
+appointmentRoutes.get("/getAppointment",userAuth,appointmentController.getAllAppointments); 
 export default appointmentRoutes;

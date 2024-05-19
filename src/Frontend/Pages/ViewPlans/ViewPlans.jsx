@@ -82,6 +82,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { fetchPlanData } from '../../../Services/PlansApi'; 
 import { fetchSubPlanData } from '../../../Services/SubPlansApi'; // Import the sub-plan API function
 import './ViewPlans.css'
+import Navbar from "../../Components/Navbar/Navbar";
 
 function ViewPlans() {
   const [planData, setPlanData] = useState([]);
@@ -133,9 +134,13 @@ function ViewPlans() {
   }
   if (planData.length === 0) {
     return (
+      <>
+      <Navbar/>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         No Plan Exist
       </div>
+      
+      </>
     );
   }
 
@@ -144,20 +149,26 @@ function ViewPlans() {
   }
 
   return (
-
+<>
+<Navbar/>
     <div className="Plans">
+              <div class="section-title" style={{ marginTop: "2rem" }}>
+          <h2>Plans</h2>
+          <p>Check our Plans</p>
+        </div>
    {planData.map((plan, index) => (
         <Plans
           key={index}
           Data={subPlanData[index]} // Pass corresponding subPlanData
           Heading={plan} // Assume plan object has a 'name' property for heading
-          Description={plan.description || "No description available"} // Fallback description
+          Description={plan.description || "Achieve your health goals with our comprehensive Weight Management Plan, featuring a personalized diet and workout regimen tailored to your unique needs, weekly follow-ups, and daily progress tracking."} // Fallback description
         />
       ))}
     {/* <Plans Data={Data1} Heading="Basic Plans" Description= {Description1}/>
     <Plans Data={Data3} Heading="Premium Plans" Description= {Description3}/> */}
     {/* <Plans Data={Data2} Heading="Therapeutic Plans" Description= {Description2}/> */}
     </div>
+</>
   );
 }
 

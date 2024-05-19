@@ -3,3 +3,9 @@
     margin-top: 3rem;
 
 }
+
+.servicesResponsive{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}

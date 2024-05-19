@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import './Sidebar.css'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -7,12 +7,13 @@ import CardTravelIcon from '@mui/icons-material/CardTravel';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import LogoutIcon from '@mui/icons-material/Logout';
-// import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-// import InsertChartIcon from '@mui/icons-material/InsertChart';
-// import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-// import PsychologyIcon from '@mui/icons-material/Psychology';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Sidebar() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
+  };
   return (
     <div className='sideBar'>
       <div className="top">
@@ -55,40 +56,16 @@ function Sidebar() {
             <span>Patients Data</span>
           </li>
           </Link>
-          {/* <li>
-            <LocalShippingIcon className='icon'/>
-            <span>Delivery</span>
-          </li> */}
-          {/* <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className='icon'/>
-            <span>Stats</span>
-          </li>
-          <li>
-            <NotificationsActiveIcon className='icon'/>
-            <span>Notifications</span>
-          </li> */}
-          <p className="title">SERVICE</p>
-          {/* <li>
-            <CardTravelIcon className='icon'/>
-            <span>System Health</span>
-          </li> */}
-          {/* <li>
-            <PsychologyIcon className='icon'/>
-            <span>Logs</span>
-          </li> */}
-          <li>
-            <SettingsIcon className='icon'/>
-            <span>Settings</span>
-          </li>
           <p className="title">USER</p>
           <li>
             <AccountCircleIcon className='icon'/>
-            <span>Profile</span>
+            <span> <Link to="/Settings" className="title" style={{ textDecoration: "none" }}>
+          Profile
+        </Link></span>
           </li>
           <li>
             <LogoutIcon className='icon'/>
-            <span>Logout</span>
+            <span onClick={handleLogout}>Logout</span>
           </li>
         </ul>
       </div>

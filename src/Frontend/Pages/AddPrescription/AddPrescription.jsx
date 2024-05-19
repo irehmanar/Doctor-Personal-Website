@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addPrescription } from '../../../Services/AddPrescription';
+import Navbar from "../../Components/Navbar/Navbar";
 function AddPrescription() {
   const [files, setFiles] = useState(0);
   const [patientCNIC, setPatientCNIC] = useState("");
@@ -68,6 +69,7 @@ function AddPrescription() {
 
   return (
     <>
+    <Navbar/>
       <div className="section-title">
         <h2>Prescription</h2>
         <p>Add Prescription for Patient</p>
@@ -121,7 +123,7 @@ function AddPrescription() {
             </div>
           ))}
 
-          <button type="submit" id="submit">
+          <button type="submit" id="submit" style={{background: '#0f172a',color:'white'}}>
             Submit
           </button>
         </form>

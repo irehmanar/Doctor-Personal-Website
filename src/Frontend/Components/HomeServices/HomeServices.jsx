@@ -25,7 +25,7 @@ function HomeServices() {
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <div class="icon-box">
+                   <div class="icon-box"   style={{background:'#D8D8D8'}}>
             <div class="icon">
             <MonitorWeightIcon></MonitorWeightIcon>
             </div>
@@ -43,7 +43,7 @@ function HomeServices() {
           data-aos="zoom-in"
           data-aos-delay="200"
         >
-          <div class="icon-box">
+          <div class="icon-box"   style={{background:'#D8D8D8'}}>
             <div class="icon">
               <CoronavirusIcon></CoronavirusIcon>
             </div>
@@ -62,7 +62,7 @@ function HomeServices() {
           data-aos="zoom-in"
           data-aos-delay="300"
         >
-          <div class="icon-box">
+                  <div class="icon-box"   style={{background:'#D8D8D8'}}>
             <div class="icon">
               <FitnessCenterIcon></FitnessCenterIcon>
             </div>
@@ -81,7 +81,7 @@ function HomeServices() {
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <div class="icon-box">
+               <div class="icon-box"   style={{background:'#D8D8D8'}}>
             <div class="icon">
             <RestaurantIcon></RestaurantIcon>
             </div>
@@ -100,7 +100,7 @@ function HomeServices() {
           data-aos="zoom-in"
           data-aos-delay="200"
         >
-          <div class="icon-box">
+                   <div class="icon-box"   style={{background:'#D8D8D8'}}>
             <div class="icon">
               <FamilyRestroomIcon></FamilyRestroomIcon>
             </div>
