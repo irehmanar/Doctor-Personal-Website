@@ -22,7 +22,7 @@ const Settings = () => {
   };
   useEffect(() => {
     addImage()
-  });
+  },[]);
 
 
   const handleSubmit = (e) => {
