@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../Components/Navbar/Navbar'
+import { NavLink } from 'react-router-dom';
 // import { addImage } from "../../../aws/addimage.js";
 import { updateUsername } from '../../../Services/ChangeUserName.js';
 import changePassword from '../../../Services/ChangePassword.js';
@@ -279,13 +280,15 @@ const Settings = () => {
       
         <div>
             
-        <h3 className="text-lg mb-2">Forms Page</h3>
+        <h3 className="text-lg mb-2">User Info</h3>
         <p className="mb-4">This section will link to forms page (to be integrated later).</p>
-        {/* <form id = "aws-form" encType="multipart/form-data">
-              <input id = "file-input" type= "file" name="test" onChange={handleAWS}></input>
-              <button type = "submit">Upload</button>
-          </form> */}
-          <a href="/forms" className="text-blue-500 hover:text-blue-700">Go to Forms Page</a>
+        <NavLink
+          to={'/info'}
+          >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Edit Info
+          </button>
+        </NavLink>
       </div>
       </div>
 
