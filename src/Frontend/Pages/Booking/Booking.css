@@ -37,7 +37,7 @@
   .info div {
     width: 50vw;
     height: auto;
-    background-color: rgb(227, 211, 211);
+    background: #D8D8D8;
     margin-top: 1vh;
     padding: 2vw;
     box-sizing: border-box;

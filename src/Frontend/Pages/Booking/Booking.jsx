@@ -7,6 +7,7 @@ import { fetchSubPlanData } from "../../../Services/SubPlansApi";
 import { fetchPlanData } from "../../../Services/PlansApi";
 import { useData } from "../../ContextApi/DataContent";
 import { createAppointment } from '../../../Services/Booking';
+import Navbar from "../../Components/Navbar/Navbar";
 
 function Booking() {
   const { data } = useData();
@@ -256,6 +257,7 @@ function Booking() {
 
   return (
     <>
+    <Navbar/>
       <div className="section-title">
         <h2>Book now</h2>
         <p>Book your Appointment</p>

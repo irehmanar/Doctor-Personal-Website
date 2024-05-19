@@ -40,6 +40,9 @@ function Login() {
               console.log(data);
               setMessage("Login successful");
               alert("Login successful");
+              localStorage.getItem('role') === "Patient"?
+              window.location.href = '/':
+              window.location.href = '/AdminDashboard';
             } else {
               setMessage(data.message);
               alert(data.message);

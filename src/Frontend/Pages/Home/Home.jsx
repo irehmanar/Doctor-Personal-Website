@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./Home.css";
-import HomeSlider from "../../Components/HomeSlider/HomeSlider";
+import Navbar from '../../Components/Navbar/Navbar'
+// import HomeSlider from "../../Components/HomeSlider/HomeSlider";
 import HomePricing from "../../Components/HomePricing/HomePricing";
 import "boxicons/css/boxicons.min.css";
 import "glightbox/dist/css/glightbox.min.css";
@@ -41,11 +42,13 @@ export default function Home() {
 
   return (
     <>
+    <Navbar/>
     <HomeHero/>
       <div className="homecontainer">
         {/* <HomeSlider /> */}
         <PlanDetail />
         <HomeServices />
+      <HomePoints />
         <div class="section-title" style={{ marginTop: "2rem" }}>
           <h2>Plans</h2>
           <p>Check our Plans</p>
@@ -56,7 +59,6 @@ export default function Home() {
         <Satisfaction />
         <AboutUs />
       </div>
-      <HomePoints />
 
     </>
   );

@@ -1,17 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useData } from "../../ContextApi/DataContent";
 import "./DataForm.css";
+import { fetchAppointmentData } from '../../../Services/GetInfo'; 
+
 function DataForm({ editable }) {
+
   const { data, setData } = useData();
+
+  const [infoData, setInfoData] = useState(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        let data1 = await fetchAppointmentData();
+        setInfoData(data1)
+        console.log("data is : ", data1);
+        data[0].patientFullName = data1.patientFullName || " ";
+        data[1].patientCNIC = data1.patientCNIC || 0;
+        data[2].patientAge=data1.patientAge || 0;
+        data[5].patientEmail = data1.patientEmail || "";
+        data[6].patientCurrentWeight = data1.patientCurrentWeight || 0;
+        data[7].patientOccupation = data1.patientOccupation || "";
+        data[8].patientFoodChoices = data1.patientFoodChoices || "4";
+        data[9].patientHomeCook = data1.patientFoodAvoid || "44";
+        data[10].patientHomeCook = data1.patientHomeCook || "";
+        data[11].patientWristCircumference = data1.patientWristCircumference || 0;
+        data[12].patientHeight = data1.patientHeight || 0;
+      } catch (error) {
+        console.error("Failed to fetch data", error);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  if (!infoData) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+          <CircularProgress color="secondary" />
+        </Stack>
+      </div>
+    );
+  }
 
   function handleNameChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
       newData[0] = { ...newData[0], patientFullName: e.target.value };
+
       return newData;
     });
-    console.log(data)
   }
+
 
   function handleCnicChange(e) {
     setData((prevData) => {
@@ -116,6 +159,7 @@ function DataForm({ editable }) {
           type="text"
           id="name"
           name="patientFullName"
+          // value={data[0].patientFullName}
           value={data[0].patientFullName}
           placeholder="Your Answer here"
           onChange={handleNameChange}
@@ -130,6 +174,7 @@ function DataForm({ editable }) {
           type="number"
           id="cnic"
           name="patientCNIC"
+          // value={data[1].patientCNIC}
           value={data[1].patientCNIC}
           placeholder="Your Answer here"
           onChange={handleCnicChange}
@@ -144,7 +189,9 @@ function DataForm({ editable }) {
           type="text"
           id="age"
           name="patientAge"
-          value={data[2].patientAge}
+          // value={data[2].patientAge}
+        
+    value={data[2].patientAge}
           placeholder="Your Answer here"
           onChange={handleAgeChange}
           readOnly={!editable}
@@ -152,37 +199,7 @@ function DataForm({ editable }) {
         />
       </div>
 
-      <div>
-        <label for="plan">Gender *</label>
-        <label>
-          <input
-            type="radio"
-            id="basic"
-            name="patientGender"
-            value="Male"
-            checked={data[3].patientGender === "Male"}
-            onChange={handleGenderChange}
-            readOnly={!editable}
-            required
-          />
-          Male
-        </label>
-        <label>
-          <input
-            type="radio"
-            id="premium"
-            name="gender"
-            value="Female"
-            checked={data[3].patientGender === "Female"}
-            // onChange={(e) => setGender(e.target.value)}
-
-            onChange={handleGenderChange}
-            readOnly={!editable}
-            required
-          />
-          Female
-        </label>
-      </div>
+  
 
       <div>
         <label for="contact">Contact Number *</label>
@@ -192,6 +209,7 @@ function DataForm({ editable }) {
           name="patientContactNumber"
           placeholder="Your Answer here"
           value={data[4].patientContactNumber}
+              // value={infoData.}
           //   onChange={(e) => setNumber(parseInt(e.target.value))}
           onChange={handleNumberChange}
           readOnly={!editable}
@@ -206,7 +224,8 @@ function DataForm({ editable }) {
           id="email"
           name="patientEmail"
           placeholder="Your Answer here"
-          value={data[5].patientEmail}
+          // value={data[5].patientEmail}
+      value={data[5].patientEmail}
           //   onChange={(e) => setEmail(e.target.value)}
 
           onChange={handleEmailChange}
@@ -222,7 +241,8 @@ function DataForm({ editable }) {
           id="weight"
           name="patientCurrentWeight"
           placeholder="Your Answer here"
-          value={data[6].patientCurrentWeight}
+          // value={data[6].patientCurrentWeight}
+              value={infoData.patientCurrentWeight || data[6].patientCurrentWeight}
           //   onChange={(e) => setWeight(parseInt(e.target.value))}
           onChange={handleWeighthChange}
           readOnly={!editable}
@@ -236,7 +256,8 @@ function DataForm({ editable }) {
           type="text"
           id="weight"
           name="patientOccupation"
-          value={data[7].patientOccupation}
+          // value={data[7].patientOccupation}
+           value={data[7].patientOccupation}
           //   onChange={(e) => setOccupation(e.target.value)}
 
           onChange={handleOccupationChange}
@@ -251,7 +272,8 @@ function DataForm({ editable }) {
           type="text"
           id="food"
           name="patientFoodChoices"
-          value={data[8].patientFoodChoices}
+          // value={data[8].patientFoodChoices}
+            value={data[8].patientFoodChoices}
           //   onChange={(e) => setFood(e.target.value)}
 
           onChange={handleFoodChange}
@@ -269,6 +291,7 @@ function DataForm({ editable }) {
           id="notfood"
           name="patientFoodAvoid"
           value={data[9].patientHomeCook}
+        //  value={infoData.patientFoodAvoid || data[9].patientHomeCook}
           //   onChange={(e) => setnotFood(e.target.value)}
 
           onChange={handleNotFoodChange}
@@ -284,6 +307,7 @@ function DataForm({ editable }) {
           id="cook"
           name="patientHomeCook"
           value={data[10].patientHomeCook}
+          // value={infoData.patientHomeCook || data[10].patientHomeCook}
           //   onChange={(e) => setCook(e.target.value)}
 
           onChange={handleCookChange}
@@ -300,7 +324,8 @@ function DataForm({ editable }) {
           name="patientWristCircumference"
           placeholder="Your Answer here"
           value={data[11].patientWristCircumference}
-          //   onChange={(e) => setWrist(parseInt(e.target.value))}
+              // value={infoData.patientWristCircumference || data[11].patientWristCircumference}
+          // nChange={(e) => setWrist(parseInt(e.target.value))}
           onChange={handleWristChange}
           readOnly={!editable}
           required
@@ -315,6 +340,7 @@ function DataForm({ editable }) {
           name="patientHeight"
           placeholder="Your Answer here"
           value={data[12].patientHeight}
+        // value={infoData.patientHeight || data[12].patientHeight}
           //   onChange={(e) => setHeight(parseInt(e.target.value))}
           onChange={handleHeightChange}
           readOnly={!editable}

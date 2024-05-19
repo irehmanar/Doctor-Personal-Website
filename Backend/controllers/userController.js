@@ -90,7 +90,7 @@ const signup = async (req, res) => {
 
 
 const verifyUser = async (req, res) => {
-  const token = req.params.token;
+  const token = req.body.token;
 
   try {
     // Find and update the user if the verification token is valid and not expired
@@ -222,6 +222,8 @@ const updatePatient = async (req, res) => {
   }
 };
 
+
+
 // get patient by userId
 const getPatientByUserId = async (req, res) => {
   try {
@@ -334,6 +336,8 @@ const getUserinfoByToken = async (req, res) => {
     return res.status(404).json({ message: error.message });
   }
 }
+
+
 //getUsername
 const getUsername = async (req, res) => {
   const User = req.User;

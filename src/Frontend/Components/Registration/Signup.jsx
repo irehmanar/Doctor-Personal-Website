@@ -39,7 +39,7 @@ const Signup = () => {
     });
 
   return (
-    <div className="body">
+    <div className="body signup">
       <div className='main'>
         <input type='checkbox' id='chk' aria-hidden='true' />
         <div className='signup'>
@@ -63,7 +63,7 @@ const Signup = () => {
               ) : null}
             </div>
             <div className='inputContainer'>
-              <input
+              <input style={{width:'60%',padding:'0 2%'}}
                 type='email'
                 name='email'
                 id='email'
