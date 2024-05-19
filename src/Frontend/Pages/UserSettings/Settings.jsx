@@ -280,8 +280,7 @@ const Settings = () => {
       
         <div>
             
-        <h3 className="text-lg mb-2">User Info</h3>
-        <p className="mb-4">This section will link to forms page (to be integrated later).</p>
+        <h3 className="text-lg mb-2">User Info:</h3>
         <NavLink
           to={'/info'}
           >
