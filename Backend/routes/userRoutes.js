@@ -11,4 +11,6 @@ userRoutes.put("/changePassword",userAuth,userController.updatePassword);
 userRoutes.put("/changeUsername",userAuth,userController.updateUsername);
 userRoutes.get("/getUserinfo",userAuth,userController.getUserinfoByToken);
 userRoutes.get("/getUsername",userAuth,userController.getUsername);
+userRoutes.post("/postimage",userAuth,userController.uploadImage);
+userRoutes.get("/GetUser",userAuth,userController.getUserById);
 export default userRoutes;
