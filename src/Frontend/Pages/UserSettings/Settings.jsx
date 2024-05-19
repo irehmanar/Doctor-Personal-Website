@@ -21,6 +21,7 @@ const Settings = () => {
   const [adminPassword, setAdminPassword] = useState('');
   const [confirmAdminPassword, setConfirmAdminPassword] = useState('');
   const [loading, setLoading] = useState(true);
+  const role = localStorage.getItem('role');
 
   
   useEffect(() => {
@@ -173,6 +174,7 @@ const Settings = () => {
         </button>
 
         <button
+          style={{ display: role === 'Doctor' ? 'block' : 'none' }}
           onClick={handleAddAdminButtonClick}
           className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-2"
         >
