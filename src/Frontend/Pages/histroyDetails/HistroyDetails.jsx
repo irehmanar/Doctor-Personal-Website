@@ -1,8 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 import "./HistroyDetails.css";
 import ImageGrid from "../../Components/imageGrid/ImageGrid";
 import PDFbutton from "../../Components/buttonPDF/PDFbutton";
+import { fetchAppointmentData } from '../../../Services/GetAllAppointments';
 function HistroyDetails() {
+  const [histroyData, setHistroyData] = useState([]);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        let data = await fetchAppointmentData();
+        setHistroyData(data);
+        console.log("data is: ", data);
+      } catch (error) {
+        console.error("Failed to fetch data", error);
+      }
+    };
+    loadData();
+  }, []);
+
+  if (!histroyData) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+          <CircularProgress color="secondary" />
+        </Stack>
+      </div>
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const Data = [
     {
       id: 1,
