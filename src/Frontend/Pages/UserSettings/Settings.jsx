@@ -3,9 +3,10 @@ import Navbar from '../../Components/Navbar/Navbar'
 // import { addImage } from "../../../aws/addimage.js";
 import { updateUsername } from '../../../Services/ChangeUserName.js';
 import changePassword from '../../../Services/ChangePassword.js';
+import {fetchUsername} from '../../../Services/GetUserName.js';
 
 const Settings = () => {
-  const [currentUsername, setCurrentUsername] = useState('Guest');
+  const [currentUsername, setCurrentUsername] = useState('loading...');
   const [newUsername, setNewUsername] = useState('');
   const [profilePic, setProfilePic] = useState('https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); // Default profile picture path
   const [oldPassword, setOldPassword] = useState('');
@@ -17,20 +18,37 @@ const Settings = () => {
   const [adminEmail, setAdminEmail] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [confirmAdminPassword, setConfirmAdminPassword] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleUsernameChange = (e) => {
+  
+  useEffect(() => {
+    const getUsername = async () => {
+      try {
+        const data = await fetchUsername();
+        setCurrentUsername(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching username:', error);
+        setLoading(false);
+      }
+    };
+
+    getUsername();
+  }, [setCurrentUsername]);
+
+   const handleUsernameChange = (e) => {
     setNewUsername(e.target.value);
-  };
-  //  useEffect(() => {
-  //     addImage()
-  //  },[]);
+   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setCurrentUsername(newUsername);
-    setNewUsername('');
-    updateUsername(newUsername);
+    try {
+      await updateUsername(newUsername);
+      setCurrentUsername(newUsername);
+      setNewUsername('');
+    } catch (error) {
+      console.error('Error updating username:', error);
+    }
   };
 
   const handleProfilePicChange = (e) => {
@@ -92,48 +110,47 @@ const Settings = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Navbar/>
-       <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded shadow-md relative">
-      <div className="relative">
-        {/* Profile Picture */}
-        <img
-          src={profilePic}
-          alt="User Pfp"
-          className="rounded-full w-20 h-20 absolute top-2 right-2 border-2 border-white cursor-pointer"
-          onClick={() => document.getElementById('fileInput').click()}
-        />
-        <input
-          id="fileInput"
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }}
-          onChange={handleProfilePicChange}
-        />
-        {/* End of Profile Picture */}
-
-        {/* Text below the Profile Picture */}
-        <p className="text-xs text-gray-500 mt-2 text-right absolute top-24 right-2 left-2">Click To Update</p>
-        {/* End of Text */}
-      </div>
-      <h2 className="text-2xl mb-4">Settings</h2>
-      <div className="mb-6">
-        <h3 className="text-lg mb-2">Username</h3>
-        <p className="mb-2">Username: {currentUsername}</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={newUsername}
-            onChange={handleUsernameChange}
-            placeholder="Enter new username"
-            className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+      <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded shadow-md relative">
+        <div className="relative">
+          {/* Profile Picture */}
+          <img
+            src={profilePic}
+            alt="User Pfp"
+            className="rounded-full w-20 h-20 absolute top-0 right-2 border-2 border-white cursor-pointer"
+            onClick={() => document.getElementById('fileInput').click()}
           />
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Change Username
-          </button>
-        </form>
-      </div>
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleProfilePicChange}
+          />
+        </div>
+        <h2 className="text-2xl mb-4">Settings</h2>
+        <div className="mb-6">
+          <h3 className="text-lg mb-2">Username: {currentUsername}</h3>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={newUsername}
+              onChange={handleUsernameChange}
+              placeholder="Enter new username"
+              className="border border-gray-300 rounded px-3 py-2 w-full mb-2"
+            />
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Change Username
+            </button>
+          </form>
+        </div>
+
 
       {/* Button container to show Add Admin and Change Password options */}
       <div className="flex mb-6">
