@@ -119,3 +119,8 @@ button:hover{
 	background-color: #000000;
 	color: #eee;
   }
+
+
+  .inputContainer input{
+	margin: auto;
+  }
