@@ -1,0 +1,20 @@
+.Loginbg {
+    position: relative;
+    background-image: url('https://images.pexels.com/photos/3850749/pexels-photo-3850749.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    filter: brightness(0.7) sepia(20%); /* Apply brightness and sepia filters */
+  }
+  
+  .Loginbg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  }
+  

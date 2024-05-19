@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddPlans.css";
 import { addPlan } from '../../../Services//AddPlan';
+import Navbar from "../../Components/Navbar/Navbar";
 
 function AddPlans() {
   const [plan, setPlan] = useState(0);
@@ -162,6 +163,7 @@ async function handleSubmit(e){
 
   return (
     <div style={{margin: '0px'}}>
+      <Navbar/>
       <div class="section-title">
         <h2>Plans</h2>
         <p>Add Your Plans</p>
@@ -317,7 +319,7 @@ async function handleSubmit(e){
             </div>
           ))}
 
-          <button type="submit" id="submit">
+          <button type="submit" id="submit" style={{background:'#0f172a',color:'white'}}>
             Submit
           </button>
         </form>

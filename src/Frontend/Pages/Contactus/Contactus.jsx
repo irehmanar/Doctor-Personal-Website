@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import Navbar from '../../Components/Navbar/Navbar'
 
 import { contactUs } from '../../../Services/ContactUs';
 import './Contactus.css'
@@ -36,6 +40,7 @@ function Contactus() {
 
   return (
     <div>
+      <Navbar/>
       <div className="contactBody">
 
 
@@ -67,10 +72,10 @@ function Contactus() {
                 </div>
                 <div className="headingContact">
               <div className="heading">
-                <h2>Product Suport</h2>
+                <h2>Service Suport</h2>
               </div>
               <div className="contactInfo">
-                <p>admin@gmail.com</p>
+                <p>service@gmail.com</p>
               </div>
               </div>
               </div>
@@ -85,10 +90,10 @@ function Contactus() {
 
                 <div className="headingContact">
                   <div className="heading">
-                    <h2>Product Suport</h2>
+                    <h2>Registration Suport</h2>
                   </div>
                   <div className="contactInfo">
-                    <p>admin@gmail.com</p>
+                    <p>login@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -99,10 +104,10 @@ function Contactus() {
                 </div>
                 <div className="headingContact">
               <div className="heading">
-                <h2>Product Suport</h2>
+                <h2>General Suport</h2>
               </div>
               <div className="contactInfo">
-                <p>admin@gmail.com</p>
+                <p>yourdietplan@gmail.com</p>
               </div>
               </div>
               </div>
@@ -126,10 +131,10 @@ function Contactus() {
                 </div>
                 <div className="headingContact">
               <div className="heading">
-                <h2>Product Suport</h2>
+                <h2>Diet Plan Suport</h2>
               </div>
               <div className="contactInfo">
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis saepe dolorum aspernatur animi consequuntur, repudiandae dicta aliquid veniam est illum mollitia excepturi, natus, aliquam magnam rem quae fugiat temporibus minus!</p>
+              <p>If you have any questions about your diet or need personalized nutrition advice, our expert nutritionist is here to help. Whether you're looking to improve your eating habits, manage a health condition, or simply enhance your overall well-being</p>
               </div>
               </div>
             </div>
@@ -139,10 +144,10 @@ function Contactus() {
                 </div>
                 <div className="headingContact">
               <div className="heading">
-                <h2>Product Suport</h2>
+                <h2>Consultation Suport</h2>
               </div>
               <div className="contactInfo">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore rerum nemo eveniet sed facilis recusandae odit ea officia voluptatibus reiciendis vel culpa consequatur autem, necessitatibus a quae sunt illo delectus!</p>
+                <p>We provide customized guidance to meet your unique needs. Reach out to us today for support on your journey to better health and vitality!</p>
               </div>
               </div>
             </div>
@@ -154,13 +159,13 @@ function Contactus() {
 
 
 
-        <div className="bodyRight" style={{background: 'red',padding: '0px'}}>
+        <div className="bodyRight" style={{padding: '0px'}}>
           <div style={{textAlign: 'center',flex: '1',marginTop: '2rem'}}>
         <h3 class="card-title text-center m-auto" style={{fontSize: '2.5rem'}}>Contact Us</h3>
         </div>
         <form onSubmit={handleSubmit} id="contactusForm">
           <div className="form-group m-3">
-            <label htmlFor="name" style={{display: 'block', margin:'0', color: 'Black', fontSize: '1.5rem'}}>name</label>
+            <label htmlFor="name" style={{display: 'block', margin:'0', color: 'Black', fontSize: '1.5rem'}}>Name</label>
             <input type="text" className="form-control" id="exampleFormControlInput1" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required/>
           </div>
           <div className="form-group m-3">
@@ -191,16 +196,16 @@ function Contactus() {
       <div className="leftTopHeading"><h5>Follow us on</h5></div>
       <div className="logos">
         <div className="logo">
-               <DashboardIcon className="icon" />
+               <WhatsAppIcon className="icon" />
         </div>
         <div className="logo">
      <InstagramIcon className="icon" />
         </div>
         <div className="logo">
-     <DashboardIcon className="icon" />
+     <GitHubIcon className="icon" />
         </div>
         <div className="logo">
-     <DashboardIcon className="icon" />
+     <FacebookIcon className="icon" />
         </div>
       </div>
 

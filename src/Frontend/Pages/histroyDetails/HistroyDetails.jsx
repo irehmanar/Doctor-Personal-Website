@@ -5,6 +5,7 @@ import "./HistroyDetails.css";
 import ImageGrid from "../../Components/imageGrid/ImageGrid";
 import PDFbutton from "../../Components/buttonPDF/PDFbutton";
 import { fetchAppointmentData } from '../../../Services/GetAllAppointments';
+import Navbar from "../../Components/Navbar/Navbar";
 function HistroyDetails() {
   const [histroyData, setHistroyData] = useState([]);
   useEffect(() => {
@@ -93,9 +94,10 @@ function HistroyDetails() {
   ];
   return (
     <>
+    <Navbar/>
       {Data.map((item) => (
         <div className="detailContainer">
-          <h1 className="display-4 text-4xl font-bold mb-4">
+          <h1 className="display-4 text-4xl font-bold mb-4" style={{color:'black'}}>
             Appointment no {item.id}
           </h1>
 

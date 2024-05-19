@@ -10,7 +10,7 @@ function ServicesComponent({ data, alignment }) {
   }, []);
 
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" style={{maxHeight:'70vh'}}>
       <div className="container" id="servicecontainer" data-aos="fade-up">
         <div className="row">
           <div
@@ -25,7 +25,7 @@ function ServicesComponent({ data, alignment }) {
             data-aos="fade-left"
             data-aos-delay="100"
           >
-            <h3>{data.title}</h3>
+            <h1>{data.title}</h1>
             <p className="fst-italic">{data.description}</p>
             {/* Rounded tick marks for bullet points */}
             <ul className="tick-mark-list">

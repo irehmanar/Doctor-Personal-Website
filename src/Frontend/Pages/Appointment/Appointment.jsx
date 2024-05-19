@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import GridData from '../../Components/adminDataGrid/GridData';
 import { fetchAppointmentData } from '../../../Services/ViewAllAppointments';
 import { AcceptAppointment } from '../../../Services/AcceptAppointment';
+import Navbar from "../../Components/Navbar/Navbar";
 
 function Appointment() {
     const [rows, setRows] = useState([]);
@@ -77,10 +78,16 @@ function Appointment() {
     }
 
     return (
+        <>
+        <Navbar/>
         <div className="container m-auto">
-            <h1 className="display-4 text-4xl font-bold mb-4">View Appointments</h1>
+        <div class="section-title">
+            <h2>Appointments</h2>
+            <p>Check your Pending Appointments</p>
+        </div>
             <GridData columns={columns} rows={rows} getRowId={(row) => row._id} />
         </div>
+        </>
     );
 }
 

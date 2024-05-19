@@ -1,7 +1,10 @@
 import React from 'react'
 import './AboutUs.css'
+import Navbar from '../../Components/Navbar/Navbar'
 function AboutUs() {
   return (
+    <>
+          <Navbar/>
     <section id="team" class="team">
     <div class="container">
 
@@ -81,6 +84,7 @@ function AboutUs() {
         </div>
     </div>
 </section>
+    </>
   )
 }
 

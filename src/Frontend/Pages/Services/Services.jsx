@@ -1,5 +1,6 @@
 import React from 'react'
 import './Services.css'
+import Navbar from '../../Components/Navbar/Navbar'
 import ServicesComponent from '../../Components/ServicesComponent/ServicesComponent'
 function Services() {
     let data1 = {
@@ -36,15 +37,18 @@ function Services() {
       }
   return (
  <>
+ <Navbar />
         <div class="section-title" id="section-title">
             <h2>Services</h2>
             <p>Check our Services</p>
         </div>
+        <div className="servicesResponsive">
  <ServicesComponent data={data1} alignment = {1}/>
  <ServicesComponent data={data2} alignment = {2}/>
  <ServicesComponent data={data3} alignment = {1}/>
  <ServicesComponent data={data4} alignment = {2}/>
  <ServicesComponent data={data5} alignment = {1}/>
+        </div>
  </>
   )
 }

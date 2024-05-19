@@ -2,6 +2,7 @@
     /* background: pink; */
     display: flex;
     flex-wrap: wrap;
+    gap:10px;
     /* flex-direction: column; */
 
 }
@@ -16,6 +17,9 @@ flex-direction: column;
 /* background: pink; */
 min-width: 450px;
 margin: 3rem 0 3rem 3rem;
+-webkit-box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
+-moz-box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
+box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
 }
 
 .leftTop{
@@ -62,6 +66,9 @@ flex: 1;
     flex: 1;
 }
 .bodyRight{
+    -webkit-box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
+    box-shadow: 8px 8px 5px -2px rgba(0, 0, 0, 0.29);
 flex: 1;
 /* border: 1px solid rgb(106, 0, 106); */
 /* background: red; */
@@ -84,7 +91,6 @@ overflow: hidden;
 
 
 #contactusForm{
-    background: pink;
     display: flex;
     flex-direction: column;
     justify-content: center;
