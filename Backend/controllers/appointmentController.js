@@ -97,7 +97,7 @@ const createAppointment = async (req, res) => {
             // Update user's appointment counter
             // Save the new appointment to the database
             await newAppointment.save();
-
+            await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
             // Send a success response
             res.status(201).json({ message: 'Appointment created successfully', success: true });
             } catch (error) {
@@ -151,12 +151,11 @@ const createAppointment = async (req, res) => {
                 Appointment: appointment.appointmentdate.toISOString().split('T')[0], // Format date as 'dd-mm-yyyy'
                 planner: appointment.planChosen,
                 month: appointment.month,
-                image: appointment.prescription[0]?.image || [], // Assuming you want the images from the first prescription
-                pdf: appointment.prescription[0]?.pdf || [] // Assuming you want the PDFs from the first prescription
+                files: appointment.prescription[0]?.files || [], // Assuming you want the images from the first prescription
             }));
     
             console.log("Projected Data:", projectedData);
-            res.json(projectedData); // Send the projected data as the response
+            res.json({projectedData}); // Send the projected data as the response
         } catch (err) {
             console.error("Error fetching appointments:", err);
             res.status(500).json({ error: err.message,success:false }); // Send an error response
