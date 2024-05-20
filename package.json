@@ -38,6 +38,7 @@
     "express-validator": "^7.0.1",
     "font-awesome": "^4.7.0",
     "formik": "^2.4.6",
+    "fs": "^0.0.1-security",
     "glightbox": "^3.3.0",
     "jsonwebtoken": "^9.0.2",
     "mdb-react-ui-kit": "^8.0.0",

@@ -118,7 +118,7 @@ function HistroyDetails() {
 
           <div className="pdfButtons">
             {item.pdfs.map((pdflink) => (
-              <PDFbutton pdfLink={pdflink} />
+              <PDFbutton/>
             ))}
           </div>
         </div>

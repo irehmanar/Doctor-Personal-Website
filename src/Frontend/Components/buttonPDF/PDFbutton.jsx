@@ -1,10 +1,11 @@
 import React from 'react'
 import './PDFbutton.css'
-function PDFbutton({pdfLink}) {
+import downloadS3File from '../../../aws/downloadfile'
+function PDFbutton() {
   return (
     <div className='pdfButtonContainer'>
-    <a href={pdfLink} download={pdfLink}>
-        <button className='PDFbutton'>{pdfLink}</button>
+    <a>
+        <button className='PDFbutton' onClick={downloadS3File}>Download Prescription</button>
     </a>
 </div>
   )
