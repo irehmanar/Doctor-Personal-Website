@@ -2,8 +2,8 @@
 import prescription from "../models/prescriptionModel.js";
 import appointment from "../models/appointment.js";
 const addPrescription = async(req,res)=>{
-    const {patientCNIC,numberOfFiles,images,pdf}   = req.body;
-    if(!patientCNIC || !numberOfFiles || !images || !pdf){
+    const {patientCNIC,numberOfFiles,files}   = req.body;
+    if(!patientCNIC || !numberOfFiles || !files){
         return res.status(400).json({message:"incomplete content"});
     }else{
         try{
@@ -14,8 +14,7 @@ const addPrescription = async(req,res)=>{
                 $push: {
                     prescription: {
                         numberOfFiles,
-                        images,
-                        pdf,
+                        files,
                     },
                 },
             }, { new: true });
