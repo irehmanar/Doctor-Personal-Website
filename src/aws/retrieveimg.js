@@ -4,7 +4,7 @@ const getPresignedImageUrl = async (objectKey) => {
     const data = await response.json();
     return data.url;
   } catch (error) {
-    console.error('Error fetching image URL:', error);
+    console.error('Error fetching URL:', error);
     return null;
   }
 };
