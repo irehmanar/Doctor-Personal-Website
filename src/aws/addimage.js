@@ -1,33 +1,18 @@
-export const addImage = () => {
-  // Initialize an object to store the selected files
-  const selectedFiles = {};
-
+export const addImage = (selectedFiles, handleNewUrls) => {
   // Select all file input elements in the form
-  const imageInputs = document.querySelectorAll(".file-input");
-  const imageForm = document.querySelector("#aws-form");
+  const imageInputs = document.querySelectorAll(".file-input:not(.event-listener-attached)");
 
   // Add event listeners to each file input element
   imageInputs.forEach(imageInput => {
-    imageInput.addEventListener("change", event => {
+    imageInput.addEventListener("change", async event => {
       event.preventDefault();
       const files = Array.from(imageInput.files);
       if (!files.length) return;
 
       // Store the selected files in the object
-      selectedFiles[imageInput.name] = files;
-      console.log(`Files selected for ${imageInput.name}:`, files);
-    });
-  });
-
-  // Handle the form's submit event
-  imageForm.addEventListener("submit", async event => {
-    event.preventDefault();
-    try {
-      // Iterate over the selected files and upload each one
-      for (const inputName in selectedFiles) {
-        const files = selectedFiles[inputName];
-        for (const file of files) {
-          console.log(`Uploading file from ${inputName}:`, file);
+      selectedFiles[imageInput.name] = [];
+      for (const file of files) {
+        try {
 
           // Fetch pre-signed URL from the server
           const { url } = await fetch("http://localhost:3333/s3Url", {
@@ -37,7 +22,6 @@ export const addImage = () => {
             }
           }).then(res => res.json());
 
-          console.log(`Pre-signed URL for ${file.name}:`, url);
 
           // Post the image to the bucket
           await fetch(url, {
@@ -49,19 +33,24 @@ export const addImage = () => {
           });
 
           const imageUrl = url.split('?')[0];
+          console.log(`Image URL: ${imageUrl}`);
 
-          // Display the uploaded image (optional)
-          const img = document.createElement('img');
-          img.src = imageUrl;
-          document.body.appendChild(img); // Append image to the body or any other desired location
+          // Store the image URL
+          selectedFiles[imageInput.name].push(imageUrl);
+
+          // Call the callback with the updated URLs
+          if (handleNewUrls) {
+            handleNewUrls(selectedFiles);
+          }
+
+        } catch (error) {
+          console.error(`Error uploading file ${file.name}:`, error);
         }
       }
+      console.log(`URLs for ${imageInput.name}:`, selectedFiles[imageInput.name]);
+    });
 
-      // Additional logic after all images are uploaded
-      console.log("All images have been uploaded successfully.");
-
-    } catch (error) {
-      console.error("Error uploading images:", error);
-    }
+    // Mark the input as having an event listener attached
+    imageInput.classList.add('event-listener-attached');
   });
 };

@@ -1,15 +1,19 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 function BlogPostCard() {
   return (
     <div>
  <div className="card w-[50%] bg-base-100 shadow-xl p-8 rounded-xl" style={{backgroundColor: "#E5F3FD"}}>
-  <figure><img src="https://img.freepik.com/free-vector/fitness-nutrition-social-media-cover-template_23-2149717274.jpg?w=1380&t=st=1714754226~exp=1714754826~hmac=cb4834d0827d1d9e668c1f36e8c91daf3b3f474bb25652e96148917b6bc470ff" alt="BlogPostCard" /></figure>
+  <figure><img src="https://www.baptisthealth.com/-/media/images/migrated/blog-images/teaser-images/kale-salad-1280x960.jpg?rev=4304868605894bfaa194e97424e60e04" alt="BlogPostCard" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Improve Your Health!</h2>
-    <p>Krle Improve!</p>
+    <h2 className="card-title">HEALTH BENEFITS OF LEAFY GREENS</h2>
+    <p>Leafy greens are an essential part of a healthy diet. They provide many important vitamins and minerals that help...</p>
     <div className="card-actions justify-end">
-      <button className="btn btn-primary">Read More</button>
+      <NavLink to={'/blog'}>
+        <button className="btn btn-primary">Read More</button>
+      </NavLink>
+      
     </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
 .bold-header {
   font-weight:bolder;
   font-size: larger;
-  background: #7F9C5B;
+  background: #0f172a;
   text-align: center;
+  color: aliceblue;
 }
 
 .containerbox

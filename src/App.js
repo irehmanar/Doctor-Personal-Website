@@ -1,6 +1,4 @@
 import './App.css';
-import BlogsDisplay from './Frontend/Pages/Blogs/BlogsDisplay.jsx';
-import Blog from './Frontend/Pages/Blogs/Blog.jsx';
 import Home from './Frontend/Pages/Home/Home.jsx';
 import Login from './Frontend/Pages/Login/Login.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom"; 
@@ -21,39 +19,57 @@ import Booking from './Frontend/Pages/Booking/Booking.jsx';
 import { DataProvider } from "./Frontend/ContextApi/DataContent.js";
 import AddPrescription from './Frontend/Pages/AddPrescription/AddPrescription.jsx';
 import AddPlans from './Frontend/Pages/AddPlans/AddPlans.jsx';
+import Verification from './Frontend/Pages/Verfication/Verification.jsx';
+import Chatbot from './Frontend/Pages/ChatBot/Chatbot.jsx';
 function App() {
+  const userRole = localStorage.getItem('role');
   return (
     <DataProvider>
     <div className="app">
     <BrowserRouter>
     <Routes>
-    <Route path='/' element={<Home/>}></Route> //Done
-    <Route path='/Contactus' element={<Contactus/>}></Route> //Done
-    <Route path='/Aboutus' element={<AboutUs/>}></Route> //Done
-    <Route path='/Blogs' element={<BlogsDisplay/>}></Route> //Ismail
-    <Route path='/Blog' element={<Blog/>}></Route> //Ismail
-    <Route path='/Login' element={<Login/>}></Route> //Done
-    <Route path='/Settings' element={<SettingsPage/>}></Route> //Ismail
-    <Route path='/Plans' element={<ViewPlans/>}></Route> //Done 
-    <Route path='/Services' element={<Services/>}></Route> //Done
-    <Route path='/Appointments' element={<Appointment/>}></Route> // Done
-    <Route path='/AddPrescription' element={<AddPrescription/>}></Route> //Done almost
-    <Route path='/Admin/Patient' element={<Patient/>}></Route> //Done
-    <Route path='/Admin/Package' element={<Package/>}></Route> //Done   
-    <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route> //Done
-
-
-    
-    <Route path='/Histroy' element={<Histroy/>}></Route>  
-    <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
-    <Route path='/Info' element={<PersonalInfo/>}></Route>
 
 
 
-    <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>  //Little change needed
-    <Route path='/Booking' element={<Booking/>}></Route>  //Error in backend
-    
-    <Route path='/AddPlan' element={<AddPlans/>}></Route> //delay
+    <Route path='/' element={<Home/>}></Route>
+    <Route path='/Services' element={<Services/>}></Route>
+    <Route path='/ChatBot' element={<Chatbot/>}></Route>
+    <Route path='/Plans' element={<ViewPlans/>}></Route> 
+    <Route path='/Login' element={<Login/>}></Route>
+    <Route path='/Aboutus' element={<AboutUs/>}></Route> 
+
+
+    {userRole === 'Admin' && (
+      <>
+      <Route path='/Admin/Dashboard' element={<Dashboard/>}></Route>
+      <Route path='/Admin/Patient' element={<Patient/>}></Route>
+      <Route path='/Admin/Package' element={<Package/>}></Route>  
+      <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route> 
+      <Route path='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
+      </>
+    )}
+
+    {userRole === 'Doctor' && (
+      <>
+      <Route path='/AddPrescription' element={<AddPrescription/>}></Route>
+      <Route path='/Appointments' element={<Appointment/>}></Route> 
+      <Route path='/AddPlan' element={<AddPlans/>}></Route>
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
+      </>
+    )}
+
+
+    {userRole === 'Patient' && (
+      <>
+      <Route path='/Booking' element={<Booking/>}></Route>
+      <Route path='/Histroy' element={<Histroy/>}></Route>  
+      <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
+      <Route path='/Info' element={<PersonalInfo/>}></Route>
+      <Route path='/Contactus' element={<Contactus/>}></Route>
+      <Route path='/Settings' element={<SettingsPage/>}></Route>
+      </>
+    )}
     </Routes>
     </BrowserRouter>
     </div>
@@ -62,8 +78,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-

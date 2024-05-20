@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { addPrescription } from '../../../Services/AddPrescription';
+import Navbar from "../../Components/Navbar/Navbar";
+import { addImage } from '../../../aws/addimage.js';
+
 function AddPrescription() {
   const [files, setFiles] = useState(0);
   const [patientCNIC, setPatientCNIC] = useState("");
   const [fileInputs, setFileInputs] = useState([]);
+  const [imageUrls, setImageUrls] = useState({}); // Store image URLs
+  const selectedFiles = useRef({});
 
   const handleFilesChange = (e) => {
     const value = parseInt(e.target.value);
@@ -17,6 +22,11 @@ function AddPrescription() {
     setFileInputs(newFileInputs);
   };
 
+  const handleNewUrls = (urls) => {
+    setImageUrls(urls);
+    console.log("New URLs:", urls);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,9 +35,7 @@ function AddPrescription() {
       return;
     }
 
-    const images = await Promise.all(
-      fileInputs.map((file) => fileToBase64(file))
-    );
+    const images = Object.values(imageUrls).flat();
 
     const formData = {
       patientCNIC,
@@ -37,52 +45,38 @@ function AddPrescription() {
 
     console.log(formData);
 
-
     try {
       const result = await addPrescription(formData);
       console.log('Prescription added :', result);
       // Handle success
-  } catch (error) {
+    } catch (error) {
       console.error('Error adding prescription: ', error);
       // Handle error
-  }
-
-    // Here you can use the formData in a POST API request, for example:
-    // fetch('your-api-endpoint', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
+    }
   };
 
-  const fileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+  useEffect(() => {
+    addImage(selectedFiles.current, handleNewUrls);
+  }, [fileInputs]);
 
   return (
     <>
+      <Navbar/>
       <div className="section-title">
         <h2>Prescription</h2>
         <p>Add Prescription for Patient</p>
       </div>
       <div className="info">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="aws-form">
           <div>
             <label htmlFor="patientcnic">CNIC (without -) *</label>
             <input
-              type="text" // Changed from number to text to prevent number input quirks
+              type="text"
               id="patientcnic"
               name="patientcnic"
               placeholder="Enter 11-digit CNIC"
               value={patientCNIC}
-              onChange={(e) => setPatientCNIC(e.target.value.replace(/\D/g, '').slice(0, 11))} // Only allow digits and limit to 11
+              onChange={(e) => setPatientCNIC(e.target.value.replace(/\D/g, '').slice(0, 11))}
               minLength="11"
               maxLength="11"
               required
@@ -114,6 +108,7 @@ function AddPrescription() {
               <input
                 type="file"
                 id={`patientFile${index + 1}`}
+                className="file-input"
                 name={`patientFile${index + 1}`}
                 onChange={(e) => handleFileChange(index, e.target.files[0])}
                 required
@@ -121,10 +116,24 @@ function AddPrescription() {
             </div>
           ))}
 
-          <button type="submit" id="submit">
+          <button type="submit" id="submit" style={{background: '#0f172a', color: 'white'}}>
             Submit
           </button>
         </form>
+      </div>
+
+      {/* Print URLs */}
+      <div>
+        {Object.values(imageUrls).map((urls, index) => (
+          <div key={index}>
+            <h3>URLs for File {index + 1}:</h3>
+            <ul>
+              {urls.map((url, i) => (
+                <li key={i}>{url}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </>
   );

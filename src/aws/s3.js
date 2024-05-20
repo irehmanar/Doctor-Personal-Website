@@ -25,7 +25,7 @@ export async function generateUploadURL() {
     const params = ({
         Bucket: bucketName,
         Key: imageName,
-        Expires: 300
+        Expires: 900
     })
 
 

@@ -6,12 +6,12 @@
 	align-items: center;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0c3510, #2e7034, #1e3c21);
+	/* background: linear-gradient(to bottom, #0f2639, #2e4970, #1e263c); */
 }
 .main{
 	width: 450px;
 	height: 600px;
-	background: linear-gradient(to bottom, #0c3510, #2e7034, #1e3c21);
+	background: linear-gradient(to bottom, #0c2d35, #32757d, #0c2d35);
 	overflow: hidden;
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
@@ -27,7 +27,7 @@
 	margin-bottom: 4rem;
 }
 label{
-	color: #fff;
+	color: #ffffff;
 	font-size: 2.3em;
 	justify-content: center;
 	display: flex;
@@ -39,12 +39,13 @@ label{
 input{
 	width: 60%;
 	height: 20px;
-	background: #e0dede;
+	background: #870000;
+	color: #1b151554;
 	justify-content: center;
 	display: flex;
 	margin: 10px auto;
 	padding: 10px;
-	border: none;
+	border: 1px solid black;
 	outline: none;
 	border-radius: 5px;
 }
@@ -55,7 +56,7 @@ input{
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #12372A;
+	background: #0f172a;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
@@ -66,7 +67,7 @@ input{
 	cursor: pointer;
 }
 button:hover{
-	background: #12372A;
+	background: #0f172abe;
 }
 .login{
 	height: 560px;
@@ -82,7 +83,7 @@ button:hover{
 .login label{
     padding-top: 1rem;
     /* background: pink; */
-	color: #26632a;
+	color: #0f172a;
 	transform: scale(.6);
 }
 
@@ -102,7 +103,7 @@ button:hover{
 
 .form-error {
     font-size: .7rem;
-    color: #ffffff;
+    color: #ff0000;
 	text-align: center;
   }
 
@@ -111,4 +112,15 @@ button:hover{
   }
   .inputContainer{
 	height: 60px;
+  }
+
+  .signup input{
+	height: 50px;
+	background-color: #000000;
+	color: #eee;
+  }
+
+
+  .inputContainer input{
+	margin: auto;
   }

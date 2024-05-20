@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./Home.css";
-import HomeSlider from "../../Components/HomeSlider/HomeSlider";
+import Navbar from '../../Components/Navbar/Navbar'
+// import HomeSlider from "../../Components/HomeSlider/HomeSlider";
 import HomePricing from "../../Components/HomePricing/HomePricing";
 import "boxicons/css/boxicons.min.css";
 import "glightbox/dist/css/glightbox.min.css";
@@ -12,6 +13,7 @@ import Satisfaction from "../../Components/SatisfactionDetail/Satisfaction";
 import PlanDetail from "../../Components/PlanDetail/PlanDetail";
 import HomePoints from "../../Components/HomePoints/HomePoints";
 import HomeHero from "../../Components/HomeHero/HomeHero";
+import Footer from "../../Components/Footer/Footer";
 export default function Home() {
   const ref = useRef(null);
 
@@ -41,11 +43,13 @@ export default function Home() {
 
   return (
     <>
+    <Navbar/>
     <HomeHero/>
       <div className="homecontainer">
         {/* <HomeSlider /> */}
         <PlanDetail />
         <HomeServices />
+      <HomePoints />
         <div class="section-title" style={{ marginTop: "2rem" }}>
           <h2>Plans</h2>
           <p>Check our Plans</p>
@@ -55,8 +59,8 @@ export default function Home() {
         </div>
         <Satisfaction />
         <AboutUs />
+        <Footer/>
       </div>
-      <HomePoints />
 
     </>
   );

@@ -1,16 +1,18 @@
 import React from "react";
 import './PricePlanner.css'
 import { Link } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 function plans({Data,Heading,Description}) {
   console.log(Data);
   return (
-    <section className="text-gray-600 body-font  m-3 customPlanner bg-body-secondary" style={{ padding: '0px', width: '80%'}}>
-      <div className="container flex flex-col items-center" style={{  minheight: '70%', padding: '2rem'}}>
+    <section className="text-gray-600 body-font  m-3 customPlanner " style={{ padding: '0px', width: '80%', background: '#D8D8D8', borderRadius: '30px'}}  data-aos="zoom-in">
+      <div className="container flex flex-col items-center" style={{  padding: '2rem', height:'80vh'}}>
         <div className="flex flex-col text-center w-full mb-20">
           <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
             {Heading}
           </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base mt-4 mb-0">
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base mt-2 mb-0">
           {Description}
           </p>
         </div>
