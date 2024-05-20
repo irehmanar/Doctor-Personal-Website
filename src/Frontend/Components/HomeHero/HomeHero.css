@@ -83,6 +83,7 @@
     #hero {
       background-attachment: fixed;
     }
+
   }
   
   @media (max-width: 768px) {
@@ -94,6 +95,10 @@
     #hero h2 {
       font-size: 20px;
       line-height: 24px;
+    }
+    .herobutton{
+      margin: 0 30px;
+      /* background: red; */
     }
   }
   

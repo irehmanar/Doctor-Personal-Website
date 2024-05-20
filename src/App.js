@@ -37,6 +37,7 @@ function App() {
     <Route path='/Plans' element={<ViewPlans/>}></Route> 
     <Route path='/Login' element={<Login/>}></Route>
     <Route path='/Aboutus' element={<AboutUs/>}></Route> 
+    <Route path='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
 
 
     {userRole === 'Admin' && (
@@ -45,8 +46,6 @@ function App() {
       <Route path='/Admin/Patient' element={<Patient/>}></Route>
       <Route path='/Admin/Package' element={<Package/>}></Route>  
       <Route path='/Admin/Patient/Data' element={<PatientData/>}></Route> 
-      <Route path='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
-      <Route path='/Settings' element={<SettingsPage/>}></Route>
       </>
     )}
 
@@ -56,6 +55,8 @@ function App() {
       <Route path='/Appointments' element={<Appointment/>}></Route> 
       <Route path='/AddPlan' element={<AddPlans/>}></Route>
       <Route path='/Settings' element={<SettingsPage/>}></Route>
+      <Route path='/Histroy' element={<Histroy/>}></Route>  
+      <Route path='/Histroy/details' element={<HistroyDetails/>}></Route>
       </>
     )}
 

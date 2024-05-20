@@ -18,11 +18,11 @@ function HomePricing() {
       ];
   return (
     
-    <section class="text-gray-600 itembox body-font overflow-hidden p5">
-    <div class="container px-5 py-24 mx-auto">
+    <section class="text-gray-600 itembox body-font overflow-hidden p5 HomePricing">
+    <div class="container px-5 py-24 mx-auto HomePricingblock">
       <div class="flex flex-row justify-content-around align-items-around flex-wrap grap-5 m-5">
       {Data.map((data, index) => (
-  <div className="xl:w-1/4 md:w-1/2 w-full itembox" data-aos={`fade-${index % 3 === 0 ? 'left' : index % 3 === 1 ? 'up' : 'right'}`}  style={{background:'#D8D8D8'}}>
+  <div className="xl:w-1/4 md:w-1/2 w-full HomePricingsingleblock itembox" data-aos={`fade-${index % 3 === 0 ? 'left' : index % 3 === 1 ? 'up' : 'right'}`}  style={{background:'#D8D8D8'}}>
     <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
       <div class="border-b border-gray-200 mb-3" style={{ height: '7rem' }}>
         <h1 class="text-5xl text-gray-900 pb-4 mb-4 leading-none">{data.title}</h1>

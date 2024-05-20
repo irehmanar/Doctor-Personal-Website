@@ -97,7 +97,7 @@ const createAppointment = async (req, res) => {
             // Update user's appointment counter
             // Save the new appointment to the database
             await newAppointment.save();
-
+            await user.findOneAndUpdate({ cnic: patientCNIC }, { $inc: { appointmentCounter: 1 } });
             // Send a success response
             res.status(201).json({ message: 'Appointment created successfully', success: true });
             } catch (error) {
@@ -137,26 +137,31 @@ const createAppointment = async (req, res) => {
 
     const getAllAppointments = async (req, res) => {
         try {
-            const { patientCNIC } = req.User.cnic; // Extract patientCNIC from PAYLOAD
+            const  patientCNIC  = req.User.cnic; // Extract patientCNIC from PAYLOAD
     
             const appointments = await appointment.find({ patientCNIC: patientCNIC });
     
             if (appointments.length === 0) {
-                throw new Error('No appointments found for the given CNIC');
+                res.status(200).json({
+                    id: "not available",
+                Appointment: "not available", // Format date as 'dd-mm-yyyy'
+                planner: "not available",
+                month: "not available",
+                files: "not available"
+                })
             }
-    
+            else{
             // Projecting data to the required format
             const projectedData = appointments.map(appointment => ({
                 id: appointment._id,
                 Appointment: appointment.appointmentdate.toISOString().split('T')[0], // Format date as 'dd-mm-yyyy'
                 planner: appointment.planChosen,
                 month: appointment.month,
-                image: appointment.prescription[0]?.image || [], // Assuming you want the images from the first prescription
-                pdf: appointment.prescription[0]?.pdf || [] // Assuming you want the PDFs from the first prescription
+                files: appointment.prescription[0]?.files || [], // Assuming you want the images from the first prescription
             }));
-    
             console.log("Projected Data:", projectedData);
-            res.json(projectedData); // Send the projected data as the response
+            res.status(200).json(projectedData); // Send the projected data as the response
+        }
         } catch (err) {
             console.error("Error fetching appointments:", err);
             res.status(500).json({ error: err.message,success:false }); // Send an error response

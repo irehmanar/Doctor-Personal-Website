@@ -13,7 +13,7 @@ function HomePoints() {
   
   return (
     <section id="features" className="features">
-      <div className="container" data-aos="fade-up">
+      <div className="container featuresblock" data-aos="fade-up">
       <div class="section-title">
         <h2>Main Points</h2>
         <p>Why only us</p>

@@ -64,33 +64,25 @@ function HistroyDetails() {
 
   const Data = [
     {
-      id: 1,
-      date: "24-05-2024",
+      id: 10,
+      date: "20-05-2024",
       planner: "Basic",
-      duration: 2,
-      pdfs: ["a.pdf", "b.pdf"],
-    },
-    {
-      id: 2,
-      date: "21-03-2024",
-      planner: "Premium",
       duration: 1,
-      pdfs: ["a.pdf", "b.pdf", "c.pdf"],
+      pdfs: ["AbdulRehman_CV.pdf", "project.pdf"],
     },
-    {
-      id: 3,
-      date: "03-03-2024",
-      planner: "Basic",
-      duration: 4,
-      pdfs: ["a.pdf", "b.pdf"],
-    },
-    {
-      id: 4,
-      date: "20-01-2024",
-      planner: "Premium",
-      duration: 3,
-      pdfs: ["a.pdf", "b.pdf"],
-    },
+    // {
+    //   id: 11,
+    //   date: "20-05-2024",
+    //   planner: "Premium",
+    //   duration: 3,
+    //   pdfs: ["a.pdf", "b.pdf", "c.pdf"],
+    // },
+    // {      id: 12,
+    //   date: "20-05-2024",
+    //   planner: "Premium",
+    //   duration: 1,
+    //   pdfs: ["a.pdf","c.pdf"]},
+ 
   ];
   return (
     <>
@@ -122,7 +114,7 @@ function HistroyDetails() {
             </div>
           </div>
 
-          <ImageGrid containerId={item.id}/>
+          {/* <ImageGrid containerId={item.id}/> */}
 
           <div className="pdfButtons">
             {item.pdfs.map((pdflink) => (

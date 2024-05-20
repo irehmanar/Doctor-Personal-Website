@@ -120,11 +120,8 @@ const appointmentSchema = new mongoose.Schema({
         numberOfFiles: {
             type: Number,
         },
-        image: {
+        files: {
             type: [String], //ARRAY NEEDED
-        },
-        pdf: {
-            type: [String],
         }
     }]
 });

@@ -13,7 +13,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 function HomeServices() {
   return (
     <section id="services" class="services">
-    <div class="container" data-aos="fade-up">
+    <div class="container servicesblock" data-aos="fade-up">
       <div class="section-title">
         <h2>Services</h2>
         <p>Check our Services</p>

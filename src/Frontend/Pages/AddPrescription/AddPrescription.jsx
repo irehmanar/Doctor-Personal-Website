@@ -36,11 +36,12 @@ function AddPrescription() {
     }
 
     const images = Object.values(imageUrls).flat();
+    const files = images;
 
     const formData = {
       patientCNIC,
-      numberOfFiles: files,
-      images,
+      numberOfFiles: images.length,
+      files,
     };
 
     console.log(formData);
@@ -48,9 +49,11 @@ function AddPrescription() {
     try {
       const result = await addPrescription(formData);
       console.log('Prescription added :', result);
+      alert('Add Prescription Successfully')
       // Handle success
     } catch (error) {
       console.error('Error adding prescription: ', error);
+      alert('User with CNIC '+patientCNIC+' not found')
       // Handle error
     }
   };
@@ -120,20 +123,6 @@ function AddPrescription() {
             Submit
           </button>
         </form>
-      </div>
-
-      {/* Print URLs */}
-      <div>
-        {Object.values(imageUrls).map((urls, index) => (
-          <div key={index}>
-            <h3>URLs for File {index + 1}:</h3>
-            <ul>
-              {urls.map((url, i) => (
-                <li key={i}>{url}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
       </div>
     </>
   );

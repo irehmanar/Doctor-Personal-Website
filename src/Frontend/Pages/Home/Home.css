@@ -37,6 +37,8 @@ overflow: hidden;
 
 
 
+
+
 /* FadeInLeft Animation */
 .fadeInLeft {
         -webkit-animation-name: fadeInLeft; /* Chrome, Safari, Opera */
@@ -517,7 +519,12 @@ overflow: hidden;
         margin-bottom: 0;
       }
 
-      .about{
-        /* padding: 60px;/ */
+
+      @media (max-width: 1000px) {
+        .about  .planimageblock{
+        /* background: red; */
+        height: auto;
+        }
       }
+
       

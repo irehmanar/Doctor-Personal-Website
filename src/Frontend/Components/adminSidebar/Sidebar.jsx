@@ -58,12 +58,6 @@ function Sidebar() {
           </Link>
           <p className="title">USER</p>
           <li>
-            <AccountCircleIcon className='icon'/>
-            <span> <Link to="/Settings" className="title" style={{ textDecoration: "none" }}>
-          Profile
-        </Link></span>
-          </li>
-          <li>
             <LogoutIcon className='icon'/>
             <span onClick={handleLogout}>Logout</span>
           </li>

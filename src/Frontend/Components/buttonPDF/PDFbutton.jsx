@@ -3,8 +3,8 @@ import './PDFbutton.css'
 function PDFbutton({pdfLink}) {
   return (
     <div className='pdfButtonContainer'>
-    <a href={pdfLink} download="filename.pdf">
-        <button className='PDFbutton'>Download PDF</button>
+    <a href={pdfLink} download={pdfLink}>
+        <button className='PDFbutton'>{pdfLink}</button>
     </a>
 </div>
   )

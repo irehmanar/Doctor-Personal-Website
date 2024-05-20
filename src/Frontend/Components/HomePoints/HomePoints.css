@@ -31,3 +31,11 @@
     background-size: cover;
     min-height: 400px;
   }
+
+
+  @media (max-width: 1000px) {
+    .features  .featuresblock{
+    /* background: red; */
+    height: auto;
+    }
+  }

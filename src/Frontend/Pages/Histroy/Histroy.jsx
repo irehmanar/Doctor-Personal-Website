@@ -12,13 +12,20 @@ function Histroy() {
     const loadData = async () => {
       try {
         let data = await fetchAppointmentData();
-        setHistroyData(data);
-        console.log("data is: ", data);
+        console.log("data is: ",data);
+        setHistroyData([data]);
       } catch (error) {
         console.error("Failed to fetch data", error);
       }
     };
     loadData();
+    {setHistroyData( {
+      id: 10,
+      Appointment: "20-05-2024",
+      planner: "Basic",
+      month: 1,
+      pdfs: ["a.pdf", "b.pdf"],
+    })}
   }, []);
 
   if (!histroyData) {
@@ -30,23 +37,6 @@ function Histroy() {
       </div>
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   const columns = [
@@ -90,27 +80,40 @@ function Histroy() {
   ];
   
   const rows = [
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
-    { id: 1,Appointment: '24-10-2024',planner: 'Premium', month:2,imgae: ['img1','img2','img3'], pdf:['pdf1','pdf2']},
+    {
+      id: 10,
+      Appointment: "20-05-2024",
+      planner: "Basic",
+      month: 1,
+      pdfs: ["a.pdf", "b.pdf"],
+    },
+    // {
+    //   id: 11,
+    //   Appointment: "20-05-2024",
+    //   planner: "Premium",
+    //   month: 3,
+    //   pdfs: ["a.pdf", "b.pdf", "c.pdf"],
+    // },
+    // {      id: 12,
+    //   Appointment: "20-05-2024",
+    //   planner: "Premium",
+    //   month: 1,
+    //   pdfs: ["c.pdf"]},
   ];
   return (
     <>
     <Navbar/>
     <div className="container m-auto">
           <div class="section-title" style={{ marginTop: "2rem" }}>
-          <h2>Hisroy</h2>
           <p>Check Your Recent Bookings</p>
+          <h2>Hisroy</h2>
         </div>
 
 
-  <GridData columns={columns} rows={rows}/>
+
+  <GridData columns={columns} rows={histroyData}/>
 </div>
-    
     </>
-   
   )
 }
 

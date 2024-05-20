@@ -13,3 +13,18 @@
 .itembox{
     min-width: 300px;
 }
+
+
+
+@media (max-width: 1200px) {
+    .HomePricing  .HomePricingblock{
+    /* background: red; */
+    height: auto;
+    margin: 10px;
+    }
+    .HomePricing  .HomePricingsingleblock{
+    margin: 10px 0;
+    }
+
+
+  }

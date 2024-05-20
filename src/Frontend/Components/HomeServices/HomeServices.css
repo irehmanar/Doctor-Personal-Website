@@ -94,3 +94,10 @@ section {
     transform: translateY(-10px);
   }
   
+
+  @media (max-width: 1000px) {
+    .services  .servicesblock{
+    /* background: red; */
+    height: auto;
+    }
+  }
