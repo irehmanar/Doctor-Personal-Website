@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useData } from "../../ContextApi/DataContent";
 import "./DataForm.css";
-import { fetchAppointmentData } from '../../../Services/GetInfo'; 
+import { fetchAppointmentData } from '../../../Services/GetInfo';
 
 function DataForm({ editable }) {
 
@@ -15,16 +15,16 @@ function DataForm({ editable }) {
     const loadData = async () => {
       try {
         let data1 = await fetchAppointmentData();
-        setInfoData(data1)
-        console.log("data is : ", data1);
-        data[0].patientFullName = data1.patientFullName || " ";
+        setInfoData(data1);
+        console.log("data is: ", data1);
+        data[0].patientFullName = data1.patientFullName || "name";
         data[1].patientCNIC = data1.patientCNIC || 0;
-        data[2].patientAge=data1.patientAge || 0;
-        data[5].patientEmail = data1.patientEmail || "";
+        data[2].patientAge = data1.patientAge || 0;
+        data[5].patientEmail = data1.patientEmail || "email.com";
         data[6].patientCurrentWeight = data1.patientCurrentWeight || 0;
         data[7].patientOccupation = data1.patientOccupation || "";
-        data[8].patientFoodChoices = data1.patientFoodChoices || "4";
-        data[9].patientHomeCook = data1.patientFoodAvoid || "44";
+        data[8].patientFoodChoices = data1.patientFoodChoices || "";
+        data[9].patientFoodAvoid = data1.patientFoodAvoid || "";
         data[10].patientHomeCook = data1.patientHomeCook || "";
         data[11].patientWristCircumference = data1.patientWristCircumference || 0;
         data[12].patientHeight = data1.patientHeight || 0;
@@ -50,16 +50,14 @@ function DataForm({ editable }) {
     setData((prevData) => {
       const newData = [...prevData];
       newData[0] = { ...newData[0], patientFullName: e.target.value };
-
       return newData;
     });
   }
 
-
   function handleCnicChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[1] = { ...newData[1], patientCNIC: parseInt(e.target.value) };
+      newData[1] = { ...newData[1], patientCNIC: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
@@ -67,7 +65,7 @@ function DataForm({ editable }) {
   function handleAgeChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[2] = { ...newData[2], patientAge: parseInt(e.target.value) };
+      newData[2] = { ...newData[2], patientAge: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
@@ -83,7 +81,7 @@ function DataForm({ editable }) {
   function handleNumberChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[4] = { ...newData[4], patientContactNumber: parseInt(e.target.value) };
+      newData[4] = { ...newData[4], patientContactNumber: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
@@ -99,7 +97,7 @@ function DataForm({ editable }) {
   function handleWeighthChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[6] = { ...newData[6], patientCurrentWeight: parseInt(e.target.value) };
+      newData[6] = { ...newData[6], patientCurrentWeight: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
@@ -119,6 +117,7 @@ function DataForm({ editable }) {
       return newData;
     });
   }
+  
   function handleNotFoodChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
@@ -138,7 +137,7 @@ function DataForm({ editable }) {
   function handleWristChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[11] = { ...newData[11], patientWristCircumference: parseInt(e.target.value) };
+      newData[11] = { ...newData[11], patientWristCircumference: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
@@ -146,20 +145,19 @@ function DataForm({ editable }) {
   function handleHeightChange(e) {
     setData((prevData) => {
       const newData = [...prevData];
-      newData[12] = { ...newData[12], patientHeight: parseInt(e.target.value) };
+      newData[12] = { ...newData[12], patientHeight: e.target.value ? parseInt(e.target.value) : 0 };
       return newData;
     });
   }
 
   return (
-    <div class="info">
+    <div className="info">
       <div>
-        <label for="name">Full Name *</label>
+        <label htmlFor="name">Full Name *</label>
         <input
           type="text"
           id="name"
           name="patientFullName"
-          // value={data[0].patientFullName}
           value={data[0].patientFullName}
           placeholder="Your Answer here"
           onChange={handleNameChange}
@@ -169,12 +167,11 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="cnic">CNIC (without -) *</label>
+        <label htmlFor="cnic">CNIC (without -) *</label>
         <input
           type="number"
           id="cnic"
           name="patientCNIC"
-          // value={data[1].patientCNIC}
           value={data[1].patientCNIC}
           placeholder="Your Answer here"
           onChange={handleCnicChange}
@@ -184,14 +181,12 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="Age">Age *</label>
+        <label htmlFor="age">Age *</label>
         <input
           type="text"
           id="age"
           name="patientAge"
-          // value={data[2].patientAge}
-        
-    value={data[2].patientAge}
+          value={data[2].patientAge}
           placeholder="Your Answer here"
           onChange={handleAgeChange}
           readOnly={!editable}
@@ -199,18 +194,14 @@ function DataForm({ editable }) {
         />
       </div>
 
-  
-
       <div>
-        <label for="contact">Contact Number *</label>
+        <label htmlFor="contact">Contact Number *</label>
         <input
           type="number"
           id="contact"
           name="patientContactNumber"
           placeholder="Your Answer here"
           value={data[4].patientContactNumber}
-              // value={infoData.}
-          //   onChange={(e) => setNumber(parseInt(e.target.value))}
           onChange={handleNumberChange}
           readOnly={!editable}
           required
@@ -218,16 +209,13 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="email">Email *</label>
+        <label htmlFor="email">Email *</label>
         <input
           type="email"
           id="email"
           name="patientEmail"
           placeholder="Your Answer here"
-          // value={data[5].patientEmail}
-      value={data[5].patientEmail}
-          //   onChange={(e) => setEmail(e.target.value)}
-
+          value={data[5].patientEmail}
           onChange={handleEmailChange}
           readOnly={!editable}
           required
@@ -235,15 +223,13 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="weight">Current Weight *</label>
+        <label htmlFor="weight">Current Weight *</label>
         <input
           type="number"
           id="weight"
           name="patientCurrentWeight"
           placeholder="Your Answer here"
-          // value={data[6].patientCurrentWeight}
-              value={infoData.patientCurrentWeight || data[6].patientCurrentWeight}
-          //   onChange={(e) => setWeight(parseInt(e.target.value))}
+          value={data[6].patientCurrentWeight}
           onChange={handleWeighthChange}
           readOnly={!editable}
           required
@@ -251,15 +237,12 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="occupation">Occupation</label>
+        <label htmlFor="occupation">Occupation</label>
         <input
           type="text"
-          id="weight"
+          id="occupation"
           name="patientOccupation"
-          // value={data[7].patientOccupation}
-           value={data[7].patientOccupation}
-          //   onChange={(e) => setOccupation(e.target.value)}
-
+          value={data[7].patientOccupation}
           onChange={handleOccupationChange}
           readOnly={!editable}
           placeholder="Your Answer here"
@@ -267,15 +250,12 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="food ">Mention your own food choices</label>
+        <label htmlFor="food">Mention your own food choices</label>
         <input
           type="text"
           id="food"
           name="patientFoodChoices"
-          // value={data[8].patientFoodChoices}
-            value={data[8].patientFoodChoices}
-          //   onChange={(e) => setFood(e.target.value)}
-
+          value={data[8].patientFoodChoices}
           onChange={handleFoodChange}
           readOnly={!editable}
           placeholder="Your Answer here"
@@ -283,17 +263,14 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="notfood">
+        <label htmlFor="notfood">
           Mention the foods you want us to not add in your diet plan
         </label>
         <input
           type="text"
           id="notfood"
           name="patientFoodAvoid"
-          value={data[9].patientHomeCook}
-        //  value={infoData.patientFoodAvoid || data[9].patientHomeCook}
-          //   onChange={(e) => setnotFood(e.target.value)}
-
+          value={data[9].patientFoodAvoid}
           onChange={handleNotFoodChange}
           readOnly={!editable}
           placeholder="Your Answer here"
@@ -301,15 +278,12 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="cook">Who cooks in your home</label>
+        <label htmlFor="cook">Who cooks in your home</label>
         <input
           type="text"
           id="cook"
           name="patientHomeCook"
           value={data[10].patientHomeCook}
-          // value={infoData.patientHomeCook || data[10].patientHomeCook}
-          //   onChange={(e) => setCook(e.target.value)}
-
           onChange={handleCookChange}
           readOnly={!editable}
           placeholder="Your Answer here"
@@ -317,15 +291,13 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="wrist">Wrist Circumference (cm) *</label>
+        <label htmlFor="wrist">Wrist Circumference (cm) *</label>
         <input
           type="text"
           id="wrist"
           name="patientWristCircumference"
           placeholder="Your Answer here"
           value={data[11].patientWristCircumference}
-              // value={infoData.patientWristCircumference || data[11].patientWristCircumference}
-          // nChange={(e) => setWrist(parseInt(e.target.value))}
           onChange={handleWristChange}
           readOnly={!editable}
           required
@@ -333,15 +305,13 @@ function DataForm({ editable }) {
       </div>
 
       <div>
-        <label for="height">Height (cm)*</label>
+        <label htmlFor="height">Height (cm)*</label>
         <input
           type="text"
           id="height"
           name="patientHeight"
           placeholder="Your Answer here"
           value={data[12].patientHeight}
-        // value={infoData.patientHeight || data[12].patientHeight}
-          //   onChange={(e) => setHeight(parseInt(e.target.value))}
           onChange={handleHeightChange}
           readOnly={!editable}
           required

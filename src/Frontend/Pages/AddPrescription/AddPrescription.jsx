@@ -30,10 +30,10 @@ function AddPrescription() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (patientCNIC.length !== 11) {
-      alert("CNIC must be exactly 11 digits long.");
-      return;
-    }
+   // if (patientCNIC.length !== 11) {
+     // alert("CNIC must be exactly 11 digits long.");
+      //return;
+   // }
 
     const images = Object.values(imageUrls).flat();
     const files = images;
@@ -79,9 +79,7 @@ function AddPrescription() {
               name="patientcnic"
               placeholder="Enter 11-digit CNIC"
               value={patientCNIC}
-              onChange={(e) => setPatientCNIC(e.target.value.replace(/\D/g, '').slice(0, 11))}
-              minLength="11"
-              maxLength="11"
+              onChange={(e) => setPatientCNIC(e.target.value.replace(/\D/g, ''))}
               required
             />
           </div>

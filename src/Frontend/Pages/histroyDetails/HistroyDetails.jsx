@@ -65,20 +65,20 @@ function HistroyDetails() {
   const Data = [
     {
       id: 10,
-      date: "20-05-2024",
+      date: "21-05-2024",
       planner: "Basic",
       duration: 1,
       pdfs: ["AbdulRehman_CV.pdf", "project.pdf"],
     },
     // {
     //   id: 11,
-    //   date: "20-05-2024",
+    //   date: "21-05-2024",
     //   planner: "Premium",
     //   duration: 3,
     //   pdfs: ["a.pdf", "b.pdf", "c.pdf"],
     // },
     // {      id: 12,
-    //   date: "20-05-2024",
+    //   date: "21-05-2024",
     //   planner: "Premium",
     //   duration: 1,
     //   pdfs: ["a.pdf","c.pdf"]},

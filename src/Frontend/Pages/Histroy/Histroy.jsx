@@ -82,20 +82,20 @@ function Histroy() {
   const rows = [
     {
       id: 10,
-      Appointment: "20-05-2024",
+      Appointment: "21-05-2024",
       planner: "Basic",
       month: 1,
       pdfs: ["a.pdf", "b.pdf"],
     },
     // {
     //   id: 11,
-    //   Appointment: "20-05-2024",
+    //   Appointment: "21-05-2024",
     //   planner: "Premium",
     //   month: 3,
     //   pdfs: ["a.pdf", "b.pdf", "c.pdf"],
     // },
     // {      id: 12,
-    //   Appointment: "20-05-2024",
+    //   Appointment: "21-05-2024",
     //   planner: "Premium",
     //   month: 1,
     //   pdfs: ["c.pdf"]},
@@ -111,7 +111,7 @@ function Histroy() {
 
 
 
-  <GridData columns={columns} rows={histroyData}/>
+  <GridData columns={columns} rows={rows} />
 </div>
     </>
   )

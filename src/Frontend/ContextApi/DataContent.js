@@ -7,31 +7,31 @@ export const useData = () => useContext(DataContext);
 export const DataProvider = ({ children }) => {
     const [data, setData] = useState([
         {
-          patientFullName: "Abdu",
+          patientFullName: "name",
         },
         {
-          patientCNIC: 365021862555,
+          patientCNIC: 1234567891234,
         },
         {
-          patientAge: 20,
+          patientAge: 1,
         },
         {
           patientGender: "Male",
         },
         {
-          patientContactNumber: 3024917963,
+          patientContactNumber: 1234567890,
         },
         {
-          patientEmail: "abrehman4163@gmail.com",
+          patientEmail: "sample@gmail.com",
         },
         {
-          patientCurrentWeight: 65, //6
+          patientCurrentWeight: 0, //6
         },
         {
-          patientOccupation: "Dor",
+          patientOccupation: " ",
         },
         {
-          patientFoodChoices: "Bani",  //8
+          patientFoodChoices: "Chiken",  //8
         },
         {
           patientFoodAvoid: "Vegetable",
