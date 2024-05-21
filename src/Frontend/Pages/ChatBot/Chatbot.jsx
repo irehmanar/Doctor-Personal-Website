@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './Chatbot.css'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Navbar from '../../Components/Navbar/Navbar'
+import Footer from '../../Components/Footer/Footer'
 function Chatbot() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -62,6 +63,7 @@ function Chatbot() {
         {answer && <p className="answer">{answer}</p>}
       </div>
     </div>
+    <Footer/>
     </>
   );
 }

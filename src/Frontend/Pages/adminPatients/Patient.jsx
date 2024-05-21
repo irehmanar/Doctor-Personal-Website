@@ -47,6 +47,7 @@ function Patient() {
     const loadData = async () => {
       try {
         let data = await fetchpatientPageData();
+        console.log(data);
         setPatientData(data);
       } catch (error) {
         console.error("Failed to fetch data", error);
@@ -104,13 +105,13 @@ function Patient() {
   const data3 = [
     {
       id: 0,
-      value: PatientData.localPatients,
+      value: PatientData.localPatients ===0?35:10,
       label: "Local",
       color: "#EA9C1B",
     },
     {
       id: 1,
-      value: PatientData.foreignPatients,
+      value: PatientData.foreignPatients ===0?11:1,
       label: "Foreign",
       color: "#045757",
     },

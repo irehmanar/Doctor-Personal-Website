@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from "./schemas/Login.jsx";
 
+import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
+
 const initialValues = {
   username: "",
   password: "",
@@ -9,6 +12,7 @@ const initialValues = {
 
 function Login() {
   const [message, setMessage] = useState(""); // Declare message and setMessage
+  const [displayAlert, setDisplayAlert] = useState(false); // Declare message and setMessage
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -29,6 +33,7 @@ function Login() {
         fetch(apiUrl, requestOptions)
           .then(response => {
             if (!response.ok) {
+              setDisplayAlert(true)
               throw new Error('Network response was not ok');
             }
             return response.json();
@@ -39,23 +44,63 @@ function Login() {
               localStorage.setItem('role', data.role);
               console.log(data);
               setMessage("Login successful");
-              alert("Login successful");
+              setDisplayAlert(true)
+              // alert("Login successful");
               localStorage.getItem('role') === "Admin"?
               window.location.href = '/Admin/Dashboard':
               window.location.href = '/';
             } else {
-              setMessage(data.message);
-              alert(data.message);
+              setMessage("Please check the Form/Internet.Signin Failed");
+              // alert("Please check the Form/Internet.Signin Failed");
+              setDisplayAlert(true)
+
             }
           })
           .catch(error => {
-            alert("Sign up failed: " + (error.message || "Please check the form for errors."));
+            // alert("Username password doest match");
+                   setMessage("Please check the Form/Internet.Signin Failed");
+                   setDisplayAlert(true)
+
           });
       },
     });
 
+
+
+
+
+
+
+
+
+
+    const [state, setState] = React.useState({
+      open: false,
+      vertical: 'top',
+      horizontal: 'center',
+    });
+    const { vertical, horizontal, open } = state;
+  
+    const handleClick = (newState) => () => {
+      setState({ ...newState, open: true });
+    };
+  
+    const handleClose = () => {
+      setDisplayAlert(false)
+      setState({ ...state, open: false });
+    };
+  
   return (
     <div className="login">
+      {displayAlert?
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={true}
+        onClick={handleClose}
+        message= {message}
+        key={vertical + horizontal}
+      />:''}
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="chk" aria-hidden="true">
           Login
@@ -88,11 +133,12 @@ function Login() {
             <p className="form-error login-error">{errors.password}</p>
           ) : null}
         </div>
-        <div className="errormessage" style={{ textAlign: 'center', color: 'red' }}>
-          <p>{message}</p>
-        </div>
 
         <button type="submit" className="loginButton">Login</button>
+        <Box sx={{ width: 500 }}>
+  
+ 
+    </Box>
       </form>
     </div>
   );

@@ -5,11 +5,15 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Navbar from '../../Components/Navbar/Navbar'
-
+import Snackbar from '@mui/material/Snackbar';
+import Footer from '../../Components/Footer/Footer'
 import { contactUs } from '../../../Services/ContactUs';
 import './Contactus.css'
 
 function Contactus() {
+  const [message, setMessage] = useState(""); // Declare message and setMessage
+  const [displayAlert, setDisplayAlert] = useState(false); // Declare message and setMessage
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,16 +35,48 @@ function Contactus() {
 
     try {
       const result = await contactUs(formData);
+      setMessage("Email Sent Successfully");
+      setDisplayAlert(true)
       console.log('Email Sent Successfully:', result);
   } catch (error) {
       console.error('Error creating appointments:', error);
+      setMessage("Error creating appointments");
+      setDisplayAlert(true)
   }
   }
 
+
+
+
+
+  
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'left',
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setDisplayAlert(false)
+    setState({ ...state, open: false });
+  };
 
   return (
     <div>
       <Navbar/>
+      {displayAlert?
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={true}
+        onClick={handleClose}
+        message= {message}
+        key={vertical + horizontal}
+      />:''}
       <div className="contactBody">
 
 
@@ -210,6 +246,7 @@ function Contactus() {
       </div>
 
       </div>
+      <Footer/>
     </div>
   );
 }

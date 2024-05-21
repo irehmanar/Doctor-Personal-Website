@@ -22,7 +22,7 @@ function Navbar() {
           <div className="item">
             <LanguageIcon  className='icon'/>English
           </div>
-          <div className="item">
+          {/* <div className="item">
             <ContrastIcon  className='icon'/>
           </div>
           <div className="item">
@@ -33,7 +33,7 @@ function Navbar() {
           </div>
           <div className="item">
             <ChatIcon  className='icon'/>
-          </div>
+          </div> */}
           <div className="item">
             <ListIcon  className='icon'/>
           </div>

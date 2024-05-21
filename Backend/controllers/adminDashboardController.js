@@ -194,7 +194,7 @@ const patientPage = async({req,res}) => {
                 }
             },
         ]);
-        const patientsByForeignlocation = await user.aggregate([
+        const patientsByForeignlocation = await (user.aggregate([
             {
                 $match: {
                     location: 'Foreign',
@@ -208,7 +208,7 @@ const patientPage = async({req,res}) => {
                     count: { $sum: 1 },
                 }
             },
-        ]);
+        ]));
         const malepatients = await appointment.aggregate([
             {
                 $match:{
@@ -223,7 +223,7 @@ const patientPage = async({req,res}) => {
                 }
             }
         ]);
-        const femalepatients = await user.aggregate([
+        const femalepatients = await appointment.aggregate([
             {
                 $match:{
                     patientGender:"Female",

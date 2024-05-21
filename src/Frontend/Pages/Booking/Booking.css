@@ -57,6 +57,7 @@
     border-bottom: 1px solid black; /* Add a bottom border to create the horizontal line */
     padding: 0; /* Remove default padding */
     width: 100%; /* Ensure the input spans the entire width of the parent div */
+    color:black
   }
   
   .info input[type='radio'] {

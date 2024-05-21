@@ -54,9 +54,9 @@ const Navbar = () => {
       <li className="nav-li">
         <NavLink to="/Appointments">Pending Appointments</NavLink>
       </li>
-      <li className="nav-li">
+      {/* <li className="nav-li">
         <NavLink to="/AddPlan">Add Plan</NavLink>
-      </li>
+      </li> */}
       <li className="nav-li">
         <a onClick={handleLogout}>Logout</a>
       </li>

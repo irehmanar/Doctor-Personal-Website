@@ -96,6 +96,7 @@ function ViewPlans() {
         // Ensure data is an array
         if (Array.isArray(data)) {
           setPlanData(data);
+          console.log(data);
 
           // Fetch sub-plan data for each plan
           const subPlanDataPromises = data.map(plan => fetchSubPlanData(plan));

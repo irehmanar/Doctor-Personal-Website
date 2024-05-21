@@ -5,7 +5,7 @@ import "react-circular-progressbar/dist/styles.css"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-function Featured() {
+function Featured({income}) {
   return (
     <div className='featured'>
       <div className="top">
@@ -15,13 +15,13 @@ function Featured() {
 
       <div className="bottom">
         <div className="featuredChart">
-            <CircularProgressbar value={60} text='60%' strokeWidth={4}/>
+            <CircularProgressbar value={30} text='30%' strokeWidth={4}/>
         </div>
 
-        <p className="title">Total sales made today</p>
-        <p className="amount">$420</p>
+        <p className="title">Total income made today</p>
+        <p className="amount">Rs. {income}</p>
         <p className="desc">
-            Previous transactions processing. Last payments may not be included in this.
+            Previous transactions processing. Pending appointments may not be included in this.
         </p>
 
         <div className="summary">
@@ -30,7 +30,7 @@ function Featured() {
                 <div className="itemResult positive">
                 <KeyboardArrowUpIcon/>
                     <div className="resultAmount">
-                        $12.4k
+                        Rs.12k
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@ function Featured() {
                 <div className="itemResult negative">
                     <KeyboardArrowDownIcon/>
                     <div className="resultAmount">
-                        $19.4k
+                        Rs. 3.4k
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@ function Featured() {
                 <div className="itemResult positive">
                     <KeyboardArrowUpIcon/>
                     <div className="resultAmount">
-                        $356.7k
+                        Rs.12k
                     </div>
                 </div>
             </div>

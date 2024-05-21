@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import "./Home.css";
 import Sidebar from "../../Components/adminSidebar/Sidebar";
+import Navbar from "../../Components/adminNavbar/Navbar";
 import Widget from '../../Components/adminWidget/Widget';
 import Featured from '../../Components/adminFeatured/Featured';
 import Chart from '../../Components/adminChart/Chart';
@@ -43,7 +44,7 @@ function Home() {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        {/* <Navbar /> */}
+        <Navbar />
         <div className="widgets">
           <Widget type="patient" value={dashboardData.monthlyAverage}/>
           <Widget type="income" value={dashboardData.dailyIncome}/>
@@ -51,7 +52,7 @@ function Home() {
           <Widget type="balance" value={dashboardData.totalIncomeValue}/>
         </div>
         <div className="charts">
-          <Featured/>
+          <Featured income={dashboardData.dailyIncome}/>
           <div className="chartOuter">
             <Chart title="Last 12 Months (Revenue)" aspect={2 / 1} data={dashboardData.incomeByMonth}/>
           </div>

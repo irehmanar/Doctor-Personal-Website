@@ -8,8 +8,14 @@ import { fetchPlanData } from "../../../Services/PlansApi";
 import { useData } from "../../ContextApi/DataContent";
 import { createAppointment } from '../../../Services/Booking';
 import Navbar from "../../Components/Navbar/Navbar";
+import Box from '@mui/material/Box';
 
+import Snackbar from '@mui/material/Snackbar';
+import Footer from '../../Components/Footer/Footer'
 function Booking() {
+  const [message, setMessage] = useState(""); // Declare message and setMessage
+  const [displayAlert, setDisplayAlert] = useState(false); // Declare message and setMessage
+
   const { data } = useData();
   const [edit, setEdit] = useState(false);
   const [planData, setPlanData] = useState([]);
@@ -17,6 +23,12 @@ function Booking() {
   const [subPlan, setSubPlan] = useState("");
   const [loading, setLoading] = useState(true);
   const [infoData, setInfoData] = useState(data);
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = state;
   const [bookingData, setBookingData] = useState([
     {
       "patientDeitarySupplements": "No",
@@ -180,6 +192,8 @@ function Booking() {
         }
       } catch (error) {
         console.error("Failed to fetch plan data", error);
+        setMessage("Failed to fetch plan data");
+        setDisplayAlert(true)
       } finally {
         setLoading(false);
       }
@@ -197,12 +211,17 @@ function Booking() {
           setSubPlanData(subData);
           // console.log("Sub-plan data fetched: ", subData);
         } else {
+          setMessage("Failed to fetch sub-plan data");
+          setDisplayAlert(true)
           console.error(
             "Expected sub-plan data to be an array, but received:",
             subData
           );
+
         }
       } catch (error) {
+        setMessage("Failed to fetch sub-plan data");
+        setDisplayAlert(true)
         console.error("Failed to fetch sub-plan data", error);
       } finally {
         setLoading(false);
@@ -247,16 +266,50 @@ function Booking() {
     try {
         const result = await createAppointment(mergedArray);
         console.log('Appointments created:', result);
-        alert('Appointment Booked successfully!');
+        setMessage("Appointment Booked successfully!");
+        setDisplayAlert(true)
+        // alert('Appointment Booked successfully!');
         // Handle success
     } catch (error) {
+      setMessage("Check your network");
+      setDisplayAlert(true)
         console.error('Error creating appointments:', error);
-        // Handle error
+        // alert('Some Error occur!');
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+const handleClick = (newState) => () => {
+  setState({ ...newState, open: true });
+};
+
+const handleClose = () => {
+  setDisplayAlert(false)
+  setState({ ...state, open: false });
+};
+
+
   return (
     <>
+      {displayAlert?
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={true}
+        onClick={handleClose}
+        message= {message}
+        key={vertical + horizontal}
+      />:''}
     <Navbar/>
       <div className="section-title">
         <h2>Book now</h2>
@@ -304,7 +357,7 @@ function Booking() {
               Mention the name of the supplement your are taking, otherwise
               leave it blank
             </label>
-            <input
+            <input style={{color:'black'}}
               type="text"
               id="pateintNameOfSupplements"
               name="pateintNameOfSupplements"
@@ -354,7 +407,7 @@ function Booking() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label htmlFor="patientBloodTestImage">
               Attach recent blood test report if available:
             </label>
@@ -362,9 +415,10 @@ function Booking() {
               type="file"
               id="patientBloodTestImage"
               name="patientBloodTestImage"
+              
               onChange={handlepatientBloodTestImageChange}
             />
-          </div>
+          </div> */}
 
           <div>
             <label htmlFor="patientRequirements">What do you need ? *</label>
@@ -406,7 +460,7 @@ function Booking() {
 
           <div>
             <label htmlFor="planChosen">
-              Which type of diet plan are you subscribing for?
+              Which type of diet plan are you subscribing for?*
             </label>
             {planData.map((item) => (
               <label key={item}>
@@ -414,6 +468,7 @@ function Booking() {
                   type="radio"
                   id={item}
                   name="planChosen"
+                  required
                   value={item}
                   onChange={handleplanChosenChange}
                 />
@@ -424,7 +479,7 @@ function Booking() {
 
           <div>
             <label htmlFor="subPlanchosen">
-              Which type of sub-plan are you subscribing?
+              Which type of sub-plan are you subscribing?*
             </label>
 
             {subPlanData.map((item) => (
@@ -481,7 +536,7 @@ function Booking() {
           </div>
 
           <div>
-            <label htmlFor="paymentReciept">Attach Payment Proof</label>
+            <label htmlFor="paymentReciept">Attach Payment Proof*</label>
             <input
               type="file"
               id="paymentReciept"
@@ -496,6 +551,7 @@ function Booking() {
           </button>
         </form>
       </div>
+      <Footer/>
     </>
   );
 }

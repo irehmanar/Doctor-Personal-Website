@@ -62,10 +62,12 @@ function Widget({type,value}) {
             };
             break;
         case 'newpatient':
+            value=6;
             data = {
                 title: "NEW PATIENTS",
                 // isMoney : true,
                 link: "View details",
+                
                 icon: <PersonIcon className='icon' style={{
                     backgroundColor: "rgb(245, 112, 92)",
                     color: "rgb(121, 35, 22)"
@@ -74,6 +76,7 @@ function Widget({type,value}) {
             break;
     
         case 'totalpatient':
+            value=11;
             data = {
                 title: "Today's PATIENTS",
                 // isMoney : true,
@@ -85,6 +88,7 @@ function Widget({type,value}) {
             };
             break;
         case 'femalepatient':
+            value=3;
             data = {
                 title: "Today's Female Patients",
                 // isMoney : true,
@@ -96,6 +100,7 @@ function Widget({type,value}) {
             };
             break;
         case 'malepatient':
+            value=8;
             data = {
                 title: "Today's Male Patients",
                 // isMoney : true,

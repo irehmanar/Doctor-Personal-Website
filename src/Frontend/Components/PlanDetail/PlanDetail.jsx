@@ -16,7 +16,7 @@ function PlanDetail() {
           data-aos-delay="100"
         >
           <img
-            src="https://images.pexels.com/photos/2821823/pexels-photo-2821823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src="https://images.pexels.com/photos/1105166/pexels-photo-1105166.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             class="img-fluid"
             alt="iage"
           />
