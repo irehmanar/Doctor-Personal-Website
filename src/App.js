@@ -37,7 +37,7 @@ function App() {
     <Route path='/Plans' element={<ViewPlans/>}></Route> 
     <Route path='/Login' element={<Login/>}></Route>
     <Route path='/Aboutus' element={<AboutUs/>}></Route> 
-    <Route path='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
+    <Route pth='/hospital/verifyUser/:token' element={<Verification/>}></Route> 
 
 
     {userRole === 'Admin' && (
