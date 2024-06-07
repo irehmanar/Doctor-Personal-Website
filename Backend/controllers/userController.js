@@ -3,9 +3,7 @@ import bcryptjs from "bcryptjs";
 import nodemailer from "nodemailer";
 import jsonwebtoken from "jsonwebtoken";
 import crypto from "crypto";
-import dotenv from "dotenv";
 
-dotenv.config();
 // import {validationResult ,body} from "express-validator";
 
 // saveVerificationToken
@@ -31,13 +29,13 @@ const generateVerificationToken = () => {
 // sendVerificationMail
 const sendVerificationEmail = async (email, token) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
+    host: process.env.HOST,
+    port: process.env.PORT,
     secure: false,
-    service: "gmail",
+    service: process.env.SERVICE,
     auth: {
-      user: "abrehman.bscs22seecs@seecs.edu.pk",
-      pass: "STUDEnt@1235"
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
 
     },
   });
@@ -150,7 +148,7 @@ const signin = async (req, res) => {
         } else {
           auth_user.password = undefined;
           const success = true;
-          const token = jsonwebtoken.sign({ auth_user }, "uH7XGk98uT5bmHCAhyuNTke7XmAJwfSuPFr", { expiresIn: "10h" });
+          const token = jsonwebtoken.sign({ auth_user }, process.env.SECRET_KEY, { expiresIn: "10h" });
           res.cookie("authorization", `Bearer ${token}`);
           return res.status(200).json({ token: `Bearer ${token}`, message: "login successfully", success, role: auth_user.role });
         }

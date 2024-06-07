@@ -9,6 +9,9 @@ import contactUsRoutes from "./routes/contactUsRoutes.js";
 import prescriptionRoutes from "./routes/prescriptionRoutes.js";
 import cors from "cors";
 import { generateUploadURL } from "../src/aws/s3.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 const app = express();   
 const port = 3333;
 

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const mongoURI = "mongodb+srv://abdulrehmanasghar97:w9I4he0SDAWtSCPH@cluster0.dy95u2m.mongodb.net/Hospital_Database"; //ad your url here of mongodb string
+const mongoURI = process.env.DB_URL;
 const connectToMongo = () => {
     mongoose.connect(mongoURI, {
         connectTimeoutMS: 30000, // Increased timings because default 10 seconds too low for connection
